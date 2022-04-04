@@ -1,23 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 //import LottieView from 'lottie-react-native';
 import LottieView from 'lottie-react-native';
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'Chlamydia',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Cold urticaria',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Colorectal Cancer',
-    },
-];
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -28,6 +13,13 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 
 const Disease = () => {
     const [selectedId, setSelectedId] = useState(null);
+    const [data, setData] = useState({});
+
+    useEffect(()=>{
+        fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((response) => response.json())
+        .then((json) => setData(json));
+    });
 
     const renderItem = ({ item }) => {
       const backgroundColor = item.id === selectedId ? '#F6F3F3' : '#A4EFE2';
@@ -52,7 +44,8 @@ const Disease = () => {
         placeholder="Search disease..." />
         <View style={styles.containerDisease}>
             <FlatList
-            data={DATA}
+            nestedScrollEnabled
+            data={data}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             extraData={selectedId} />
@@ -63,7 +56,7 @@ const Disease = () => {
             autoPlay />
             <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
         </View>
-        <View style={styles.taskbar}>
+        {/* <View style={styles.taskbar}>
             <LottieView style={styles.iconHome}
                 source={require('../lottie/56502-home-location.json')}
                 autoPlay/>
@@ -80,7 +73,7 @@ const Disease = () => {
                 source={require('../lottie/88222-id-card-profile-card.json')}
                 autoPlay/>
             <Text style={styles.textProfile}>Profile</Text>
-        </View>
+        </View> */}
     </View>
   );
 };
@@ -126,14 +119,14 @@ const styles = StyleSheet.create({
     },
     header: {
         position: 'absolute',
-        width: 200,
-        height:38,
-        left: 150,
-        top: 74,
+        width: 296,
+        height: 35,
+        left: 160,
+        top: 70,
         fontFamily: 'Poppins',
         fontStyle: 'normal',
         fontWeight: 'bold',
-        fontSize: 35,
+        fontSize: 25,
         lineHeight: 38,
         color: 'black',
     },
@@ -142,7 +135,7 @@ const styles = StyleSheet.create({
         width: 299,
         height: 41,
         left: 60,
-        top: 150,
+        top: 120,
         backgroundColor: '#F7F3F3',
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 1)',
@@ -165,10 +158,10 @@ const styles = StyleSheet.create({
     },
     containerDisease: {
         position: 'absolute',
-        width: 326,
-        height: 350,
-        left: 40,
-        top: 210,
+        width: 317,
+        height: 360,
+        left: 50,
+        top: 180,
         backgroundColor: '#FEFFFF',
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 1)',
@@ -181,14 +174,14 @@ const styles = StyleSheet.create({
         width: 64,
         height: 50,
         left: 30,
-        top: 350,
+        top: 320,
     },
     footerText: {
         position: 'absolute',
         width: 263,
         height: 23,
         left: 120,
-        top: 710,
+        top: 655,
         fontFamily: 'Poppins',
         fontWeight: 'bold',
         fontSize: 15,

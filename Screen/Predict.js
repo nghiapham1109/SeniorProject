@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Predict = () => {
   return (
@@ -10,18 +11,20 @@ const Predict = () => {
         <View style={styles.eclipse2} />
         <View style={styles.eclipse3} />
         <View style={styles.eclipse4} />
-        <View>
-            <LottieView style={styles.footer}
-            source={require('../lottie/43749-mask-wear-lt-gray.json')}
-            autoPlay />
-            <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
+        <Text style={styles.header}>Predict with Symptoms</Text>
+        <Text style={styles.title}>You need to choose one or more the Symptoms below</Text>
+        <View style={styles.scrollViewContainer}>
+
         </View>
+        <TouchableOpacity style={styles.predictButton}>
+            <Text style={{fontFamily: 'Poppins', fontStyle: 'normal', color: 'white', fontWeight: 'bold'}}>Get Predict</Text>
+        </TouchableOpacity>
         <Text style={[styles.labelResult]}>Result: </Text>
         <View style={[styles.result]}></View>
         <View>
             <Text style={[styles.textAdvanced]}>These results are for reference only. May not be correct. You should see your doctor to know more about your condition.</Text>
         </View>
-        <View style={styles.taskbar}>
+        {/* <View style={styles.taskbar}>
             <LottieView style={styles.iconHome}
                 source={require('../lottie/56502-home-location.json')}
                 autoPlay/>
@@ -38,6 +41,12 @@ const Predict = () => {
                 source={require('../lottie/88222-id-card-profile-card.json')}
                 autoPlay/>
             <Text style={styles.textProfile}>Profile</Text>
+        </View> */}
+        <View>
+            <LottieView style={styles.footer}
+            source={require('../lottie/43749-mask-wear-lt-gray.json')}
+            autoPlay />
+            <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
         </View>
     </View>
   );
@@ -82,19 +91,73 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         backgroundColor: '#BFF1E5',
     },
+    header: {
+        position: 'absolute',
+        width: 296,
+        height: 35,
+        left: 78,
+        top: 70,
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: 25,
+        lineHeight: 38,
+        color: 'black',
+    },
+    title: {
+        position: 'absolute',
+        width: 358,
+        height: 20,
+        left: 45,
+        top: 115,
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: 13,
+        lineHeight: 20,
+        color: 'black',
+    },
+    scrollViewContainer: {
+        position: 'absolute',
+        width: 326,
+        height: 165,
+        left: 45,
+        top: 150,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        shadowColor: 'rgba(0, 0, 0, 1)',
+        shadowOffset: {
+        //   width: 1000,
+        //   height: 1000,
+        },
+        shadowOpacity: 100,
+        shadowRadius: 100,
+        elevation: 10,
+    },
+    predictButton: {
+        position: 'absolute',
+        width: 328,
+        height: 40,
+        left: 45,
+        top: 333,
+        backgroundColor: '#73E4FD',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     footer: {
         position: 'absolute',
         width: 64,
         height: 50,
         left: 30,
-        top: 350,
+        top: 320,
     },
     footerText: {
         position: 'absolute',
         width: 263,
         height: 23,
         left: 120,
-        top: 710,
+        top: 655,
         fontFamily: 'Poppins',
         fontWeight: 'bold',
         fontSize: 15,
