@@ -56,24 +56,6 @@ const Disease = () => {
             autoPlay />
             <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
         </View>
-        {/* <View style={styles.taskbar}>
-            <LottieView style={styles.iconHome}
-                source={require('../lottie/56502-home-location.json')}
-                autoPlay/>
-            <Text style={styles.textHome}>Home</Text>
-            <LottieView style={styles.iconDisease}
-                source={require('../lottie/21910-category-icon-animation.json')}
-                autoPlay/>
-            <Text style={styles.textDisease}>Disease</Text>
-            <LottieView style={styles.iconPredict}
-                source={require('../lottie/94901-disease.json')}
-                autoPlay/>
-            <Text style={styles.textPredict}>Predict</Text>
-            <LottieView style={styles.iconProfile}
-                source={require('../lottie/88222-id-card-profile-card.json')}
-                autoPlay/>
-            <Text style={styles.textProfile}>Profile</Text>
-        </View> */}
     </View>
   );
 };
@@ -132,9 +114,9 @@ const styles = StyleSheet.create({
     },
     textInput: {
         position: 'absolute',
-        width: 299,
+        width: 320,
         height: 41,
-        left: 60,
+        left: 47,
         top: 120,
         backgroundColor: '#F7F3F3',
         borderRadius: 10,
@@ -159,7 +141,7 @@ const styles = StyleSheet.create({
     containerDisease: {
         position: 'absolute',
         width: 317,
-        height: 360,
+        height: 395,
         left: 50,
         top: 180,
         backgroundColor: '#FEFFFF',
@@ -174,14 +156,14 @@ const styles = StyleSheet.create({
         width: 64,
         height: 50,
         left: 30,
-        top: 320,
+        top: 345,
     },
     footerText: {
         position: 'absolute',
         width: 263,
         height: 23,
         left: 120,
-        top: 655,
+        top: 700,
         fontFamily: 'Poppins',
         fontWeight: 'bold',
         fontSize: 15,

@@ -10,10 +10,12 @@ import IntroScreen from './IntroScreen';
 import HomeScreen from './HomeScreen';
 import Disease from './Disease';
 import Predict from './Predict';
+import Profile from './Profile';
 //Screen name
 const homeScreen = 'Home';
 const diseaseScreen = 'Disease';
 const predictScreen = 'Predict';
+const profileScreen = 'Profile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,7 +52,7 @@ const Navigation = () => {
           backgroundColor: '#73E4FD',
           borderRadius: 15,
           height: 70,
-          top: 620,
+          top: 600,
           width: 320,
           ...styles.Shadow,
         },
@@ -96,6 +98,20 @@ const Navigation = () => {
           headerShown: false,
         }}
         component={Predict}
+      />
+      <Tab.Screen
+        name={profileScreen}
+        options={{
+          tabBarIcon: () => (
+            <LottieView
+              style={styles.iconPredict}
+              source={require('../lottie/88222-id-card-profile-card.json')}
+              autoPlay
+            />
+          ),
+          headerShown: false,
+        }}
+        component={Profile}
       />
     </Tab.Navigator>
   );

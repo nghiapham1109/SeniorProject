@@ -99,24 +99,6 @@ const HomeScreen = ({navigation}) => {
         />
         <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
       </View>
-      {/* <View style={styles.taskbar}>
-            <LottieView style={styles.iconHome}
-                source={require('../lottie/56502-home-location.json')}
-                autoPlay/>
-            <Text style={styles.textHome} onPress={() => navigation.navigate('HomeScreen')}>Home Screen</Text>
-            <LottieView style={styles.iconDisease}
-                source={require('../lottie/21910-category-icon-animation.json')}
-                autoPlay/>
-                <Text style={styles.textDisease} onPress={() => navigation.navigate('Disease')}>Disease</Text>
-            <LottieView style={styles.iconPredict}
-                source={require('../lottie/94901-disease.json')}
-                autoPlay/>
-            <Text style={styles.textPredict} onPress={() => navigation.navigate('Predict')}>Predict</Text>
-            <LottieView style={styles.iconProfile}
-                source={require('../lottie/88222-id-card-profile-card.json')}
-                autoPlay/>
-            <Text style={styles.textProfile}>Profile</Text>
-        </View> */}
     </View>
   );
 };
@@ -164,7 +146,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 288,
     height: 38,
-    left: 30,
+    left: 45,
     top: 62,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
@@ -176,7 +158,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 200,
     height: 400,
-    left: 30,
+    left: 45,
     top: 90,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
@@ -188,7 +170,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 70,
     height: 40,
-    left: 90,
+    left: 115,
     top: 150,
     backgroundColor: 'rgba(214, 150, 216, 0.83)',
     borderRadius: 10,
@@ -197,7 +179,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 90,
     height: 40,
-    left: 290,
+    left: 275,
     top: 150,
     backgroundColor: 'rgba(237, 60, 113, 0.83)',
     borderRadius: 10,
@@ -206,20 +188,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 70,
     height: 70,
-    left: 10,
+    left: 20,
     top: 66,
   },
   imageCovid19: {
     position: 'absolute',
     width: 70,
     height: 70,
-    left: 110,
+    left: 100,
     top: 66,
   },
   containerCarousel: {
     position: 'absolute',
     width: 317,
-    height: 320,
+    height: 360,
     left: 50,
     top: 220,
     backgroundColor: '#F8F0F0',
@@ -238,14 +220,14 @@ const styles = StyleSheet.create({
     width: 64,
     height: 50,
     left: 30,
-    top: 320,
+    top: 345,
   },
   footerText: {
     position: 'absolute',
     width: 263,
     height: 23,
     left: 120,
-    top: 655,
+    top: 700,
     fontFamily: 'Poppins',
     fontWeight: 'bold',
     fontSize: 15,
