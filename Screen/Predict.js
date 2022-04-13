@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import CheckBox from 'react-native-check-box'
+import CheckBox from 'react-native-check-box';
 
 const Predict = () => {
   const [isLoading, setisLoading] = useState(true);
@@ -26,7 +26,14 @@ const Predict = () => {
   let renderItem = ({item, index}) => {
     return (
       <View>
-        <Text>{item.title}</Text>
+        <CheckBox
+          disable={false}
+          onAnimationType="fill"
+          offAnimationType="fade"
+          boxType="Circle"
+          rightText={item.title}
+        />
+        {/* <Text>{item.title}</Text> */}
       </View>
     );
   };
@@ -42,6 +49,7 @@ const Predict = () => {
       </Text>
       <View style={styles.scrollViewContainer}>
         <FlatList
+          style={styles.list}
           nestedScrollEnabled
           data={data}
           renderItem={renderItem}
@@ -67,14 +75,14 @@ const Predict = () => {
           see your doctor to know more about your condition.
         </Text>
       </View>
-      <View>
+      {/* <View>
         <LottieView
           style={styles.footer}
           source={require('../lottie/43749-mask-wear-lt-gray.json')}
           autoPlay
         />
         <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -122,8 +130,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 296,
     height: 35,
-    left: 78,
-    top: 70,
+    left: 20,
+    top: 40,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
     width: 358,
     height: 20,
     left: 45,
-    top: 115,
+    top: 80,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -146,10 +154,10 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     position: 'absolute',
-    width: 326,
-    height: 165,
-    left: 45,
-    top: 150,
+    width: 389,
+    height: 310,
+    margin: 10,
+    top: 100,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
@@ -162,15 +170,15 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   list: {
-    flex: 1,
-    padding: 8,
+    marginTop: 4,
+    padding: 10,
   },
   predictButton: {
     position: 'absolute',
     width: 328,
     height: 40,
     left: 45,
-    top: 333,
+    top: 435,
     backgroundColor: '#73E4FD',
     borderRadius: 20,
     justifyContent: 'center',
@@ -198,8 +206,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 51,
     height: 23,
-    left: 45,
-    top: 380,
+    left: 40,
+    top: 480,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontSize: 15,
@@ -208,10 +216,10 @@ const styles = StyleSheet.create({
   },
   result: {
     position: 'absolute',
-    width: 326,
-    height: 110,
-    left: 45,
-    top: 420,
+    width: 389,
+    height: 100,
+    margin: 10,
+    top: 500,
     backgroundColor: '#FEFEFE',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
@@ -225,14 +233,14 @@ const styles = StyleSheet.create({
   },
   textAdvanced: {
     position: 'absolute',
-    top: 495,
+    top: 620,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 11,
     lineHeight: 16,
     color: 'red',
-    padding: 50,
+    padding: 10,
     justifyContent: 'center',
     textAlign: 'center',
   },

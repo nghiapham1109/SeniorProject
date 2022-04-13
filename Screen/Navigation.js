@@ -5,17 +5,22 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LottieView from 'lottie-react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //Screen
 import IntroScreen from './IntroScreen';
 import HomeScreen from './HomeScreen';
 import Disease from './Disease';
 import Predict from './Predict';
 import Profile from './Profile';
+import CovidScreen from './CovidScreen';
 //Screen name
 const homeScreen = 'Home';
 const diseaseScreen = 'Disease';
 const predictScreen = 'Predict';
 const profileScreen = 'Profile';
+const covidScreen = 'Covid-19';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,34 +31,18 @@ const Navigation = () => {
   return (
     <Tab.Navigator
       initialRouteName={homeScreen}
-      // screenOptions={(route) => ({
-      //   tabBarIcon: ({focused, color, size}) => {
-      //     let iconName;
-      //     let rn = route.name;
-      //     if (rn === homeScreen) {
-      //       iconName = focused ? 'home' : 'home-outline';
-      //     } else if (rn === diseaseScreen) {
-      //       iconName = focused ? 'list' : 'list-outline';
-      //     } else if (rn === predictScreen) {
-      //       iconName = focused ? 'settings' : 'settings-outline';
-      //     }
-      //     return  <LottieView style={styles.iconHome}
-      //     source={require('../lottie/56502-home-location.json')}
-      //     autoPlay/>;
-      //   },
-      // })}
       screenOptions={{
         tabBarShowLabel: true,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 20,
-          left: 50,
+          //bottom: 20,
+          //left: 50,
           elevation: 0,
-          backgroundColor: '#73E4FD',
-          borderRadius: 15,
+          backgroundColor: 'white',
+          //borderRadius: 15,
           height: 70,
-          top: 600,
-          width: 320,
+          //top: 680,
+          //width: 320,
           ...styles.Shadow,
         },
       }}>
@@ -61,11 +50,7 @@ const Navigation = () => {
         name={homeScreen}
         options={{
           tabBarIcon: () => (
-            <LottieView
-              style={styles.iconHome}
-              source={require('../lottie/56502-home-location.json')}
-              autoPlay
-            />
+            <Icon name="home" size={45} />
           ),
           headerShown: false,
         }}
@@ -75,11 +60,7 @@ const Navigation = () => {
         name={diseaseScreen}
         options={{
           tabBarIcon: () => (
-            <LottieView
-              style={styles.iconDisease}
-              source={require('../lottie/21910-category-icon-animation.json')}
-              autoPlay
-            />
+            <AntDesign name="profile" size={45} />
           ),
           headerShown: false,
         }}
@@ -89,30 +70,27 @@ const Navigation = () => {
         name={predictScreen}
         options={{
           tabBarIcon: () => (
-            <LottieView
-              style={styles.iconPredict}
-              source={require('../lottie/94901-disease.json')}
-              autoPlay
-            />
+            <MaterialCommunityIcons name="account" size={45} />
           ),
           headerShown: false,
         }}
         component={Predict}
       />
-      <Tab.Screen
-        name={profileScreen}
+      {/* <Tab.Screen
+        name={covidScreen}
         options={{
           tabBarIcon: () => (
             <LottieView
               style={styles.iconPredict}
-              source={require('../lottie/88222-id-card-profile-card.json')}
+              //source={require('../lottie/88222-id-card-profile-card.json')}
+              source={require('../lottie/30328-corona-virus.json')}
               autoPlay
             />
           ),
           headerShown: false,
         }}
-        component={Profile}
-      />
+        component={CovidScreen}
+      /> */}
     </Tab.Navigator>
   );
 };

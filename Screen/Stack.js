@@ -1,11 +1,15 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import IntroScreen from './IntroScreen';
 import Navigation from './Navigation';
+import Appointment from './Appointment';
+import Booking from './Booking';
+import CovidScreen from './CovidScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
@@ -17,6 +21,9 @@ const MyStack = () => {
         component={Navigation}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="Appointment" component={Appointment} />
+      <Stack.Screen name="Booking" component={Booking} />
+      <Stack.Screen name="CovidScreen" component={CovidScreen} />
     </Stack.Navigator>
   );
 };
