@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
+// import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import CalendarItem from './Calendar';
 
 const Booking = () => {
   const [data, setData] = useState([]);
@@ -42,12 +44,16 @@ const Booking = () => {
           <Text>Phone: {data.company.bs}</Text>
           <Text>Phone: {data.address.street}</Text>
         </View>
+        {/* <View>
+          <Text styles={styles.dayOff}>Day off</Text>
+        </View> */}
+        <View style={styles.calendar}>
+          <CalendarItem />
+        </View>
       </View>
     );
   } else {
-    return (
-        <ActivityIndicator/>
-    );
+    return <ActivityIndicator />;
   }
 };
 
@@ -103,8 +109,31 @@ const styles = StyleSheet.create({
   listInfo: {
     position: 'absolute',
     width: 389,
-    height: 250,
+    height: 200,
     top: 70,
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#F7F3F3',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOpacity: 100,
+    shadowRadius: 100,
+    elevation: 10,
+  },
+  dayFree: {},
+  dayOff: {
+    position: 'absolute',
+    width: 50,
+    height: 30,
+    left: 30,
+    top: 600,
+    backgroundColor: '#588DDB',
+  },
+  calendar: {
+    position: 'absolute',
+    width: 389,
+    height: 380,
+    top: 350,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',
