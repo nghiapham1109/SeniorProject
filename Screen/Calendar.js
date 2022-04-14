@@ -1,12 +1,15 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Agenda, CalendarList} from 'react-native-calendars';
+import {useNavigation} from '@react-navigation/native';
 
 const CalendarItem = () => {
+  const navigation = useNavigation();
   return (
     <View>
       <CalendarList
+        horizontal={true}
         // Callback which gets executed when visible months change in scroll view. Default = undefined
         onVisibleMonthsChange={months => {
           console.log('now these months are visible', months);
@@ -19,6 +22,16 @@ const CalendarItem = () => {
         scrollEnabled={true}
         // Enable or disable vertical scroll indicator. Default = false
         showScrollIndicator={true}
+        // Enable
+        dayComponent={({date, state, onPress, onLongPress}) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ChooseTime')}
+              onLongPress={() => navigation.navigate('ChooseTime')}>
+              <Text>{date.day}</Text>
+            </TouchableOpacity>
+          );
+        }}
       />
     </View>
   );

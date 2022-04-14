@@ -17,6 +17,7 @@ const IntroScreen = ({navigation}) => {
           style={styles.healthtap}
           source={require('../lottie/1631-healthtap-spinner.json')}
           autoPlay
+          speed={0}
         />
       </View>
       <View>

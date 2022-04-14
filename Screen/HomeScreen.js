@@ -80,7 +80,7 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
             </View>
             <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <Ionicons
                   name="person-circle-outline"
                   size={50}
