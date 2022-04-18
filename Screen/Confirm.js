@@ -1,22 +1,24 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
-// import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import CalendarItem from './Calendar';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  TextInput,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Booking = ({navigation}) => {
+const Confirm = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const route = useRoute();
-  const id = route.params.id;
   useEffect(() => {
     getListDoctor();
     return () => {};
   }, []);
   let getListDoctor = () => {
-    const apiURL = `https://jsonplaceholder.typicode.com/users/${id}`;
+    const apiURL = `https://jsonplaceholder.typicode.com/users/1`;
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
@@ -35,7 +37,7 @@ const Booking = ({navigation}) => {
         <View style={styles.eclipse2} />
         <View style={styles.eclipse3} />
         <View style={styles.eclipse4} />
-        <Text style={styles.header}>Booking</Text>
+        <Text style={styles.header}>Confirm Information</Text>
         <Ionicons
           name="arrow-back-outline"
           size={30}
@@ -43,26 +45,27 @@ const Booking = ({navigation}) => {
           onPress={() => navigation.navigate('Appointment')}
         />
         <View style={styles.listInfo}>
-          <Text>Name: {data.name}</Text>
-          <Text>Email: {data.email}</Text>
-          <Text>Phone: {data.phone}</Text>
-          <Text>Phone: {data.company.name}</Text>
-          <Text>Phone: {data.company.catchPhrase}</Text>
-          <Text>Phone: {data.company.bs}</Text>
-          <Text>Phone: {data.address.street}</Text>
+          <Text style={styles.text}>Name: {data.name}</Text>
+          <Text style={styles.text}>Email: {data.email}</Text>
+          <Text style={styles.text}>Phone: {data.phone}</Text>
+          <Text style={styles.text}>Company: {data.company.name}</Text>
+          <Text style={styles.text}>Phone: {data.company.catchPhrase}</Text>
+          <Text style={styles.text}>Phone: {data.company.bs}</Text>
+          <Text style={styles.text}>Address: {data.address.street}</Text>
         </View>
-        <View style={styles.blue}>
-          <Text style={styles.emptyHours}>Day off</Text>
+        <View>
+          <Text style={styles.time}>Time: 14:15 - 15: 15</Text>
         </View>
-        <View style={styles.gray}>
-          <Text style={styles.busyHours}>Day busy</Text>
+        <View>
+          <Text style={styles.decription}>Decription about symptom: </Text>
+          <TextInput placeholder="Input here" style={styles.textInput} />
         </View>
-        {/* <View>
-          <Text styles={styles.dayOff}>Day off</Text>
-        </View> */}
-        <View style={styles.calendar}>
-          <CalendarItem />
-        </View>
+        <MaterialIcons
+          onPress={() => navigation.navigate('Profile')}
+          name="navigate-next"
+          size={50}
+          style={{top: 550, left: 360}}
+        />
       </View>
     );
   } else {
@@ -70,7 +73,7 @@ const Booking = ({navigation}) => {
   }
 };
 
-export default Booking;
+export default Confirm;
 
 const styles = StyleSheet.create({
   eclipse1: {
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     padding: 20,
-    left: 135,
+    left: 80,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   listInfo: {
     position: 'absolute',
     width: 389,
-    height: 200,
+    height: 300,
     top: 70,
     padding: 10,
     margin: 10,
@@ -133,51 +136,36 @@ const styles = StyleSheet.create({
     shadowRadius: 100,
     elevation: 10,
   },
-  blue: {
-    position: 'absolute',
-    width: 70,
-    height: 40,
-    left: 15,
-    top: 300,
-    backgroundColor: '#A6E9F2',
-    borderRadius: 10,
-  },
-  gray: {
-    position: 'absolute',
-    width: 70,
-    height: 40,
-    right: 85,
-    top: 300,
-    backgroundColor: 'gray',
-    borderRadius: 10,
-  },
-  emptyHours: {
-    position: 'absolute',
-    width: 100,
-    height: 40,
-    left: 80,
-    top: 5,
+  text: {
     fontFamily: 'Poppins',
     fontWeight: 'bold',
-    lineHeight: 22,
-    color: 'black',
+    fontSize: 15,
+    lineHeight: 20,
+    padding: 10,
   },
-  busyHours: {
-    position: 'absolute',
-    width: 100,
-    height: 40,
-    left: 80,
-    top: 5,
+  time: {
     fontFamily: 'Poppins',
     fontWeight: 'bold',
-    lineHeight: 22,
-    color: 'black',
+    fontSize: 15,
+    lineHeight: 20,
+    padding: 10,
+    top: 370,
+    left: 5,
   },
-  calendar: {
+  decription: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 15,
+    lineHeight: 20,
+    padding: 10,
+    top: 370,
+    left: 5,
+  },
+  textInput: {
     position: 'absolute',
     width: 389,
-    height: 380,
-    top: 350,
+    height: 100,
+    top: 420,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',

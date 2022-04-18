@@ -11,6 +11,8 @@ import Booking from './Booking';
 import CovidScreen from './CovidScreen';
 import ChooseTime from './ChooseTime';
 import Profile from './Profile';
+import Confirm from './Confirm';
+import New from './New';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +30,9 @@ const MyStack = () => {
       <Stack.Screen name="CovidScreen" component={CovidScreen} />
       <Stack.Screen name="ChooseTime" component={ChooseTime} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Confirm" component={Confirm} />
+      <Stack.Screen name="New" component={New} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
     </Stack.Navigator>
   );
 };

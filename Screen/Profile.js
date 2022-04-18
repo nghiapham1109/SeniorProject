@@ -2,8 +2,8 @@
 import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
-
-const Profile = () => {
+import Ionicons from 'react-native-vector-icons/Ionicons';
+const Profile = ({navigation}) => {
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -11,6 +11,12 @@ const Profile = () => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>My Profile</Text>
+      <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('HomeScreen')}
+      />
       <View style={{alignItems: 'center'}}>
         <View style={styles.image}>
           <Image
@@ -24,14 +30,6 @@ const Profile = () => {
         <TextInput style={styles.textInput} placeholder="My result..." />
       </View>
       <View style={styles.containerProfile}></View>
-      <View>
-        <LottieView
-          style={styles.footer}
-          source={require('../lottie/43749-mask-wear-lt-gray.json')}
-          autoPlay
-        />
-        <Text style={[styles.footerText]}>Wear a mask to prevent COVID-19</Text>
-      </View>
     </View>
   );
 };
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     left: -20,
     top: -100,
     borderRadius: 100,
-    backgroundColor: '#7BDFC7',
+    backgroundColor: '#4FC3F7',
   },
   eclipse2: {
     position: 'absolute',
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     left: -130,
     top: 20,
     borderRadius: 100,
-    backgroundColor: '#BFF1E5',
+    backgroundColor: '#81D4FA',
   },
   eclipse3: {
     position: 'absolute',
@@ -77,16 +75,13 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    width: 296,
-    height: 35,
-    left: 140,
-    top: 70,
+    padding: 20,
+    left: 120,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
-    color: 'black',
   },
   image: {
     flex: 1,
@@ -94,10 +89,10 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   profileImage: {
-    top: 120,
-    width: 150,
-    height: 150,
-    borderRadius: 50,
+    top: 50,
+    width: 200,
+    height: 200,
+    borderRadius: 20,
     overflow: 'hidden',
   },
   textInput: {
@@ -105,7 +100,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 41,
     left: 47,
-    top: 300,
+    top: 270,
     backgroundColor: '#F7F3F3',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
@@ -125,23 +120,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
-  },
-  footer: {
-    position: 'absolute',
-    width: 64,
-    height: 50,
-    left: 30,
-    top: 345,
-  },
-  footerText: {
-    position: 'absolute',
-    width: 263,
-    height: 23,
-    left: 120,
-    top: 700,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
-    fontSize: 15,
-    lineHeight: 22,
   },
 });

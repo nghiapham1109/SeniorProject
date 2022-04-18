@@ -3,6 +3,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ChooseTime = ({navigation}) => {
   return (
@@ -12,6 +13,12 @@ const ChooseTime = ({navigation}) => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>Choose time</Text>
+      <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('Appointment')}
+      />
       <View style={styles.listTime}>
         <Text style={styles.title}>Infomation about time</Text>
         <View style={styles.blue}>
@@ -187,7 +194,7 @@ const ChooseTime = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <MaterialIcons
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate('Confirm')}
           name="navigate-next"
           size={50}
           style={{top: 525, left: 325}}
@@ -216,7 +223,7 @@ const styles = StyleSheet.create({
     left: -130,
     top: 20,
     borderRadius: 100,
-    backgroundColor: '#4FC3F7',
+    backgroundColor: '#81D4FA',
   },
   eclipse3: {
     position: 'absolute',

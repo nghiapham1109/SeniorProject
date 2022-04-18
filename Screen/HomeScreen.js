@@ -10,6 +10,7 @@ import {
   Animated,
   Dimensions,
   Pressable,
+  Linking,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
@@ -169,12 +170,21 @@ const HomeScreen = ({navigation}) => {
             https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=d514196c2b7d43b4938414a02371668b
           </View> */}
         </View>
-        <Text style={styles.labelNews}>News</Text>
-        <Text style={styles.labelSeeMore}>See more</Text>
+        <Text
+          style={styles.labelNews}
+          onPress={() => navigation.navigate('New')}>
+          News
+        </Text>
+        <Text
+          style={styles.labelSeeMore}
+          onPress={() => navigation.navigate('New')}>
+          See more
+        </Text>
         <MaterialIcons
           name="navigate-next"
           size={30}
           style={{top: 212, left: 370}}
+          onPress={() => navigation.navigate('New')}
         />
         <View style={styles.containerNews}>
           <FlatList
@@ -183,17 +193,19 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => {
               return (
                 <View>
-                  <Image
-                    style={{
-                      width: 'auto',
-                      height: 200,
-                      borderRadius: 10,
-                      margin: 10,
-                    }}
-                    source={{
-                      uri: item.urlToImage,
-                    }}
-                  />
+                  <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+                    <Image
+                      style={{
+                        width: 'auto',
+                        height: 200,
+                        borderRadius: 10,
+                        margin: 10,
+                      }}
+                      source={{
+                        uri: item.urlToImage,
+                      }}
+                    />
+                  </TouchableOpacity>
                   <Text
                     ellipsizeMode="tail"
                     numberOfLines={3}
@@ -334,7 +346,7 @@ const styles = StyleSheet.create({
   containerNews: {
     position: 'absolute',
     width: 380,
-    height: 330,
+    height: 400,
     margin: 15,
     top: 230,
     backgroundColor: '#F8F0F0',
@@ -351,6 +363,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 15,
+    textAlign: 'justify',
   },
   bodyNews: {
     color: '#222',
@@ -358,5 +371,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     height: 80,
+    textAlign: 'justify',
   },
 });

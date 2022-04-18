@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -67,6 +68,12 @@ const Appointment = ({navigation}) => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>Choose the doctor</Text>
+      <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('HomeScreen')}
+      />
       <TextInput style={styles.textInput} placeholder="Search doctor..." />
       <View style={styles.dropdown}>
         <View style={{flex: 1}}>
@@ -160,7 +167,7 @@ const styles = StyleSheet.create({
     left: -130,
     top: 20,
     borderRadius: 100,
-    backgroundColor: '#4FC3F7',
+    backgroundColor: '#81D4FA',
   },
   eclipse3: {
     position: 'absolute',

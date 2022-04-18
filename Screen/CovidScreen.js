@@ -2,8 +2,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 var moment = require('moment');
-const CovidScreen = () => {
+const CovidScreen = ({navigation}) => {
   const [data, setData] = useState({});
   useEffect(() => {
     getListTodo();
@@ -27,6 +28,12 @@ const CovidScreen = () => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>Covid-19</Text>
+      <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('HomeScreen')}
+      />
       <View style={styles.covidUpdateContainer}>
         <Text>{moment(data.updated).format('MMM Do YYYY')}</Text>
         <Text>Total cases: {data.updated}</Text>
@@ -47,7 +54,7 @@ const styles = StyleSheet.create({
     left: -20,
     top: -100,
     borderRadius: 100,
-    backgroundColor: '#7BDFC7',
+    backgroundColor: '#4FC3F7',
   },
   eclipse2: {
     position: 'absolute',
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
     left: -130,
     top: 20,
     borderRadius: 100,
-    backgroundColor: '#BFF1E5',
+    backgroundColor: '#81D4FA',
   },
   eclipse3: {
     position: 'absolute',
@@ -78,30 +85,24 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    width: 296,
-    height: 35,
-    left: 150,
-    top: 70,
+    padding: 20,
+    left: 130,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
-    color: 'black',
   },
   covidUpdateContainer: {
     position: 'absolute',
-    width: 326,
-    height: 80,
-    left: 45,
-    top: 124,
-    backgroundColor: '#FFFFFF',
+    width: 389,
+    height: 200,
+    top: 70,
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#F7F3F3',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
-    shadowOffset: {
-      //   width: 1000,
-      //   height: 1000,
-    },
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
