@@ -76,21 +76,6 @@ const Navigation = () => {
         }}
         component={Predict}
       />
-      {/* <Tab.Screen
-        name={covidScreen}
-        options={{
-          tabBarIcon: () => (
-            <LottieView
-              style={styles.iconPredict}
-              //source={require('../lottie/88222-id-card-profile-card.json')}
-              source={require('../lottie/30328-corona-virus.json')}
-              autoPlay
-            />
-          ),
-          headerShown: false,
-        }}
-        component={CovidScreen}
-      /> */}
     </Tab.Navigator>
   );
 };

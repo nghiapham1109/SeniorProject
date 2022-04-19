@@ -144,31 +144,6 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
-
-          {/* <View style={styles.containerCarousel}>
-            <FlatList
-              data={DATA}
-              keyExtractor={(_, index) => String(index)}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              renderItem={({item, index}) => {
-                return (
-                  <View>
-                    <Image
-                      source={{uri: item.poster}}
-                      style={{
-                        width: ITEM_WIDTH,
-                        height: ITEM_HEIGHT,
-                        resizeMode: 'cover',
-                      }}
-                    />
-                  </View>
-                );
-              }}
-            />
-            API key
-            https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=d514196c2b7d43b4938414a02371668b
-          </View> */}
         </View>
         <Text
           style={styles.labelNews}
@@ -278,6 +253,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
+    color: 'black',
   },
   introduce: {
     position: 'absolute',
@@ -294,7 +270,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 380,
     height: 200,
-    marginLeft: 10,
+    marginLeft: 13,
     backgroundColor: '#F8F0F0',
     shadowColor: 'rgba(0, 0, 0, 1)',
     shadowOpacity: 100,

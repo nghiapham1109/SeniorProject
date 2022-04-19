@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
+    color: 'black',
   },
   textInput: {
     position: 'absolute',

@@ -5,6 +5,7 @@ import React from 'react';
 import LottieView from 'lottie-react-native';
 import {Button} from 'react-native-elements';
 import Home from './HomeScreen';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const IntroScreen = ({navigation}) => {
   return (
     <View>
@@ -15,7 +16,7 @@ const IntroScreen = ({navigation}) => {
       <View>
         <LottieView
           style={styles.healthtap}
-          source={require('../lottie/1631-healthtap-spinner.json')}
+          source={require('../lottie/47137-doctor-and-health-symbols.json')}
           autoPlay
           speed={0}
         />
@@ -29,22 +30,12 @@ const IntroScreen = ({navigation}) => {
         </Text>
       </View>
       <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('AppHome')}>
-          <Text
-            style={{
-              fontSize: 24,
-              color: 'white',
-              lineHeight: 45,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              padding: 10,
-              fontFamily: 'Poppins',
-            }}>
-            Get Started
-          </Text>
-        </TouchableOpacity>
+        <MaterialIcons
+          onPress={() => navigation.navigate('Login')}
+          name="navigate-next"
+          size={50}
+          style={{top: 550, left: 330}}
+        />
       </View>
     </View>
   );
@@ -107,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     lineHeight: 45,
-    color: 'black',
+    color: '#1A237E',
   },
   title: {
     position: 'absolute',
@@ -121,14 +112,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     color: 'black',
-  },
-  button: {
-    position: 'absolute',
-    width: 286,
-    height: 70,
-    left: 65,
-    top: 550,
-    backgroundColor: '#1FCAF0',
-    borderRadius: 10,
   },
 });
