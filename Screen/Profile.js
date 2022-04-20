@@ -15,7 +15,7 @@ const Profile = ({navigation}) => {
         name="arrow-back-outline"
         size={30}
         style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('AppHome')}
       />
       <View style={{alignItems: 'center'}}>
         <View style={styles.image}>

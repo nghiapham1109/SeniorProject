@@ -13,6 +13,7 @@ import IntroScreen from './IntroScreen';
 import HomeScreen from './HomeScreen';
 import Disease from './Disease';
 import Predict from './Predict';
+import Account from './Account';
 import Profile from './Profile';
 import CovidScreen from './CovidScreen';
 //Screen name
@@ -21,6 +22,7 @@ const diseaseScreen = 'Disease';
 const predictScreen = 'Predict';
 const profileScreen = 'Profile';
 const covidScreen = 'Covid-19';
+const accountScreen = 'Account';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,23 +37,16 @@ const Navigation = () => {
         tabBarShowLabel: true,
         tabBarStyle: {
           position: 'absolute',
-          //bottom: 20,
-          //left: 50,
           elevation: 0,
           backgroundColor: 'white',
-          //borderRadius: 15,
           height: 70,
-          //top: 680,
-          //width: 320,
           ...styles.Shadow,
         },
       }}>
       <Tab.Screen
         name={homeScreen}
         options={{
-          tabBarIcon: () => (
-            <Icon name="home" size={45} />
-          ),
+          tabBarIcon: () => <Icon name="home" size={45} />,
           headerShown: false,
         }}
         component={HomeScreen}
@@ -59,22 +54,18 @@ const Navigation = () => {
       <Tab.Screen
         name={diseaseScreen}
         options={{
-          tabBarIcon: () => (
-            <AntDesign name="profile" size={45} />
-          ),
+          tabBarIcon: () => <AntDesign name="profile" size={45} />,
           headerShown: false,
         }}
         component={Disease}
       />
       <Tab.Screen
-        name={predictScreen}
+        name={accountScreen}
         options={{
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="account" size={45} />
-          ),
+          tabBarIcon: () => <MaterialCommunityIcons name="account" size={45} />,
           headerShown: false,
         }}
-        component={Predict}
+        component={Account}
       />
     </Tab.Navigator>
   );

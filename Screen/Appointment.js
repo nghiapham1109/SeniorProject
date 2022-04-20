@@ -72,7 +72,7 @@ const Appointment = ({navigation}) => {
         name="arrow-back-outline"
         size={30}
         style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('AppHome')}
       />
       <TextInput style={styles.textInput} placeholder="Search doctor..." />
       <View style={styles.dropdown}>
@@ -228,8 +228,8 @@ const styles = StyleSheet.create({
   listDoctor: {
     position: 'absolute',
     width: 389,
-    height: 500,
-    top: 220,
+    height: 530,
+    top: 210,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',
@@ -247,10 +247,9 @@ const styles = StyleSheet.create({
     shadowRadius: 100,
     elevation: 10,
     padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 5,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 5,
     fontFamily: 'Poppins',
   },
 });

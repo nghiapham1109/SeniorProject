@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
   containerNews: {
     position: 'absolute',
     width: 380,
-    height: 400,
+    height: 340,
     margin: 15,
     top: 230,
     backgroundColor: '#F8F0F0',

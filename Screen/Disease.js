@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     left: -20,
     top: -100,
     borderRadius: 100,
-    backgroundColor: '#7BDFC7',
+    backgroundColor: '#4FC3F7',
   },
   eclipse2: {
     position: 'absolute',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     left: -130,
     top: 20,
     borderRadius: 100,
-    backgroundColor: '#BFF1E5',
+    backgroundColor: '#81D4FA',
   },
   eclipse3: {
     position: 'absolute',
@@ -141,9 +141,9 @@ const styles = StyleSheet.create({
   containerDisease: {
     position: 'absolute',
     width: 389,
-    height: 500,
+    height: 530,
     margin: 10,
-    top: 150,
+    top: 140,
     backgroundColor: '#FEFFFF',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
