@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,12 +7,32 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 var moment = require('moment');
 const CovidScreen = ({navigation}) => {
   const [data, setData] = useState({});
+  const [data1, setData1] = useState({});
+  //
   useEffect(() => {
     getListTodo();
     return () => {};
   }, []);
+  //
+  // useEffect(() => {
+  //   getListCovid();
+  //   return () => {};
+  // }, []);
+  // //
+  // let getListCovid = () => {
+  //   const apiURL = 'https://disease.sh/v3/covid-19/all';
+  //   fetch(apiURL)
+  //     .then(res => res.json())
+  //     .then(resJson => {
+  //       setData(resJson);
+  //     })
+  //     .catch(error => {
+  //       console.log('Error: ', error);
+  //     });
+  // };
+  //
   let getListTodo = () => {
-    const apiURL = 'https://disease.sh/v3/covid-19/all';
+    const apiURL = 'https://disease.sh/v3/covid-19/countries?yesterday=true';
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
@@ -45,6 +65,7 @@ const CovidScreen = ({navigation}) => {
         <Text style={styles.text}>Today deaths: {data.todayDeaths}</Text>
         <Text style={styles.text}>Coronavirus recovered: {data.recovered}</Text>
       </View>
+      <Text style={styles.labelCountry}>Country</Text>
       <Text
         style={styles.labelSeeMore}
         onPress={() => navigation.navigate('DetailCountry')}>
@@ -56,6 +77,51 @@ const CovidScreen = ({navigation}) => {
           size={30}
           style={{top: 330, left: 375}}
           onPress={() => navigation.navigate('DetailCountry')}
+        />
+      </View>
+      <View style={styles.flagContainer}>
+        <FlatList
+          removeClippedSubviews={true}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
+          windowSize={10}
+          data={data}
+          renderItem={({item}) => (
+            <Text style={styles.flatCard} key={item.countryInfo.id}>
+              <Image
+                source={{uri: item.countryInfo.flag}}
+                style={{
+                  width: 50,
+                  height: 50,
+                  resizeMode: 'contain',
+                  borderRadius: 20,
+                }}
+              />
+              <Text style={[styles.cardText, {width: 100}]}>
+                {item.country}
+              </Text>
+              <View>
+                <Text style={[styles.cardText, {color: 'orange'}]}>
+                  Total Cases:{item.cases}
+                </Text>
+                <Text style={styles.cardText}>
+                  Today Cases:{item.todayCases}
+                </Text>
+                <Text style={[styles.cardText, {color: 'red'}]}>
+                  Deaths:{item.deaths}
+                </Text>
+                <Text style={[styles.cardText]}>
+                  Today Deaths:{item.todayDeaths}
+                </Text>
+                <Text style={[styles.cardText, {color: 'green'}]}>
+                  Recovered:{item.recovered}
+                </Text>
+              </View>
+              <View></View>
+            </Text>
+          )}
+          keyExtractor={item => item.countryInfo.id}
+          key={item => item.countryInfo.id}
         />
       </View>
     </View>
@@ -110,6 +176,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
+    color: 'black',
   },
   covidUpdateContainer: {
     position: 'absolute',
@@ -134,6 +201,17 @@ const styles = StyleSheet.create({
     color: 'black',
     padding: 10,
   },
+  labelCountry: {
+    position: 'absolute',
+    margin: 15,
+    top: 350,
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 14,
+    lineHeight: 21,
+    color: 'black',
+  },
   labelSeeMore: {
     position: 'absolute',
     margin: 15,
@@ -145,5 +223,40 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
     color: '#2EA1D2',
+  },
+  flagContainer: {
+    position: 'absolute',
+    width: 389,
+    height: 350,
+    top: 395,
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#F7F3F3',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOpacity: 100,
+    shadowRadius: 100,
+    elevation: 10,
+  },
+  flatCard: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    padding: 20,
+    margin: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cardText: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

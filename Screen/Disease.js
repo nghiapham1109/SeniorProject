@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 //import LottieView from 'lottie-react-native';
-import LottieView from 'lottie-react-native';
 
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -17,7 +17,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
   </TouchableOpacity>
 );
 
-const Disease = () => {
+const Disease = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
 
@@ -33,7 +33,8 @@ const Disease = () => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        // onPress={() => setSelectedId(item.id)}
+        onPress={() => navigation.navigate('DetailDisease')}
         backgroundColor={{backgroundColor}}
         textColor={{color}}
       />
@@ -46,6 +47,12 @@ const Disease = () => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>Disease</Text>
+      {/* <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('AppHome')}
+      /> */}
       <TextInput style={styles.textInput} placeholder="Search disease..." />
       <View style={styles.containerDisease}>
         <FlatList
@@ -101,10 +108,8 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    width: 296,
-    height: 35,
-    left: 20,
-    top: 40,
+    padding: 20,
+    left: 140,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
   textInput: {
     position: 'absolute',
     width: 389,
-    top: 80,
+    top: 60,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',
@@ -141,9 +146,9 @@ const styles = StyleSheet.create({
   containerDisease: {
     position: 'absolute',
     width: 389,
-    height: 530,
+    height: 545,
     margin: 10,
-    top: 140,
+    top: 130,
     backgroundColor: '#FEFFFF',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',

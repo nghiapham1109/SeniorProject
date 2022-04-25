@@ -16,6 +16,8 @@ import New from './New';
 import Login from './Login';
 import Register from './Register';
 import DetailCountry from './DetailCountry';
+import DetailDisease from './DetailDisease';
+import Disease from './Disease';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
@@ -39,6 +41,8 @@ const MyStack = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="DetailCountry" component={DetailCountry} />
+      <Stack.Screen name="DetailDisease" component={DetailDisease} />
+      <Stack.Screen name="Disease" component={Disease} />
     </Stack.Navigator>
   );
 };
