@@ -10,29 +10,12 @@ const CovidScreen = ({navigation}) => {
   const [data1, setData1] = useState({});
   //
   useEffect(() => {
-    getListTodo();
+    getListCovid();
     return () => {};
   }, []);
   //
-  // useEffect(() => {
-  //   getListCovid();
-  //   return () => {};
-  // }, []);
-  // //
-  // let getListCovid = () => {
-  //   const apiURL = 'https://disease.sh/v3/covid-19/all';
-  //   fetch(apiURL)
-  //     .then(res => res.json())
-  //     .then(resJson => {
-  //       setData(resJson);
-  //     })
-  //     .catch(error => {
-  //       console.log('Error: ', error);
-  //     });
-  // };
-  //
-  let getListTodo = () => {
-    const apiURL = 'https://disease.sh/v3/covid-19/countries?yesterday=true';
+  let getListCovid = () => {
+    const apiURL = 'https://disease.sh/v3/covid-19/all';
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
@@ -42,6 +25,7 @@ const CovidScreen = ({navigation}) => {
         console.log('Error: ', error);
       });
   };
+
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -64,8 +48,8 @@ const CovidScreen = ({navigation}) => {
         <Text style={styles.text}>Today cases: {data.todayCases}</Text>
         <Text style={styles.text}>Today deaths: {data.todayDeaths}</Text>
         <Text style={styles.text}>Coronavirus recovered: {data.recovered}</Text>
+        <Text style={styles.text}>Today recovered: {data.todayRecovered}</Text>
       </View>
-      <Text style={styles.labelCountry}>Country</Text>
       <Text
         style={styles.labelSeeMore}
         onPress={() => navigation.navigate('DetailCountry')}>
@@ -75,53 +59,8 @@ const CovidScreen = ({navigation}) => {
         <MaterialIcons
           name="navigate-next"
           size={30}
-          style={{top: 330, left: 375}}
+          style={{top: 370, left: 375}}
           onPress={() => navigation.navigate('DetailCountry')}
-        />
-      </View>
-      <View style={styles.flagContainer}>
-        <FlatList
-          removeClippedSubviews={true}
-          initialNumToRender={5}
-          maxToRenderPerBatch={10}
-          windowSize={10}
-          data={data}
-          renderItem={({item}) => (
-            <Text style={styles.flatCard} key={item.countryInfo.id}>
-              <Image
-                source={{uri: item.countryInfo.flag}}
-                style={{
-                  width: 50,
-                  height: 50,
-                  resizeMode: 'contain',
-                  borderRadius: 20,
-                }}
-              />
-              <Text style={[styles.cardText, {width: 100}]}>
-                {item.country}
-              </Text>
-              <View>
-                <Text style={[styles.cardText, {color: 'orange'}]}>
-                  Total Cases:{item.cases}
-                </Text>
-                <Text style={styles.cardText}>
-                  Today Cases:{item.todayCases}
-                </Text>
-                <Text style={[styles.cardText, {color: 'red'}]}>
-                  Deaths:{item.deaths}
-                </Text>
-                <Text style={[styles.cardText]}>
-                  Today Deaths:{item.todayDeaths}
-                </Text>
-                <Text style={[styles.cardText, {color: 'green'}]}>
-                  Recovered:{item.recovered}
-                </Text>
-              </View>
-              <View></View>
-            </Text>
-          )}
-          keyExtractor={item => item.countryInfo.id}
-          key={item => item.countryInfo.id}
         />
       </View>
     </View>
@@ -181,7 +120,7 @@ const styles = StyleSheet.create({
   covidUpdateContainer: {
     position: 'absolute',
     width: 389,
-    height: 265,
+    height: 300,
     top: 70,
     padding: 10,
     margin: 10,
@@ -201,21 +140,10 @@ const styles = StyleSheet.create({
     color: 'black',
     padding: 10,
   },
-  labelCountry: {
-    position: 'absolute',
-    margin: 15,
-    top: 350,
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 14,
-    lineHeight: 21,
-    color: 'black',
-  },
   labelSeeMore: {
     position: 'absolute',
     margin: 15,
-    top: 350,
+    top: 390,
     left: 300,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
