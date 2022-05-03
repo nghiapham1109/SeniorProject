@@ -11,26 +11,22 @@ const CalendarItem = () => {
       <CalendarList
         horizontal={true}
         // Callback which gets executed when visible months change in scroll view. Default = undefined
-        onVisibleMonthsChange={months => {
-          console.log('now these months are visible', months);
-        }}
         // Max amount of months allowed to scroll to the past. Default = 50
-        pastScrollRange={50}
+        pastScrollRange={0}
         // Max amount of months allowed to scroll to the future. Default = 50
         futureScrollRange={50}
         // Enable or disable scrolling of calendar list
         scrollEnabled={true}
         // Enable or disable vertical scroll indicator. Default = false
         showScrollIndicator={true}
-        // Enable
-        dayComponent={({date, state, onPress, onLongPress}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ChooseTime')}
-              onLongPress={() => navigation.navigate('ChooseTime')}>
-              <Text>{date.day}</Text>
-            </TouchableOpacity>
-          );
+        onDayPress={date => {
+          if (date.timestamp < new Date().getTime()) {
+            // toast message
+            console.log("Too late, can't booking calendar");
+          } else {
+            console.log(date);
+            navigation.navigate('ChooseTime');
+          }
         }}
       />
     </View>

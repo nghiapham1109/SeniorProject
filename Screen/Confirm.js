@@ -5,6 +5,7 @@ import {
   View,
   ActivityIndicator,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

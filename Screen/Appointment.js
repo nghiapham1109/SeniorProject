@@ -24,7 +24,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const Appointment = ({navigation}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState([]);
   //
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
@@ -85,26 +85,6 @@ const Appointment = ({navigation}) => {
               fontFamily: 'Poppins',
               lineHeight: 20,
             }}
-            listMode="FLATLIST"
-            placeholder="Ham/ hoc vi"
-            closeAfterSelecting={true}
-            value={value}
-            items={items}
-            // open={open}
-            // setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-          />
-        </View>
-        <View style={{flex: 1}}>
-          <DropDownPicker
-            style={{
-              height: 50,
-              fontSize: 12,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              lineHeight: 20,
-            }}
             placeholder="Specialist"
             closeAfterSelecting={true}
             open={open}
@@ -128,8 +108,8 @@ const Appointment = ({navigation}) => {
             closeAfterSelecting={true}
             value={value}
             items={items}
-            // open={open}
-            // setOpen={setOpen}
+            open={open}
+            setOpen={setOpen}
             setValue={setValue}
             setItems={setItems}
           />
@@ -224,6 +204,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   listDoctor: {
     position: 'absolute',

@@ -41,10 +41,12 @@ const New = ({navigation}) => {
         <FlatList
           nestedScrollEnabled
           data={data}
-          renderItem={({item}) => {
+          renderItem={({item, index}) => {
             return (
               <View>
-                <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+                {/* onPress={() => Linking.openURL(item.url) */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DetailNew', {id: index})}>
                   <Image
                     style={{
                       width: 'auto',
@@ -58,12 +60,14 @@ const New = ({navigation}) => {
                   />
                 </TouchableOpacity>
                 <Text
+                  onPress={() => navigation.navigate('DetailNew', {id: index})}
                   ellipsizeMode="tail"
                   numberOfLines={3}
                   style={styles.headerNews}>
                   {item.title}
                 </Text>
                 <Text
+                  onPress={() => navigation.navigate('DetailNew', {id: index})}
                   ellipsizeMode="tail"
                   numberOfLines={4}
                   style={styles.bodyNews}>

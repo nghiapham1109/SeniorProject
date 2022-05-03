@@ -7,10 +7,19 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+//
+import client from '../api/client';
 import React, {useState} from 'react';
 import LottieView from 'lottie-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const Login = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const signIn = (values, actions) => {
+    // console.warn('Sign in');
+    values = username;
+    console.log(values);
+  };
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -26,12 +35,20 @@ const Login = ({navigation}) => {
         />
       </View>
       <View style={styles.containerLogin}>
-        <TextInput style={styles.textUsername} placeholder="User name..." />
+        <TextInput
+          style={styles.textUsername}
+          value={username}
+          setValue={setUsername}
+          placeholder="User name..."
+        />
         <TextInput
           style={styles.textPassword}
           secureTextEntry={true}
           placeholder="Password..."
+          value={password}
+          setValue={setPassword}
         />
+        {/* onPress={() => navigation.navigate('AppHome') */}
         <TouchableOpacity
           style={styles.buttonLogin}
           onPress={() => navigation.navigate('AppHome')}>
