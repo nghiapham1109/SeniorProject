@@ -13,7 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.title}</Text>
+    <Text style={[styles.title, textColor]}>{item.NameDisease}</Text>
   </TouchableOpacity>
 );
 
@@ -22,19 +22,32 @@ const Disease = ({navigation}) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    // fetch('https://jsonplaceholder.typicode.com/posts')
+    //   .then(response => response.json())
+    //   .then(json => setData(json));
+
+    fetch('http://10.0.2.2:3000/products')
       .then(response => response.json())
-      .then(json => setData(json));
+      .then(json => setData(json))
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
   });
 
-  const renderItem = ({item}) => {
-    const backgroundColor = item.id === selectedId ? '#F6F3F3' : '#A4EFE2';
-    const color = item.id === selectedId ? 'black' : 'black';
+  const renderItem = ({item, index}) => {
+    const backgroundColor =
+      item.IDDisease === selectedId ? '#F6F3F3' : '#A4EFE2';
+    const color = item.IDDisease === selectedId ? 'black' : 'black';
     return (
       <Item
         item={item}
         // onPress={() => setSelectedId(item.id)}
-        onPress={() => navigation.navigate('DetailDisease')}
+        onPress={() => navigation.navigate('DetailDisease', {id: item.IDDisease})}
         backgroundColor={{backgroundColor}}
         textColor={{color}}
       />
@@ -59,7 +72,7 @@ const Disease = ({navigation}) => {
           nestedScrollEnabled
           data={data}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.IDDisease}
           extraData={selectedId}
         />
       </View>
