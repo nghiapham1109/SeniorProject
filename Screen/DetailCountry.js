@@ -19,6 +19,7 @@ const DetailCountry = ({navigation}) => {
       .then(res => res.json())
       .then(resJson => {
         setData(resJson);
+        setArrayHolder(resJson);
       })
       .catch(error => {
         console.log('Error: ', error);
@@ -29,7 +30,9 @@ const DetailCountry = ({navigation}) => {
     setValue(text);
     const newData = arrayHolder.filter(item => {
       const itemData = `${item.country.toUpperCase()}`;
+      console.log(itemData);
       const textData = text.toUpperCase();
+      // console.log(textData);
       return itemData.indexOf(textData) > -1;
     });
     setData(newData);
@@ -50,7 +53,7 @@ const DetailCountry = ({navigation}) => {
       <TextInput
         style={{
           backgroundColor: 'white',
-          textAlign: 'center',
+          // textAlign: 'center',
           margin: 20,
           borderRadius: 10,
           height: 40,

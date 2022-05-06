@@ -24,7 +24,10 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const Appointment = ({navigation}) => {
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   const [value, setValue] = useState([]);
+  const [arrayHolder, setArrayHolder] = useState([]);
+  const [value2, setValue2] = useState();
   //
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
@@ -32,10 +35,11 @@ const Appointment = ({navigation}) => {
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(json => setData(json));
+      .then(json => setData(json))
+      .then(json => setArrayHolder(json));
   }, []);
+  //
   const renderItem = ({item}) => {
-    // const backgroundColor = item.id === selectedId ? '#42A5F5' : '#E1F5FE';
     const color = item.id === selectedId ? 'black' : 'black';
     return (
       <Item
@@ -49,8 +53,8 @@ const Appointment = ({navigation}) => {
   };
   //
   const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
+    {label: 'Male', value: 'Male'},
+    {label: 'Female', value: 'Female'},
   ]);
   const [Specialist, setSpecialist] = useState([
     {label: 'Anatomy', value: 'Anatomy'},
@@ -61,6 +65,7 @@ const Appointment = ({navigation}) => {
     {label: 'Diagnostic imaging', value: 'Diagnostic imaging'},
     {label: 'Forensic science', value: 'Forensic science'},
   ]);
+  //
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -87,10 +92,10 @@ const Appointment = ({navigation}) => {
             }}
             placeholder="Specialist"
             closeAfterSelecting={true}
-            open={open}
+            open={open1}
             value={value}
             items={Specialist}
-            setOpen={setOpen}
+            setOpen={setOpen1}
             setValue={setValue}
             setItems={setSpecialist}
           />
@@ -112,6 +117,7 @@ const Appointment = ({navigation}) => {
             setOpen={setOpen}
             setValue={setValue}
             setItems={setItems}
+            autoScroll={true}
           />
         </View>
       </View>
