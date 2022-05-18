@@ -1,9 +1,19 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useContext} from 'react';
 import LottieView from 'lottie-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {PracticeProvider, PracticeContext} from '../Global/PracticeContext';
 const Profile = ({navigation}) => {
+  const {val, setVal, val1, setVal1, val2, setVal2} =
+    useContext(PracticeContext);
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -17,7 +27,7 @@ const Profile = ({navigation}) => {
         style={{left: 10, top: 25}}
         onPress={() => navigation.navigate('AppHome')}
       />
-      <View style={{alignItems: 'center'}}>
+      {/* <View style={{alignItems: 'center'}}>
         <View style={styles.image}>
           <Image
             source={require('../asset/picture.jpg')}
@@ -25,11 +35,23 @@ const Profile = ({navigation}) => {
             resizeMode="center"
           />
         </View>
-      </View>
-      <View>
+      </View> */}
+      {/* <View>
         <TextInput style={styles.textInput} placeholder="My result..." />
+      </View> */}
+      <View style={styles.containerProfile}>
+        <Text>{val}</Text>
+        <Text>{val1}</Text>
+        <Text>{val2}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setVal(val + 1);
+            setVal1(val1 + 1);
+            setVal2(val2 + 1);
+          }}>
+          <Text>Click</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.containerProfile}></View>
     </View>
   );
 };
@@ -111,9 +133,9 @@ const styles = StyleSheet.create({
   containerProfile: {
     position: 'absolute',
     width: 317,
-    height: 200,
+    height: 300,
     left: 50,
-    top: 370,
+    top: 70,
     backgroundColor: '#FEFFFF',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',

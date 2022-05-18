@@ -45,8 +45,9 @@ const New = ({navigation}) => {
             return (
               <View>
                 {/* onPress={() => Linking.openURL(item.url) */}
+                {/* onPress={() => navigation.navigate('DetailNew', {id: index})} */}
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('DetailNew', {id: index})}>
+                  onPress={() => Linking.openURL(item.url)}>
                   <Image
                     style={{
                       width: 'auto',

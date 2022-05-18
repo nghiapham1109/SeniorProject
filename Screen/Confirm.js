@@ -65,7 +65,7 @@ const Confirm = ({navigation}) => {
           onPress={() => navigation.navigate('Profile')}
           name="navigate-next"
           size={50}
-          style={{top: 550, left: 360}}
+          style={{top: 570, left: 360}}
         />
       </View>
     );
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
     padding: 10,
-    top: 370,
+    top: 365,
     left: 5,
   },
   decription: {
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   textInput: {
     position: 'absolute',
     width: 389,
-    height: 100,
-    top: 420,
+    height: 200,
+    top: 400,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',

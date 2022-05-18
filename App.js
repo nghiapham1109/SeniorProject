@@ -2,12 +2,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import MyStack from './Screen/Stack';
 import {NavigationContainer} from '@react-navigation/native';
-
+import {PracticeProvider, PracticeContext} from './Global/PracticeContext';
 const App = () => {
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <PracticeProvider>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </PracticeProvider>
   );
 };
 
