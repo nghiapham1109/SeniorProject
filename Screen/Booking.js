@@ -2,7 +2,6 @@
 import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
-// import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import CalendarItem from './Calendar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -10,24 +9,27 @@ const Booking = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const route = useRoute();
-  const id = route.params.id;
+  const IDDoctor = route.params.IDDoctor;
   useEffect(() => {
     getListDoctor();
     return () => {};
   }, []);
   let getListDoctor = () => {
-    const apiURL = `https://jsonplaceholder.typicode.com/users/${id}`;
+    const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
-        setData(resJson);
+        console.log('data', data);
+        setData(resJson.data[0]);
         setTimeout(() => setIsLoading(false), 1000);
       })
       .catch(error => {
         console.log('Error: ', error);
       });
   };
-  //console.log(data);
+  // if (data.length !== 0 && isLoading === false) {  } else {
+  //   return <ActivityIndicator />;
+  // }
   if (data.length !== 0 && isLoading === false) {
     return (
       <View>
@@ -43,25 +45,23 @@ const Booking = ({navigation}) => {
           onPress={() => navigation.navigate('Appointment')}
         />
         <View style={styles.listInfo}>
-          <Text>Name: {data.name}</Text>
-          <Text>Email: {data.email}</Text>
-          <Text>Phone: {data.phone}</Text>
-          <Text>Phone: {data.company.name}</Text>
-          <Text>Phone: {data.company.catchPhrase}</Text>
-          <Text>Phone: {data.company.bs}</Text>
-          <Text>Phone: {data.address.street}</Text>
+          <Text>Name: {data.NameDoctor}</Text>
+          <Text>Day of birth: {data.DayOfBirth}</Text>
+          <Text>Gender: {data.sex}</Text>
+          <Text>Phone: {data.Phone}</Text>
+          <Text>Home address: {data.HomeAddress}</Text>
+          <Text>Specialist: {data.Specialist}</Text>
+          <Text>Hospital: {data.Hospital}</Text>
+          <Text>Email: {data.Email}</Text>
         </View>
         <View style={styles.blue}>
-          <Text style={styles.emptyHours}>Day off</Text>
+          <Text style={styles.emptyHours}>Free</Text>
         </View>
         <View style={styles.gray}>
-          <Text style={styles.busyHours}>Day busy</Text>
+          <Text style={styles.busyHours}>Busy</Text>
         </View>
-        {/* <View>
-          <Text styles={styles.dayOff}>Day off</Text>
-        </View> */}
         <View style={styles.calendar}>
-          <CalendarItem />
+          <CalendarItem IDDoctor={IDDoctor} />
         </View>
       </View>
     );

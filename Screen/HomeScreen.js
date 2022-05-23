@@ -74,12 +74,12 @@ const HomeScreen = ({navigation}) => {
                 <Text
                   style={{
                     top: -15,
-                    left: 40,
+                    left: 30,
                     fontSize: 15,
                     fontWeight: 'bold',
                     fontFamily: 'Poppins',
                   }}>
-                  An Appointment
+                  Make Appointment
                 </Text>
               </TouchableOpacity>
             </View>

@@ -10,20 +10,29 @@ import {
 import React, {useState, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ChooseTime from './ChooseTime';
+import {useRoute} from '@react-navigation/native';
 
 const Confirm = ({navigation}) => {
   const [data, setData] = useState([]);
+  const [text, setText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const route = useRoute();
+  const title = route.params.title;
+  const date = route.params.date;
+  const IDDoctor = route.params.IDDoctor;
+  console.log('Confirm', IDDoctor);
   useEffect(() => {
     getListDoctor();
     return () => {};
   }, []);
   let getListDoctor = () => {
-    const apiURL = `https://jsonplaceholder.typicode.com/users/1`;
+    const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
-        setData(resJson);
+        console.log('data', data);
+        setData(resJson.data[0]);
         setTimeout(() => setIsLoading(false), 1000);
       })
       .catch(error => {
@@ -31,7 +40,10 @@ const Confirm = ({navigation}) => {
       });
   };
   //console.log(data);
-  if (data.length !== 0 && isLoading === false) {
+  // if (data.length !== 0 && isLoading === false) {   } else {
+  //   return <ActivityIndicator />;
+  // }
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -46,26 +58,38 @@ const Confirm = ({navigation}) => {
           onPress={() => navigation.navigate('Appointment')}
         />
         <View style={styles.listInfo}>
-          <Text style={styles.text}>Name: {data.name}</Text>
-          <Text style={styles.text}>Email: {data.email}</Text>
-          <Text style={styles.text}>Phone: {data.phone}</Text>
-          <Text style={styles.text}>Company: {data.company.name}</Text>
-          <Text style={styles.text}>Phone: {data.company.catchPhrase}</Text>
-          <Text style={styles.text}>Phone: {data.company.bs}</Text>
-          <Text style={styles.text}>Address: {data.address.street}</Text>
+          <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
+          <Text style={styles.text}>Home address: {data?.HomeAddress}</Text>
+          <Text style={styles.text}>Email: {data?.Email}</Text>
+          <Text style={styles.text}>Phone: {data?.Phone}</Text>
         </View>
         <View>
-          <Text style={styles.time}>Time: 14:15 - 15: 15</Text>
+          <Text style={styles.time}>Time: {title}</Text>
+          <Text style={styles.time}>
+            Day: {date.day} / {date.month} / {date.year}
+          </Text>
         </View>
         <View>
-          <Text style={styles.decription}>Decription about symptom: </Text>
-          <TextInput placeholder="Input here" style={styles.textInput} />
+          <Text style={styles.decription}>Description about symptom: </Text>
+          <TextInput
+            onChangeText={newText => setText(newText)}
+            defaultValue={text}
+            placeholder="Input here"
+            style={styles.textInput}
+          />
         </View>
         <MaterialIcons
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() =>
+            navigation.navigate('Profile', {
+              title: title,
+              text: text,
+              date: date,
+              IDDoctor: IDDoctor,
+            })
+          }
           name="navigate-next"
           size={50}
-          style={{top: 570, left: 360}}
+          style={{top: 500, left: 360}}
         />
       </View>
     );
@@ -166,7 +190,7 @@ const styles = StyleSheet.create({
   textInput: {
     position: 'absolute',
     width: 389,
-    height: 200,
+    height: 100,
     top: 400,
     padding: 10,
     margin: 10,

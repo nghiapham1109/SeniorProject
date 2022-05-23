@@ -1,11 +1,69 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useRoute} from '@react-navigation/native';
+const DATA = [
+  {
+    id: '1',
+    title: '08:00-09:00',
+  },
+  {
+    id: '2',
+    title: '09:15-10:00',
+  },
+  {
+    id: '3',
+    title: '10:15-11:15',
+  },
+];
+const DATA1 = [
+  {
+    id: '4',
+    title: '13:00-14:00',
+  },
+  {
+    id: '5',
+    title: '14:15-15:15',
+  },
+  {
+    id: '6',
+    title: '15:30-16:30',
+  },
+];
+const Item = ({item, onPress, backgroundColor, textColor}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+    <Text style={[styles.title1, textColor]}>{item.title}</Text>
+  </TouchableOpacity>
+);
 
 const ChooseTime = ({navigation}) => {
+  const route = useRoute();
+  const date = route.params.date;
+  const IDDoctor = route.params.IDDoctor;
+  const renderItem = ({item}) => {
+    return (
+      <Item
+        item={item}
+        onPress={() =>
+          navigation.navigate('Confirm', {
+            title: item.title,
+            date: date,
+            IDDoctor: IDDoctor,
+          })
+        }
+      />
+    );
+  };
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -24,180 +82,37 @@ const ChooseTime = ({navigation}) => {
         <View style={styles.blue}>
           <Text style={styles.emptyHours}>Empty hours</Text>
         </View>
+        <Text style={styles.day}>
+          {date.day} / {date.month} / {date.year}
+        </Text>
         <View style={styles.gray}>
           <Text style={styles.busyHours}>Busy hours</Text>
         </View>
         <Text style={styles.morning}>Morning</Text>
-        <View>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 190,
-              left: 15,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              8:00 - 9:00
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 190,
-              left: 135,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              9:15 - 10:00
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 190,
-              left: 255,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              9:15 - 10:00
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 250,
-              left: 15,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              10:15 - 11:15
-            </Text>
-          </TouchableOpacity>
+        <View style={{top: 280}}>
+          <FlatList
+            horizontal
+            nestedScrollEnabled
+            data={DATA}
+            renderItem={renderItem}
+          />
         </View>
         <Text style={styles.afternoon}>Afternoon</Text>
-        <View>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 380,
-              left: 15,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              13:00 - 14:00
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 380,
-              left: 135,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              14:15 - 15:15
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 380,
-              left: 255,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              15:30 - 16:30
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              width: 110,
-              height: 40,
-              top: 440,
-              left: 15,
-              backgroundColor: '#A6E9F2',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                textAlign: 'center',
-                padding: 10,
-              }}>
-              16:45 - 17:45
-            </Text>
-          </TouchableOpacity>
+        <View style={{top: 330}}>
+          <FlatList
+            horizontal
+            nestedScrollEnabled
+            data={DATA1}
+            renderItem={renderItem}
+          />
         </View>
         <MaterialIcons
-          onPress={() => navigation.navigate('Confirm')}
+          onPress={() =>
+            navigation.navigate('Confirm', {date: date, IDDoctor: IDDoctor})
+          }
           name="navigate-next"
           size={50}
-          style={{top: 525, left: 325}}
+          style={{top: 350, left: 325}}
         />
       </View>
     </View>
@@ -280,12 +195,24 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
   },
+  day: {
+    position: 'absolute',
+    width: 300,
+    height: 23,
+    left: 25,
+    top: 90,
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    lineHeight: 22,
+    color: 'black',
+    fontSize: 20,
+  },
   blue: {
     position: 'absolute',
     width: 70,
     height: 40,
     left: 25,
-    top: 80,
+    top: 150,
     backgroundColor: '#A6E9F2',
     borderRadius: 10,
   },
@@ -294,7 +221,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 40,
     right: 100,
-    top: 80,
+    top: 150,
     backgroundColor: 'gray',
     borderRadius: 10,
   },
@@ -325,7 +252,7 @@ const styles = StyleSheet.create({
     width: 79,
     height: 23,
     left: 25,
-    top: 150,
+    top: 250,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -338,12 +265,26 @@ const styles = StyleSheet.create({
     width: 100,
     height: 23,
     left: 25,
-    top: 335,
+    top: 400,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 20,
     lineHeight: 22,
     color: 'black',
+  },
+  item: {
+    backgroundColor: '#A6E9F2',
+    height: 80,
+    width: 87,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title1: {
+    fontSize: 15,
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    textAlign: 'justify',
   },
 });

@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
           style={styles.textUsername}
           value={username}
           setValue={setUsername}
-          placeholder="User name..."
+          placeholder="Email..."
         />
         <TextInput
           style={styles.textPassword}

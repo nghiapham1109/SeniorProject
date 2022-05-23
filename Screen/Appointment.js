@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -15,10 +16,24 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.id}</Text>
-    <Text style={[styles.title, textColor]}>{item.name}</Text>
-    <Text style={[styles.title, textColor]}>{item.email}</Text>
-    <Text style={[styles.title, textColor]}>{item.phone}</Text>
+    <Text style={[styles.title, textColor]}>Full name: {item.NameDoctor}</Text>
+    <Text style={[styles.title, textColor]}>
+      Day of birth: {item.DayOfBirth}
+    </Text>
+    <Text style={[styles.title, textColor]}>Gender: {item.sex}</Text>
+    <Text style={[styles.title, textColor]}>Email: {item.Email}</Text>
+    <Text style={[styles.title, textColor]}>Phone: {item.Phone}</Text>
+    <Image
+      source={{uri: item.Image}}
+      style={{
+        width: 150,
+        height: 150,
+        resizeMode: 'contain',
+        borderRadius: 20,
+        left: 180,
+        top: -80,
+      }}
+    />
   </TouchableOpacity>
 );
 
@@ -33,38 +48,47 @@ const Appointment = ({navigation}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('http://10.0.2.2:8080/api/doctor')
       .then(response => response.json())
-      .then(json => setData(json))
-      .then(json => setArrayHolder(json));
+      .then(json => {
+        setData(json.data);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
   }, []);
   //
   const renderItem = ({item}) => {
-    const color = item.id === selectedId ? 'black' : 'black';
+    const color = item.IDDoctor === selectedId ? 'black' : 'black';
     return (
       <Item
         item={item}
-        // onPress={() => setSelectedId(item.id)}
-        onPress={() => navigation.navigate('Booking', {id: item.id})}
-        // backgroundColor={{backgroundColor}}
+        onPress={() =>
+          navigation.navigate('Booking', {IDDoctor: item.IDDoctor})
+        }
         textColor={{color}}
       />
     );
   };
   //
-  const [items, setItems] = useState([
-    {label: 'Male', value: 'Male'},
-    {label: 'Female', value: 'Female'},
-  ]);
-  const [Specialist, setSpecialist] = useState([
-    {label: 'Anatomy', value: 'Anatomy'},
-    {label: 'Biochemistry', value: 'Biochemistry'},
-    {label: 'Cardiology', value: 'Cardiology'},
-    {label: 'Department of psychiatry', value: 'Department of psychiatry'},
-    {label: 'Dermatology', value: 'Dermatology'},
-    {label: 'Diagnostic imaging', value: 'Diagnostic imaging'},
-    {label: 'Forensic science', value: 'Forensic science'},
-  ]);
+  // const [items, setItems] = useState([
+  //   {label: 'Male', value: 'Male'},
+  //   {label: 'Female', value: 'Female'},
+  // ]);
+  // const [Specialist, setSpecialist] = useState([
+  //   {label: 'Anatomy', value: 'Anatomy'},
+  //   {label: 'Biochemistry', value: 'Biochemistry'},
+  //   {label: 'Cardiology', value: 'Cardiology'},
+  //   {label: 'Department of psychiatry', value: 'Department of psychiatry'},
+  //   {label: 'Dermatology', value: 'Dermatology'},
+  //   {label: 'Diagnostic imaging', value: 'Diagnostic imaging'},
+  //   {label: 'Forensic science', value: 'Forensic science'},
+  // ]);
   //
   return (
     <View>
@@ -80,7 +104,7 @@ const Appointment = ({navigation}) => {
         onPress={() => navigation.navigate('AppHome')}
       />
       <TextInput style={styles.textInput} placeholder="Search doctor..." />
-      <View style={styles.dropdown}>
+      {/* <View style={styles.dropdown}>
         <View style={{flex: 1}}>
           <DropDownPicker
             style={{
@@ -120,13 +144,13 @@ const Appointment = ({navigation}) => {
             autoScroll={true}
           />
         </View>
-      </View>
+      </View> */}
       <View style={styles.listDoctor}>
         <FlatList
           nestedScrollEnabled
           data={data}
           renderItem={renderItem}
-          // keyExtractor={item => item.id}
+          keyExtractor={item => item.IDDoctor}
           extraData={selectedId}
         />
       </View>
@@ -215,8 +239,8 @@ const styles = StyleSheet.create({
   listDoctor: {
     position: 'absolute',
     width: 389,
-    height: 530,
-    top: 210,
+    height: 600,
+    top: 140,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',
@@ -237,6 +261,12 @@ const styles = StyleSheet.create({
     margin: 5,
     marginVertical: 8,
     marginHorizontal: 5,
+  },
+  title: {
+    fontSize: 15,
     fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    padding: 5,
+    lineHeight: 20,
   },
 });

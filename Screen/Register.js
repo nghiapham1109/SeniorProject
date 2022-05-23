@@ -25,46 +25,40 @@ const Register = ({navigation}) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Full Name"
         autoCapitalize="none"
-        placeholderTextColor="black"
         onChangeText={val => this.onChangeText('username', val)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Day of Birth"
+        autoCapitalize="none"
+        onChangeText={val => this.onChangeText('email', val)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Phone"
+        autoCapitalize="none"
+        onChangeText={val => this.onChangeText('phone_number', val)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Address"
+        autoCapitalize="none"
+        onChangeText={val => this.onChangeText('phone_number', val)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        autoCapitalize="none"
+        onChangeText={val => this.onChangeText('phone_number', val)}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
         autoCapitalize="none"
-        placeholderTextColor="black"
         onChangeText={val => this.onChangeText('password', val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        autoCapitalize="none"
-        placeholderTextColor="black"
-        onChangeText={val => this.onChangeText('email', val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        autoCapitalize="none"
-        placeholderTextColor="black"
-        onChangeText={val => this.onChangeText('phone_number', val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Day of birth"
-        autoCapitalize="none"
-        placeholderTextColor="black"
-        onChangeText={val => this.onChangeText('phone_number', val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Full name"
-        autoCapitalize="none"
-        placeholderTextColor="black"
-        onChangeText={val => this.onChangeText('phone_number', val)}
       />
       <TouchableOpacity
         style={styles.register}

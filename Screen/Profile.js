@@ -7,13 +7,38 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {PracticeProvider, PracticeContext} from '../Global/PracticeContext';
+import ChooseTime from './ChooseTime';
+import Confirm from './Confirm';
+import {useRoute} from '@react-navigation/native';
 const Profile = ({navigation}) => {
-  const {val, setVal, val1, setVal1, val2, setVal2} =
-    useContext(PracticeContext);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const route = useRoute();
+  const title = route.params.title;
+  const text = route.params.text;
+  const date = route.params.date;
+  const IDDoctor = route.params.IDDoctor;
+  useEffect(() => {
+    getListDoctor();
+    return () => {};
+  }, []);
+  let getListDoctor = () => {
+    const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(resJson => {
+        console.log('data', data);
+        setData(resJson.data[0]);
+        setTimeout(() => setIsLoading(false), 1000);
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      });
+  };
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -27,30 +52,16 @@ const Profile = ({navigation}) => {
         style={{left: 10, top: 25}}
         onPress={() => navigation.navigate('AppHome')}
       />
-      {/* <View style={{alignItems: 'center'}}>
-        <View style={styles.image}>
-          <Image
-            source={require('../asset/picture.jpg')}
-            style={styles.profileImage}
-            resizeMode="center"
-          />
-        </View>
-      </View> */}
-      {/* <View>
-        <TextInput style={styles.textInput} placeholder="My result..." />
-      </View> */}
       <View style={styles.containerProfile}>
-        <Text>{val}</Text>
-        <Text>{val1}</Text>
-        <Text>{val2}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            setVal(val + 1);
-            setVal1(val1 + 1);
-            setVal2(val2 + 1);
-          }}>
-          <Text>Click</Text>
-        </TouchableOpacity>
+        <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
+        <Text style={styles.text}>Home address: {data?.HomeAddress}</Text>
+        <Text style={styles.text}>Email: {data?.Email}</Text>
+        <Text style={styles.text}>Phone: {data?.Phone}</Text>
+        <Text>{title}</Text>
+        <Text>{text}</Text>
+        <Text>
+          {date.day} / {date.month} / {date.year}
+        </Text>
       </View>
     </View>
   );
@@ -132,11 +143,12 @@ const styles = StyleSheet.create({
   },
   containerProfile: {
     position: 'absolute',
-    width: 317,
+    width: 389,
     height: 300,
-    left: 50,
     top: 70,
-    backgroundColor: '#FEFFFF',
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#F7F3F3',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 1)',
     shadowOpacity: 100,
