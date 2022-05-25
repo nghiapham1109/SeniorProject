@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
@@ -23,6 +23,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
+  // const [token, setToken] = useState();
+  // if (!token) {
+  //   return <Login setToken={setToken} />;
+  // }
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Intro" component={IntroScreen} />

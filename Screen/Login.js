@@ -9,16 +9,37 @@ import {
 } from 'react-native';
 //
 import client from '../api/client';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//
+//
 const Login = ({navigation}) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const signIn = (values, actions) => {
-    // console.warn('Sign in');
-    values = username;
-    console.log(values);
+  //
+  axios.defaults.withCredentials = true;
+  const [loginStatus, setLoginStatus] = useState('');
+
+  const handleLogin = () => {
+    axios
+      .post('http://10.0.2.2:8080/api/patient/login', {
+        Email: email,
+        Pw: password,
+      })
+      .then(response => {
+        if (!response.data.message) {
+          setLoginStatus(response.data.message);
+        } else {
+          setLoginStatus(response.data.token);
+          AsyncStorage.setItem('storeToken', response.data.token).then(() => {
+            navigation.navigate('AppHome');
+          });
+        }
+        console.log(response.data.token);
+      });
   };
   return (
     <View>
@@ -37,21 +58,22 @@ const Login = ({navigation}) => {
       <View style={styles.containerLogin}>
         <TextInput
           style={styles.textUsername}
-          value={username}
-          setValue={setUsername}
+          onChangeText={value => setEmail(value)}
+          value={email}
           placeholder="Email..."
         />
         <TextInput
           style={styles.textPassword}
           secureTextEntry={true}
-          placeholder="Password..."
+          onChangeText={value => setPassword(value)}
           value={password}
-          setValue={setPassword}
+          placeholder="Password..."
         />
         {/* onPress={() => navigation.navigate('AppHome') */}
+        {/*onPress={() => navigation.navigate('AppHome')} */}
         <TouchableOpacity
           style={styles.buttonLogin}
-          onPress={() => navigation.navigate('AppHome')}>
+          onPress={() => handleLogin()}>
           <Text
             style={{
               fontSize: 15,
