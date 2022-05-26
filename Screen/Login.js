@@ -34,9 +34,7 @@ const Login = ({navigation}) => {
           setLoginStatus(response.data.message);
         } else {
           setLoginStatus(response.data.token);
-          AsyncStorage.setItem('storeToken', response.data.token).then(() => {
-            navigation.navigate('AppHome');
-          });
+          AsyncStorage.setItem('storeToken', response.data.token);
         }
         console.log(response.data.token);
       });

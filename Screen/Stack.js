@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
@@ -20,22 +20,28 @@ import DetailDisease from './DetailDisease';
 import Disease from './Disease';
 import DetailNew from './DetailNew';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
-  // const [token, setToken] = useState();
-  // if (!token) {
-  //   return <Login setToken={setToken} />;
-  // }
-
+  const [token, setToken] = useState('');
+  const getData = async () => {
+    setToken(await AsyncStorage.getItem('storeToken'));
+  };
+  useEffect(() => {
+    getData();
+    console.log('Stack', token);
+  });
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Intro" component={IntroScreen} />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
         name="AppHome"
         component={Navigation}
         options={{headerShown: false}}
       />
+
       <Stack.Screen name="Appointment" component={Appointment} />
       <Stack.Screen name="Booking" component={Booking} />
       <Stack.Screen name="CovidScreen" component={CovidScreen} />
@@ -44,7 +50,6 @@ const MyStack = () => {
       <Stack.Screen name="Confirm" component={Confirm} />
       <Stack.Screen name="New" component={New} />
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="DetailCountry" component={DetailCountry} />
       <Stack.Screen name="DetailDisease" component={DetailDisease} />
@@ -57,3 +62,9 @@ const MyStack = () => {
 export default MyStack;
 
 const styles = StyleSheet.create({});
+
+/**
+ * <Stack.Navigator screenOptions={{headerShown: false}}>
+ *  <Stack.Screen name="Login" component={Login} />
+ * </Stack.Navigator>
+ */
