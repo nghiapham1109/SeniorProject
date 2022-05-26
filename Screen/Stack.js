@@ -19,6 +19,7 @@ import DetailCountry from './DetailCountry';
 import DetailDisease from './DetailDisease';
 import Disease from './Disease';
 import DetailNew from './DetailNew';
+import Account from './Account';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -32,39 +33,64 @@ const MyStack = () => {
     getData();
     console.log('Stack', token);
   });
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Intro" component={IntroScreen} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen
-        name="AppHome"
-        component={Navigation}
-        options={{headerShown: false}}
-      />
-
-      <Stack.Screen name="Appointment" component={Appointment} />
-      <Stack.Screen name="Booking" component={Booking} />
-      <Stack.Screen name="CovidScreen" component={CovidScreen} />
-      <Stack.Screen name="ChooseTime" component={ChooseTime} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Confirm" component={Confirm} />
-      <Stack.Screen name="New" component={New} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="DetailCountry" component={DetailCountry} />
-      <Stack.Screen name="DetailDisease" component={DetailDisease} />
-      <Stack.Screen name="Disease" component={Disease} />
-      <Stack.Screen name="DetailNew" component={DetailNew} />
-    </Stack.Navigator>
-  );
+  // return (
+  //   <Stack.Navigator screenOptions={{headerShown: false}}>
+  //     <Stack.Screen name="Intro" component={IntroScreen} />
+  //     <Stack.Screen name="Login" component={Login} />
+  //     <Stack.Screen
+  //       name="AppHome"
+  //       component={Navigation}
+  //       options={{headerShown: false}}
+  //     />
+  //     <Stack.Screen name="Appointment" component={Appointment} />
+  //     <Stack.Screen name="Booking" component={Booking} />
+  //     <Stack.Screen name="CovidScreen" component={CovidScreen} />
+  //     <Stack.Screen name="ChooseTime" component={ChooseTime} />
+  //     <Stack.Screen name="Profile" component={Profile} />
+  //     <Stack.Screen name="Confirm" component={Confirm} />
+  //     <Stack.Screen name="New" component={New} />
+  //     <Stack.Screen name="HomeScreen" component={HomeScreen} />
+  //     <Stack.Screen name="Register" component={Register} />
+  //     <Stack.Screen name="DetailCountry" component={DetailCountry} />
+  //     <Stack.Screen name="DetailDisease" component={DetailDisease} />
+  //     <Stack.Screen name="Disease" component={Disease} />
+  //     <Stack.Screen name="DetailNew" component={DetailNew} />
+  //   </Stack.Navigator>
+  // );
+  if (token === null) {
+    return (
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Intro" component={IntroScreen} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    );
+  } else {
+    return (
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="AppHome"
+          component={Navigation}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="Appointment" component={Appointment} />
+        <Stack.Screen name="Booking" component={Booking} />
+        <Stack.Screen name="CovidScreen" component={CovidScreen} />
+        <Stack.Screen name="ChooseTime" component={ChooseTime} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Confirm" component={Confirm} />
+        <Stack.Screen name="New" component={New} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="DetailCountry" component={DetailCountry} />
+        <Stack.Screen name="DetailDisease" component={DetailDisease} />
+        <Stack.Screen name="Disease" component={Disease} />
+        <Stack.Screen name="DetailNew" component={DetailNew} />
+        <Stack.Screen name="Account" component={Account} />
+        {/* <Stack.Screen name="Login" component={Login} /> */}
+      </Stack.Navigator>
+    );
+  }
 };
 
 export default MyStack;
 
 const styles = StyleSheet.create({});
-
-/**
- * <Stack.Navigator screenOptions={{headerShown: false}}>
- *  <Stack.Screen name="Login" component={Login} />
- * </Stack.Navigator>
- */

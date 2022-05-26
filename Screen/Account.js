@@ -1,14 +1,29 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import Login from './Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Account = () => {
+const Account = ({navigation}) => {
+  // const [deleteToken, setDeleteToken] = useState('');
+  const deleteData = async () => {
+    await AsyncStorage.removeItem('storeToken');
+  };
+  // useEffect(() => {
+  //   deleteData();
+  //   console.log('Stack', deleteToken);
+  // });
   return (
     <View>
       <View style={styles.eclipse1} />
       <View style={styles.eclipse2} />
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
+      <View>
+        <TouchableOpacity onPress={() => deleteData()}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
