@@ -26,9 +26,9 @@ const Disease = ({navigation}) => {
     //   .then(response => response.json())
     //   .then(json => setData(json));
 
-    fetch('http://10.0.2.2:3000/products')
+    fetch('http://10.0.2.2:8080/api/disease')
       .then(response => response.json())
-      .then(json => setData(json))
+      .then(json => setData(json.data))
       .catch(error => {
         console.log(
           'There has been a problem with your fetch operation: ' +

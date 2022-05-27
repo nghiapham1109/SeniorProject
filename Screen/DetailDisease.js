@@ -86,9 +86,9 @@ const DetailDisease = ({navigation}) => {
     //   .then(response => response.json())
     //   .then(json => setData(json));
 
-    fetch(`http://10.0.2.2:3000/products/${index}`)
+    fetch(`http://10.0.2.2:8080/api/disease/${index}`)
       .then(response => response.json())
-      .then(json => setData(json))
+      .then(json => setData(json.data[0]))
       .catch(error => {
         console.log(
           'There has been a problem with your fetch operation: ' +
