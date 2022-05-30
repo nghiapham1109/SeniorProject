@@ -5,14 +5,9 @@ import Login from './Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account = ({navigation}) => {
-  // const [deleteToken, setDeleteToken] = useState('');
   const deleteData = async () => {
     await AsyncStorage.removeItem('storeToken');
   };
-  // useEffect(() => {
-  //   deleteData();
-  //   console.log('Stack', deleteToken);
-  // });
   return (
     <View>
       <View style={styles.eclipse1} />

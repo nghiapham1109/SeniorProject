@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
-import LottieView from 'lottie-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {PracticeProvider, PracticeContext} from '../Global/PracticeContext';
-import ChooseTime from './ChooseTime';
-import Confirm from './Confirm';
+import axios from 'axios';
 import {useRoute} from '@react-navigation/native';
+import jwt_decode from 'jwt-decode';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//
 const Profile = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,10 +22,15 @@ const Profile = ({navigation}) => {
   const text = route.params.text;
   const date = route.params.date;
   const IDDoctor = route.params.IDDoctor;
+  const [insertStatus, setInsertStatus] = useState('');
+  //
+  axios.defaults.withCredentials = true;
+  //
   useEffect(() => {
     getListDoctor();
     return () => {};
   }, []);
+  //
   let getListDoctor = () => {
     const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
     fetch(apiURL)
@@ -39,6 +44,30 @@ const Profile = ({navigation}) => {
         console.log('Error: ', error);
       });
   };
+  //
+  const handleStoreSchedule = async () => {
+    console.log('Profile');
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + (await AsyncStorage.getItem('storeToken')),
+      },
+    };
+    axios
+      .post('http://10.0.2.2:8080/api/schedule', config, {
+        TimeBooking: title,
+        Note: text,
+        IDDoctor: IDDoctor,
+      })
+      .then(response => {
+        console.log(response);
+        if (!response.data.message) {
+          setInsertStatus(response.data.message);
+        } else {
+          setInsertStatus(response.data.token);
+        }
+      });
+  };
+  //
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -50,17 +79,18 @@ const Profile = ({navigation}) => {
         name="arrow-back-outline"
         size={30}
         style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
+        //navigation.navigate('AppHome')
+        onPress={() => handleStoreSchedule()}
       />
       <View style={styles.containerProfile}>
         <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
         <Text style={styles.text}>Home address: {data?.HomeAddress}</Text>
         <Text style={styles.text}>Email: {data?.Email}</Text>
         <Text style={styles.text}>Phone: {data?.Phone}</Text>
-        <Text>{title}</Text>
-        <Text>{text}</Text>
-        <Text>
-          {date.day} / {date.month} / {date.year}
+        <Text style={styles.text}>Time: {title}</Text>
+        <Text style={styles.text}>Description: {text}</Text>
+        <Text style={styles.text}>
+          Day: {date.day} / {date.month} / {date.year}
         </Text>
       </View>
     </View>
@@ -154,5 +184,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
+  },
+  text: {
+    fontSize: 15,
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    padding: 5,
+    lineHeight: 20,
   },
 });
