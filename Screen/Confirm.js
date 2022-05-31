@@ -66,7 +66,8 @@ const Confirm = ({navigation}) => {
         <View>
           <Text style={styles.time}>Time: {title}</Text>
           <Text style={styles.time}>
-            Day: {date.day} / {date.month} / {date.year}
+            {/* Day: {date.day} / {date.month} / {date.year} */}
+            {date}
           </Text>
         </View>
         <View>

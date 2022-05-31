@@ -53,11 +53,16 @@ const Profile = ({navigation}) => {
       },
     };
     axios
-      .post('http://10.0.2.2:8080/api/schedule', config, {
-        TimeBooking: title,
-        Note: text,
-        IDDoctor: IDDoctor,
-      })
+      .post(
+        'http://10.0.2.2:8080/api/schedule',
+        {
+          TimeBooking: title,
+          Note: text,
+          IDDoctor: IDDoctor,
+          DayBooking: date,
+        },
+        config,
+      )
       .then(response => {
         console.log(response);
         if (!response.data.message) {
@@ -90,7 +95,8 @@ const Profile = ({navigation}) => {
         <Text style={styles.text}>Time: {title}</Text>
         <Text style={styles.text}>Description: {text}</Text>
         <Text style={styles.text}>
-          Day: {date.day} / {date.month} / {date.year}
+          {/* Day: {date.day} / {date.month} / {date.year} */}
+          {date}
         </Text>
       </View>
     </View>

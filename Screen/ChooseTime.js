@@ -83,7 +83,8 @@ const ChooseTime = ({navigation}) => {
           <Text style={styles.emptyHours}>Empty hours</Text>
         </View>
         <Text style={styles.day}>
-          {date.day} / {date.month} / {date.year}
+          {/* {date.day} / {date.month} / {date.year} */}
+          {date}
         </Text>
         <View style={styles.gray}>
           <Text style={styles.busyHours}>Busy hours</Text>

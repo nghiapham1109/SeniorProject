@@ -26,9 +26,12 @@ const CalendarItem = ({IDDoctor}) => {
             // toast message
             console.log("Too late, can't booking calendar");
           } else {
-            console.log(date);
+            console.log(date.dateString);
             console.log(IDDoctor);
-            navigation.navigate('ChooseTime', {date: date, IDDoctor: IDDoctor});
+            navigation.navigate('ChooseTime', {
+              date: date.dateString,
+              IDDoctor: IDDoctor,
+            });
           }
         }}
       />
