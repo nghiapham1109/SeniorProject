@@ -2,14 +2,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import MyStack from './Screen/Stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {PracticeProvider, PracticeContext} from './Global/PracticeContext';
+import {AuthProvider, AuthContext} from './Global/context';
 const App = () => {
   return (
-    <PracticeProvider>
+    <AuthProvider>
       <NavigationContainer>
         <MyStack />
       </NavigationContainer>
-    </PracticeProvider>
+    </AuthProvider>
   );
 };
 

@@ -9,21 +9,27 @@ import {
 } from 'react-native';
 //
 import client from '../api/client';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import LottieView from 'lottie-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../Global/context';
 //
 //
 const Login = ({navigation}) => {
+  //
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //
+  // const {signIn} = useContext(AuthContext);
+  const context = useContext(AuthContext);
+  const setToken = context.setToken;
+  // const handleLogin = context.handleLogin;
+  //
   axios.defaults.withCredentials = true;
   const [loginStatus, setLoginStatus] = useState('');
-
-  const handleLogin = () => {
+  const handleLogin = async () => {
     axios
       .post('http://10.0.2.2:8080/api/patient/login', {
         Email: email,
@@ -31,14 +37,13 @@ const Login = ({navigation}) => {
       })
       .then(response => {
         if (!response.data.message) {
-          setLoginStatus(response.data.message);
         } else {
-          setLoginStatus(response.data.token);
-          AsyncStorage.setItem('storeToken', response.data.token);
+          setToken(AsyncStorage.setItem('storeToken', response.data.token));
         }
-        console.log(response.data.token);
+        console.log('login', response.data.token);
       });
   };
+
   return (
     <View>
       <View style={styles.eclipse1} />
