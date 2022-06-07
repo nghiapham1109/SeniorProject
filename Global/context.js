@@ -10,6 +10,10 @@ const AuthProvider = ({children}) => {
   axios.defaults.withCredentials = true;
   const [loginStatus, setLoginStatus] = useState('');
   //
-  return <AuthContext.Provider value={{token, setToken}}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{token, setToken}}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 export {AuthContext, AuthProvider};

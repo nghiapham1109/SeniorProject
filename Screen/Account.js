@@ -1,12 +1,16 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Login from './Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../Global/context';
 
 const Account = ({navigation}) => {
+  const context = useContext(AuthContext);
+  const setToken = context.setToken;
   const deleteData = async () => {
-    await AsyncStorage.removeItem('storeToken');
+    setToken(await AsyncStorage.removeItem('storeToken'));
+    console.log('account', setToken);
   };
   return (
     <View>
@@ -15,8 +19,19 @@ const Account = ({navigation}) => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <View>
-        <TouchableOpacity onPress={() => deleteData()}>
-          <Text>Logout</Text>
+        <TouchableOpacity
+          style={styles.buttonLogout}
+          onPress={() => deleteData()}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              fontFamily: 'Poppins',
+              color: 'white',
+              textAlign: 'center',
+            }}>
+            Logout
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -61,5 +76,19 @@ const styles = StyleSheet.create({
     top: 700,
     borderRadius: 100,
     backgroundColor: '#BFF1E5',
+  },
+  buttonLogout: {
+    position: 'absolute',
+    width: 360,
+    top: 500,
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#4FC3F7',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOpacity: 100,
+    shadowRadius: 100,
+    elevation: 10,
+    left: 15,
   },
 });

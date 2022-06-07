@@ -22,10 +22,8 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //
-  // const {signIn} = useContext(AuthContext);
   const context = useContext(AuthContext);
   const setToken = context.setToken;
-  // const handleLogin = context.handleLogin;
   //
   axios.defaults.withCredentials = true;
   const [loginStatus, setLoginStatus] = useState('');
