@@ -12,16 +12,53 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../Global/context';
 import jwt_decode from 'jwt-decode';
 const Account = ({navigation}) => {
+  const [data, setData] = useState([]);
   const context = useContext(AuthContext);
   const setToken = context.setToken;
   const Token = context.token;
   const decode = jwt_decode(Token);
-  console.log('decode', decode);
+  console.log('DecodeAccount', decode);
+  const IDPatient = decode.result.IDPatient;
+  const [namePatient, setNamePatient] = useState('');
+  const [dayOfBirth, setDayOfBirth] = useState('');
+  const [sex, setSex] = useState('');
+  const [phone, setPhone] = useState('');
+  const [homeAddress, setHomeAddress] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //
   const deleteData = async () => {
     setToken(await AsyncStorage.removeItem('storeToken'));
     console.log('account', setToken);
   };
-
+  //
+  useEffect(() => {
+    fetch(`http://10.0.2.2:8080/api/patient/${IDPatient}`, {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData(json.data);
+        console.log('Account', json.data);
+        setNamePatient(json.data[0].NamePatient);
+        setDayOfBirth(json.data[0].DayOfBirth);
+        setSex(json.data[0].Sex);
+        setPhone(json.data[0].Phone);
+        setHomeAddress(json.data[0].HomeAddress);
+        setEmail(json.data[0].Email);
+        setPassword(json.data[0].Pw);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
+  }, []);
   //
   return (
     <View>
@@ -31,13 +68,17 @@ const Account = ({navigation}) => {
       <View style={styles.eclipse4} />
       <Text style={styles.header}>About your information</Text>
       <View style={styles.containerAccount}>
-        <TextInput placeholder="Name Patient" />
-        <TextInput placeholder="Day Of Birth" />
-        <TextInput placeholder="Sex" />
-        <TextInput placeholder="Phone" />
-        <TextInput placeholder="Home Address" />
-        <TextInput placeholder="Email" />
-        <TextInput placeholder="Password" />
+        <TextInput placeholder="Name Patient" defaultValue={namePatient} />
+        <TextInput placeholder="Day Of Birth" defaultValue={dayOfBirth} />
+        <TextInput placeholder="Sex" defaultValue={sex} />
+        <TextInput placeholder="Phone" defaultValue={phone} />
+        <TextInput placeholder="Home Address" defaultValue={homeAddress} />
+        <TextInput placeholder="Email" defaultValue={email} />
+        <TextInput
+          placeholder="Password"
+          defaultValue={password}
+          secureTextEntry
+        />
       </View>
 
       <View>
