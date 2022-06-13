@@ -45,20 +45,12 @@ const Booking = ({navigation}) => {
           onPress={() => navigation.navigate('Appointment')}
         />
         <View style={styles.listInfo}>
-          <Text>Name: {data.NameDoctor}</Text>
-          <Text>Day of birth: {data.DayOfBirth}</Text>
-          <Text>Gender: {data.sex}</Text>
-          <Text>Phone: {data.Phone}</Text>
-          <Text>Home address: {data.HomeAddress}</Text>
-          <Text>Specialist: {data.Specialist}</Text>
-          <Text>Hospital: {data.Hospital}</Text>
-          <Text>Email: {data.Email}</Text>
-        </View>
-        <View style={styles.blue}>
-          <Text style={styles.emptyHours}>Free</Text>
-        </View>
-        <View style={styles.gray}>
-          <Text style={styles.busyHours}>Busy</Text>
+          <Text style={styles.text}>Name: {data.NameDoctor}</Text>
+          <Text style={styles.text}>Phone: {data.Phone}</Text>
+          <Text style={styles.text}>Home Address: {data.HomeAddress}</Text>
+          <Text style={styles.text}>Specialist: {data.Specialist}</Text>
+          <Text style={styles.text}>Hospital: {data.Hospital}</Text>
+          <Text style={styles.text}>Email: {data.Email}</Text>
         </View>
         <View style={styles.calendar}>
           <CalendarItem IDDoctor={IDDoctor} />
@@ -66,7 +58,7 @@ const Booking = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return <ActivityIndicator size="small" color="#0000ff" />;
   }
 };
 
@@ -123,7 +115,7 @@ const styles = StyleSheet.create({
   listInfo: {
     position: 'absolute',
     width: 389,
-    height: 200,
+    height: 220,
     top: 70,
     padding: 10,
     margin: 10,
@@ -133,6 +125,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
+  },
+  text: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 15,
+    lineHeight: 20,
+    padding: 5,
+    color: 'black',
   },
   blue: {
     position: 'absolute',
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 389,
     height: 380,
-    top: 350,
+    top: 330,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',

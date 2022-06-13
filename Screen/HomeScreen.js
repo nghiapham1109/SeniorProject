@@ -49,166 +49,167 @@ const HomeScreen = ({navigation}) => {
   // const renderItem = ({item}) => {
   //   return <Image source={{uri: item.urlToImage}} />;
   // };
-  // if (data.length !== 0 && isLoading === false) {
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Welcome to My Health</Text>
-      <Ionicons name="medical" size={50} color="red" style={{padding: 25}} />
-      <Text style={styles.introduce}>Have a nice day!</Text>
+  if (data.length !== 0 && isLoading === true) {
+    return (
       <View>
-        <View style={styles.containerButtons}>
-          <View style={styles.containerUp}>
-            <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Appointment')}>
-                <MaterialCommunityIcons
-                  color="#40C4FF"
-                  name="doctor"
-                  size={50}
-                  style={{margin: 15, left: 50}}
-                />
-                <Text
-                  style={{
-                    top: -15,
-                    left: 30,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    fontFamily: 'Poppins',
-                  }}>
-                  Make Appointment
-                </Text>
-              </TouchableOpacity>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Welcome to My Health</Text>
+        <Ionicons name="medical" size={50} color="red" style={{padding: 25}} />
+        <Text style={styles.introduce}>Have a nice day!</Text>
+        <View>
+          <View style={styles.containerButtons}>
+            <View style={styles.containerUp}>
+              <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Appointment')}>
+                  <MaterialCommunityIcons
+                    color="#40C4FF"
+                    name="doctor"
+                    size={50}
+                    style={{margin: 15, left: 50}}
+                  />
+                  <Text
+                    style={{
+                      top: -15,
+                      left: 30,
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      fontFamily: 'Poppins',
+                    }}>
+                    Make Appointment
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Profile')}>
+                  <Ionicons
+                    name="person-circle-outline"
+                    size={50}
+                    style={{margin: 15, left: 50}}
+                    color="#4C75A3"
+                  />
+                  <Text
+                    style={{
+                      top: -15,
+                      left: 68,
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      fontFamily: 'Poppins',
+                    }}>
+                    Profile
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
-              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                <Ionicons
-                  name="person-circle-outline"
-                  size={50}
-                  style={{margin: 15, left: 50}}
-                  color="#4C75A3"
-                />
-                <Text
-                  style={{
-                    top: -15,
-                    left: 68,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    fontFamily: 'Poppins',
-                  }}>
-                  Profile
-                </Text>
-              </TouchableOpacity>
+            <View style={styles.containerDown}>
+              <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
+                <TouchableOpacity>
+                  <MaterialIcons
+                    name="menu-book"
+                    size={50}
+                    style={{margin: 15, left: 50}}
+                    color="#02B875"
+                  />
+                  <Text
+                    style={{
+                      top: -15,
+                      left: 45,
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      fontFamily: 'Poppins',
+                    }}>
+                    User Manual
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CovidScreen')}>
+                  <FontAwesome5
+                    name="disease"
+                    color="#E91E63"
+                    size={50}
+                    style={{margin: 15, left: 50}}
+                  />
+                  <Text
+                    style={{
+                      top: -15,
+                      left: 50,
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      fontFamily: 'Poppins',
+                    }}>
+                    Covid - 19
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-          <View style={styles.containerDown}>
-            <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
-              <TouchableOpacity>
-                <MaterialIcons
-                  name="menu-book"
-                  size={50}
-                  style={{margin: 15, left: 50}}
-                  color="#02B875"
-                />
-                <Text
-                  style={{
-                    top: -15,
-                    left: 45,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    fontFamily: 'Poppins',
-                  }}>
-                  User Manual
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{backgroundColor: 'F8F0F0', flex: 1}}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('CovidScreen')}>
-                <FontAwesome5
-                  name="disease"
-                  color="#E91E63"
-                  size={50}
-                  style={{margin: 15, left: 50}}
-                />
-                <Text
-                  style={{
-                    top: -15,
-                    left: 50,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    fontFamily: 'Poppins',
-                  }}>
-                  Covid - 19
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <Text
-          style={styles.labelNews}
-          onPress={() => navigation.navigate('New')}>
-          News
-        </Text>
-        <Text
-          style={styles.labelSeeMore}
-          onPress={() => navigation.navigate('New')}>
-          See more
-        </Text>
-        <MaterialIcons
-          name="navigate-next"
-          size={30}
-          style={{top: 212, left: 370}}
-          onPress={() => navigation.navigate('New')}
-        />
-        <View style={styles.containerNews}>
-          <FlatList
-            nestedScrollEnabled
-            data={data}
-            renderItem={({item}) => {
-              return (
-                <View>
-                  <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
-                    <Image
-                      style={{
-                        width: 'auto',
-                        height: 200,
-                        borderRadius: 10,
-                        margin: 10,
-                      }}
-                      source={{
-                        uri: item.urlToImage,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  <Text
-                    ellipsizeMode="tail"
-                    numberOfLines={3}
-                    style={styles.headerNews}>
-                    {item.title}
-                  </Text>
-                  <Text
-                    ellipsizeMode="tail"
-                    numberOfLines={4}
-                    style={styles.bodyNews}>
-                    {item.description}
-                  </Text>
-                </View>
-              );
-            }}
-            keyExtractor={item => item.url}
-            extraData={selectedId}
+          <Text
+            style={styles.labelNews}
+            onPress={() => navigation.navigate('New')}>
+            News
+          </Text>
+          <Text
+            style={styles.labelSeeMore}
+            onPress={() => navigation.navigate('New')}>
+            See more
+          </Text>
+          <MaterialIcons
+            name="navigate-next"
+            size={30}
+            style={{top: 212, left: 370}}
+            onPress={() => navigation.navigate('New')}
           />
+          <View style={styles.containerNews}>
+            <FlatList
+              nestedScrollEnabled
+              data={data}
+              renderItem={({item}) => {
+                return (
+                  <View>
+                    <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+                      <Image
+                        style={{
+                          width: 'auto',
+                          height: 200,
+                          borderRadius: 10,
+                          margin: 10,
+                        }}
+                        source={{
+                          uri: item.urlToImage,
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={3}
+                      style={styles.headerNews}>
+                      {item.title}
+                    </Text>
+                    <Text
+                      ellipsizeMode="tail"
+                      numberOfLines={4}
+                      style={styles.bodyNews}>
+                      {item.description}
+                    </Text>
+                  </View>
+                );
+              }}
+              keyExtractor={item => item.url}
+              extraData={selectedId}
+            />
+          </View>
         </View>
       </View>
-    </View>
-  );
-  // } else {
-  //   return <ActivityIndicator />;
-  // }
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default HomeScreen;

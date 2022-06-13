@@ -79,18 +79,15 @@ const ChooseTime = ({navigation}) => {
       />
       <View style={styles.listTime}>
         <Text style={styles.title}>Infomation about time</Text>
-        <View style={styles.blue}>
+        {/* <View style={styles.blue}>
           <Text style={styles.emptyHours}>Empty hours</Text>
-        </View>
-        <Text style={styles.day}>
-          {/* {date.day} / {date.month} / {date.year} */}
-          {date}
-        </Text>
-        <View style={styles.gray}>
+        </View> */}
+        {/* <View style={styles.gray}>
           <Text style={styles.busyHours}>Busy hours</Text>
-        </View>
+        </View> */}
+        <Text style={styles.day}>{date}</Text>
         <Text style={styles.morning}>Morning</Text>
-        <View style={{top: 280}}>
+        <View style={{top: 200}}>
           <FlatList
             horizontal
             nestedScrollEnabled
@@ -99,7 +96,7 @@ const ChooseTime = ({navigation}) => {
           />
         </View>
         <Text style={styles.afternoon}>Afternoon</Text>
-        <View style={{top: 330}}>
+        <View style={{top: 300}}>
           <FlatList
             horizontal
             nestedScrollEnabled
@@ -253,7 +250,7 @@ const styles = StyleSheet.create({
     width: 79,
     height: 23,
     left: 25,
-    top: 250,
+    top: 150,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -266,7 +263,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 23,
     left: 25,
-    top: 400,
+    top: 350,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',

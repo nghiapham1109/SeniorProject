@@ -5,10 +5,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const AuthProvider = ({children}) => {
   const [token, setToken] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   axios.defaults.withCredentials = true;
-  const [loginStatus, setLoginStatus] = useState('');
+  useEffect(() => {
+    AsyncStorage.getItem('storeToken').then(token => {
+      console.log(token);
+      if (token) {
+        setToken(token);
+      }
+    });
+  }, []);
   //
   return (
     <AuthContext.Provider value={{token, setToken}}>

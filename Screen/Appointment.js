@@ -16,24 +16,32 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>Full name: {item.NameDoctor}</Text>
-    <Text style={[styles.title, textColor]}>
-      Day of birth: {item.DayOfBirth}
-    </Text>
-    <Text style={[styles.title, textColor]}>Gender: {item.sex}</Text>
-    <Text style={[styles.title, textColor]}>Email: {item.Email}</Text>
-    <Text style={[styles.title, textColor]}>Phone: {item.Phone}</Text>
-    <Image
-      source={{uri: item.Image}}
-      style={{
-        width: 150,
-        height: 150,
-        resizeMode: 'contain',
-        borderRadius: 20,
-        left: 180,
-        top: -80,
-      }}
-    />
+    <View style={{flex: 1}}>
+      <Text style={[styles.title, textColor]}>
+        Full name: {item.NameDoctor}
+      </Text>
+      <Text style={[styles.title, textColor]}>
+        Day of birth: {item.DayOfBirth}
+      </Text>
+      <Text style={[styles.title, textColor]}>Gender: {item.sex}</Text>
+      <Text style={[styles.title, textColor]}>Email: {item.Email}</Text>
+      <Text style={[styles.title, textColor]}>Phone: {item.Phone}</Text>
+      <Text style={[styles.title, textColor]}>
+        Specialist: {item.Specialist}
+      </Text>
+    </View>
+    <View style={{flex: 1}}>
+      <Image
+        source={{uri: item.Image}}
+        style={{
+          width: 100,
+          height: 240,
+          resizeMode: 'contain',
+          borderRadius: 20,
+          left: 50,
+        }}
+      />
+    </View>
   </TouchableOpacity>
 );
 
@@ -261,6 +269,10 @@ const styles = StyleSheet.create({
     margin: 5,
     marginVertical: 8,
     marginHorizontal: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
   },
   title: {
     fontSize: 15,
@@ -268,5 +280,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 5,
     lineHeight: 20,
+  },
+  flatCard: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    padding: 10,
+    margin: 5,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

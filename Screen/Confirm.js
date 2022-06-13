@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -59,19 +60,20 @@ const Confirm = ({navigation}) => {
         />
         <View style={styles.listInfo}>
           <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
-          <Text style={styles.text}>Home address: {data?.HomeAddress}</Text>
+          <Text style={styles.text}>Home Address: {data?.HomeAddress}</Text>
+          <Text style={styles.text}>Name Hospital: {data?.Hospital}</Text>
+          <Text style={styles.text}>
+            Hospital Address: {data?.HospitalAddress}
+          </Text>
           <Text style={styles.text}>Email: {data?.Email}</Text>
           <Text style={styles.text}>Phone: {data?.Phone}</Text>
         </View>
         <View>
           <Text style={styles.time}>Time: {title}</Text>
-          <Text style={styles.time}>
-            {/* Day: {date.day} / {date.month} / {date.year} */}
-            {date}
-          </Text>
+          <Text style={styles.time}>Day: {date}</Text>
         </View>
         <View>
-          <Text style={styles.decription}>Description about symptom: </Text>
+          <Text style={styles.decription}>Description about symptoms: </Text>
           <TextInput
             onChangeText={newText => setText(newText)}
             defaultValue={text}
@@ -169,6 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
     padding: 10,
+    color: 'black',
   },
   time: {
     fontFamily: 'Poppins',
@@ -178,6 +181,7 @@ const styles = StyleSheet.create({
     padding: 10,
     top: 365,
     left: 5,
+    color: 'black',
   },
   decription: {
     fontFamily: 'Poppins',
@@ -187,6 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     top: 370,
     left: 5,
+    color: 'black',
   },
   textInput: {
     position: 'absolute',

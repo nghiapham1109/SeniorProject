@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import {
   StyleSheet,
@@ -7,6 +8,7 @@ import {
   FlatList,
   ScrollView,
   useWindowDimensions,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 // import {useWindowDimensions} from 'react-native';
@@ -22,6 +24,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const DetailDisease = ({navigation}) => {
   const {width} = useWindowDimensions();
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
   const route = useRoute();
@@ -40,25 +43,130 @@ const DetailDisease = ({navigation}) => {
         throw error;
       });
   }, [index]);
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Detail Disease</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      {data && <Text style={styles.nameOfDisease}>{data.NameDisease}</Text>}
-      <View style={styles.containerDetailDisease}>
-        <ScrollView style={{flex: 1}}>
+  if (data.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Detail Disease</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('AppHome')}
+        />
+        <Text style={styles.nameOfDisease}>{data.NameDisease}</Text>
+        <View style={styles.containerDetailDisease}>
+          <ScrollView style={{flex: 1}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                lineHeight: 20,
+                fontSize: 20,
+                textAlign: 'justify',
+                margin: 5,
+                padding: 10,
+                color: 'blue',
+              }}>
+              Description:
+            </Text>
+            {data && (
+              <RenderHTML
+                baseStyle={{
+                  top: -40,
+                  fontSize: 15,
+                  textAlign: 'justify',
+                  margin: 5,
+                  padding: 10,
+                  fontWeight: 'normal',
+                  fontFamily: 'Poppins',
+                  lineHeight: 20,
+                }}
+                contentWidth={width}
+                source={{html: data.Decription}}
+              />
+            )}
+            <Text
+              style={{
+                top: -60,
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                lineHeight: 20,
+                fontSize: 20,
+                textAlign: 'justify',
+                margin: 5,
+                padding: 10,
+                color: 'blue',
+              }}>
+              Symptoms:
+            </Text>
+            {data && (
+              <RenderHTML
+                baseStyle={{
+                  top: -95,
+                  fontSize: 15,
+                  textAlign: 'justify',
+                  margin: 5,
+                  padding: 10,
+                  fontWeight: 'normal',
+                  fontFamily: 'Poppins',
+                  lineHeight: 20,
+                }}
+                contentWidth={width}
+                source={{html: data.Symptoms}}
+              />
+            )}
+            <Text
+              style={{
+                top: -125,
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                lineHeight: 20,
+                fontSize: 20,
+                textAlign: 'justify',
+                margin: 5,
+                padding: 10,
+                color: 'blue',
+              }}>
+              Cause:
+            </Text>
+            {data && (
+              <RenderHTML
+                baseStyle={{
+                  top: -160,
+                  fontSize: 15,
+                  textAlign: 'justify',
+                  margin: 5,
+                  padding: 10,
+                  fontWeight: 'normal',
+                  fontFamily: 'Poppins',
+                  lineHeight: 20,
+                }}
+                contentWidth={width}
+                source={{html: data.Cause}}
+              />
+            )}
+            {/* <Text
+            style={{
+              top: -190,
+              fontWeight: 'bold',
+              fontFamily: 'Poppins',
+              lineHeight: 20,
+              fontSize: 20,
+              textAlign: 'justify',
+              margin: 5,
+              padding: 10,
+              color: 'blue',
+            }}>
+            Risk:
+          </Text>
           {data && (
             <RenderHTML
               baseStyle={{
+                top: -220,
                 fontSize: 15,
                 textAlign: 'justify',
                 margin: 5,
@@ -68,13 +176,46 @@ const DetailDisease = ({navigation}) => {
                 lineHeight: 20,
               }}
               contentWidth={width}
-              source={{html: data.Decription}}
+              source={{html: data.Risk}}
             />
-          )}
-        </ScrollView>
+          )} */}
+            <Text
+              style={{
+                top: -250,
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                lineHeight: 20,
+                fontSize: 20,
+                textAlign: 'justify',
+                margin: 5,
+                padding: 10,
+                color: 'blue',
+              }}>
+              Preparing:
+            </Text>
+            {data && (
+              <RenderHTML
+                baseStyle={{
+                  top: -280,
+                  fontSize: 15,
+                  textAlign: 'justify',
+                  margin: 5,
+                  padding: 10,
+                  fontWeight: 'normal',
+                  fontFamily: 'Poppins',
+                  lineHeight: 20,
+                }}
+                contentWidth={width}
+                source={{html: data.Preparing}}
+              />
+            )}
+          </ScrollView>
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default DetailDisease;
@@ -136,7 +277,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 20,
     lineHeight: 30,
     color: 'black',
   },

@@ -46,7 +46,11 @@ const Profile = ({navigation}) => {
   };
   //
   const handleStoreSchedule = async () => {
-    console.log('Profile');
+    const getToken = await AsyncStorage.getItem('storeToken');
+    const decode = jwt_decode(getToken);
+    console.log('Profile', decode);
+    const IDPatient = decode.result.IDPatient;
+    console.log('IDPatient', IDPatient);
     let config = {
       headers: {
         Authorization: 'Bearer ' + (await AsyncStorage.getItem('storeToken')),
@@ -84,8 +88,8 @@ const Profile = ({navigation}) => {
         name="arrow-back-outline"
         size={30}
         style={{left: 10, top: 25}}
-        //navigation.navigate('AppHome')
-        onPress={() => handleStoreSchedule()}
+        //
+        onPress={() => navigation.navigate('AppHome')}
       />
       <View style={styles.containerProfile}>
         <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
@@ -93,11 +97,24 @@ const Profile = ({navigation}) => {
         <Text style={styles.text}>Email: {data?.Email}</Text>
         <Text style={styles.text}>Phone: {data?.Phone}</Text>
         <Text style={styles.text}>Time: {title}</Text>
+        <Text style={styles.text}>Day: {date}</Text>
         <Text style={styles.text}>Description: {text}</Text>
-        <Text style={styles.text}>
-          {/* Day: {date.day} / {date.month} / {date.year} */}
-          {date}
-        </Text>
+      </View>
+      <View>
+        <TouchableOpacity
+          style={styles.buttonLogout}
+          onPress={() => handleStoreSchedule()}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              fontFamily: 'Poppins',
+              color: 'white',
+              textAlign: 'center',
+            }}>
+            OK
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -151,6 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     lineHeight: 38,
+    color: 'black',
   },
   image: {
     flex: 1,
@@ -197,5 +215,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 5,
     lineHeight: 20,
+    color: 'black',
+  },
+  buttonLogout: {
+    position: 'absolute',
+    width: 360,
+    top: 500,
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#4FC3F7',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOpacity: 100,
+    shadowRadius: 100,
+    elevation: 10,
+    left: 15,
   },
 });

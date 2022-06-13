@@ -36,7 +36,9 @@ const Login = ({navigation}) => {
       .then(response => {
         if (!response.data.message) {
         } else {
-          setToken(AsyncStorage.setItem('storeToken', response.data.token));
+          AsyncStorage.setItem('storeToken', response.data.token).then(() => {
+            setToken(response.data.token);
+          });
         }
         console.log('login', response.data.token);
       });

@@ -60,12 +60,6 @@ const Disease = ({navigation}) => {
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
       <Text style={styles.header}>Disease</Text>
-      {/* <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      /> */}
       <TextInput style={styles.textInput} placeholder="Search disease..." />
       <View style={styles.containerDisease}>
         <FlatList
