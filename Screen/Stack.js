@@ -20,6 +20,8 @@ import DetailDisease from './DetailDisease';
 import Disease from './Disease';
 import DetailNew from './DetailNew';
 import Account from './Account';
+import Result from './Result';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthProvider, AuthContext} from '../Global/context';
@@ -50,6 +52,7 @@ const MyStack = () => {
         <Stack.Screen name="CovidScreen" component={CovidScreen} />
         <Stack.Screen name="ChooseTime" component={ChooseTime} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Result" component={Result} />
         <Stack.Screen name="Confirm" component={Confirm} />
         <Stack.Screen name="New" component={New} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />

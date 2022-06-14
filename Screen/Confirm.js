@@ -83,7 +83,7 @@ const Confirm = ({navigation}) => {
         </View>
         <MaterialIcons
           onPress={() =>
-            navigation.navigate('Profile', {
+            navigation.navigate('Result', {
               title: title,
               text: text,
               date: date,

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import {
   StyleSheet,
@@ -11,14 +12,16 @@ import Login from './Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../Global/context';
 import jwt_decode from 'jwt-decode';
-const Account = ({navigation}) => {
-  const [data, setData] = useState([]);
+import BackendAPI from '../api/HttpClient';
+//
+const Account = props => {
   const context = useContext(AuthContext);
   const setToken = context.setToken;
   const Token = context.token;
   const decode = jwt_decode(Token);
-  console.log('DecodeAccount', decode);
   const IDPatient = decode.result.IDPatient;
+  //
+  const [data, setData] = useState([]);
   const [namePatient, setNamePatient] = useState('');
   const [dayOfBirth, setDayOfBirth] = useState('');
   const [sex, setSex] = useState('');
@@ -26,6 +29,7 @@ const Account = ({navigation}) => {
   const [homeAddress, setHomeAddress] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [idAdmin, setIDAdmin] = useState('');
   //
   const deleteData = async () => {
     setToken(await AsyncStorage.removeItem('storeToken'));
@@ -49,6 +53,7 @@ const Account = ({navigation}) => {
         setHomeAddress(json.data[0].HomeAddress);
         setEmail(json.data[0].Email);
         setPassword(json.data[0].Pw);
+        setIDAdmin(json.data[0].IDAdmin);
       })
       .catch(error => {
         console.log(
@@ -60,6 +65,35 @@ const Account = ({navigation}) => {
       });
   }, []);
   //
+  const updatePatient = () => {
+    //
+    const DATA = {
+      namePatient,
+      dayOfBirth,
+      sex,
+      phone,
+      homeAddress,
+      email,
+      password,
+    };
+    //
+    BackendAPI.put(`/api/patient/${IDPatient}`, DATA, {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then(json => {
+        console.log(json);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your axios operation: ' +
+            error.message,
+        );
+        throw error;
+      });
+  };
+  //
   return (
     <View>
       <View style={styles.eclipse1} />
@@ -68,21 +102,52 @@ const Account = ({navigation}) => {
       <View style={styles.eclipse4} />
       <Text style={styles.header}>About your information</Text>
       <View style={styles.containerAccount}>
-        <TextInput placeholder="Name Patient" defaultValue={namePatient} />
-        <TextInput placeholder="Day Of Birth" defaultValue={dayOfBirth} />
-        <TextInput placeholder="Sex" defaultValue={sex} />
-        <TextInput placeholder="Phone" defaultValue={phone} />
-        <TextInput placeholder="Home Address" defaultValue={homeAddress} />
-        <TextInput placeholder="Email" defaultValue={email} />
+        <TextInput
+          placeholder="Name Patient"
+          defaultValue={namePatient}
+          onChangeText={setNamePatient}
+        />
+        <TextInput
+          placeholder="Day Of Birth"
+          defaultValue={dayOfBirth}
+          onChangeText={setDayOfBirth}
+        />
+        <TextInput placeholder="Sex" defaultValue={sex} onChangeText={setSex} />
+        <TextInput
+          placeholder="Phone"
+          defaultValue={phone}
+          onChangeText={setPhone}
+        />
+        <TextInput
+          placeholder="Home Address"
+          defaultValue={homeAddress}
+          onChangeText={setHomeAddress}
+        />
+        <TextInput
+          placeholder="Email"
+          defaultValue={email}
+          onChangeText={setEmail}
+        />
         <TextInput
           placeholder="Password"
           defaultValue={password}
           secureTextEntry
+          onChangeText={setPassword}
         />
+        {/* <TextInput
+          value={idAdmin.toString()}
+          placeholder="IDAdmin"
+          defaultValue={idAdmin}
+          onChange={e => setIDAdmin(e.target.value)}
+        /> */}
       </View>
 
       <View>
-        <TouchableOpacity style={styles.test}>
+        <TouchableOpacity
+          style={styles.test}
+          onPress={() => {
+            updatePatient();
+          }}>
           <Text
             style={{
               fontSize: 15,

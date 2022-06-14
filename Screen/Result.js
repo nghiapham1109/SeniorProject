@@ -14,68 +14,68 @@ import {useRoute} from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //
-const Profile = ({navigation}) => {
+const Result = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const route = useRoute();
-  // const title = route.params.title;
-  // const text = route.params.text;
-  // const date = route.params.date;
-  // const IDDoctor = route.params.IDDoctor;
+  const route = useRoute();
+  const title = route.params.title;
+  const text = route.params.text;
+  const date = route.params.date;
+  const IDDoctor = route.params.IDDoctor;
   const [insertStatus, setInsertStatus] = useState('');
   //
-  // axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
   //
-  // useEffect(() => {
-  //   getListDoctor();
-  //   return () => {};
-  // }, []);
+  useEffect(() => {
+    getListDoctor();
+    return () => {};
+  }, []);
   //
-  // let getListDoctor = () => {
-  //   const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
-  //   fetch(apiURL)
-  //     .then(res => res.json())
-  //     .then(resJson => {
-  //       console.log('data', data);
-  //       setData(resJson.data[0]);
-  //       setTimeout(() => setIsLoading(false), 1000);
-  //     })
-  //     .catch(error => {
-  //       console.log('Error: ', error);
-  //     });
-  // };
+  let getListDoctor = () => {
+    const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(resJson => {
+        console.log('data', data);
+        setData(resJson.data[0]);
+        setTimeout(() => setIsLoading(false), 1000);
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      });
+  };
   //
-  // const handleStoreSchedule = async () => {
-  //   const getToken = await AsyncStorage.getItem('storeToken');
-  //   const decode = jwt_decode(getToken);
-  //   console.log('Profile', decode);
-  //   const IDPatient = decode.result.IDPatient;
-  //   console.log('IDPatient', IDPatient);
-  //   let config = {
-  //     headers: {
-  //       Authorization: 'Bearer ' + (await AsyncStorage.getItem('storeToken')),
-  //     },
-  //   };
-  //   axios
-  //     .post(
-  //       'http://10.0.2.2:8080/api/schedule',
-  //       {
-  //         TimeBooking: title,
-  //         Note: text,
-  //         IDDoctor: IDDoctor,
-  //         DayBooking: date,
-  //       },
-  //       config,
-  //     )
-  //     .then(response => {
-  //       console.log(response);
-  //       if (!response.data.message) {
-  //         setInsertStatus(response.data.message);
-  //       } else {
-  //         setInsertStatus(response.data.token);
-  //       }
-  //     });
-  // };
+  const handleStoreSchedule = async () => {
+    const getToken = await AsyncStorage.getItem('storeToken');
+    const decode = jwt_decode(getToken);
+    console.log('Profile', decode);
+    const IDPatient = decode.result.IDPatient;
+    console.log('IDPatient', IDPatient);
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + (await AsyncStorage.getItem('storeToken')),
+      },
+    };
+    axios
+      .post(
+        'http://10.0.2.2:8080/api/schedule',
+        {
+          TimeBooking: title,
+          Note: text,
+          IDDoctor: IDDoctor,
+          DayBooking: date,
+        },
+        config,
+      )
+      .then(response => {
+        console.log(response);
+        if (!response.data.message) {
+          setInsertStatus(response.data.message);
+        } else {
+          setInsertStatus(response.data.token);
+        }
+      });
+  };
   //
   return (
     <View>
@@ -83,7 +83,7 @@ const Profile = ({navigation}) => {
       <View style={styles.eclipse2} />
       <View style={styles.eclipse3} />
       <View style={styles.eclipse4} />
-      <Text style={styles.header}>My Profile</Text>
+      <Text style={styles.header}>Result</Text>
       <Ionicons
         name="arrow-back-outline"
         size={30}
@@ -92,16 +92,18 @@ const Profile = ({navigation}) => {
         onPress={() => navigation.navigate('AppHome')}
       />
       <View style={styles.containerProfile}>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
+        <Text style={styles.text}>Name: {data?.NameDoctor}</Text>
+        <Text style={styles.text}>Home address: {data?.HomeAddress}</Text>
+        <Text style={styles.text}>Email: {data?.Email}</Text>
+        <Text style={styles.text}>Phone: {data?.Phone}</Text>
+        <Text style={styles.text}>Time: {title}</Text>
+        <Text style={styles.text}>Day: {date}</Text>
+        <Text style={styles.text}>Description: {text}</Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.buttonLogout}>
+        <TouchableOpacity
+          style={styles.buttonLogout}
+          onPress={() => handleStoreSchedule()}>
           <Text
             style={{
               fontSize: 15,
@@ -118,7 +120,7 @@ const Profile = ({navigation}) => {
   );
 };
 
-export default Profile;
+export default Result;
 
 const styles = StyleSheet.create({
   eclipse1: {
