@@ -6,6 +6,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,109 +15,87 @@ import axios from 'axios';
 import {useRoute} from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../Global/context';
+//
+const Item = ({item, onPress, backgroundColor, textColor}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+    <Text style={[styles.title, textColor]}>
+      Name Doctor: {item.NameDoctor}
+    </Text>
+    <Text style={[styles.title, textColor]}>
+      Day Booking: {item.DayBooking}
+    </Text>
+    <Text style={[styles.title, textColor]}>Note: {item.Note}</Text>
+    <Text style={[styles.title, textColor]}>Time: {item.TimeBooking}</Text>
+  </TouchableOpacity>
+);
 //
 const Profile = ({navigation}) => {
   const [data, setData] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const route = useRoute();
-  // const title = route.params.title;
-  // const text = route.params.text;
-  // const date = route.params.date;
-  // const IDDoctor = route.params.IDDoctor;
-  const [insertStatus, setInsertStatus] = useState('');
   //
-  // axios.defaults.withCredentials = true;
+  const context = useContext(AuthContext);
+  const setToken = context.setToken;
+  const Token = context.token;
+  const decode = jwt_decode(Token);
+  const IDPatient = decode.result.IDPatient;
+  console.log('Profile', IDPatient);
   //
-  // useEffect(() => {
-  //   getListDoctor();
-  //   return () => {};
-  // }, []);
+  useEffect(() => {
+    fetch(`http://10.0.2.2:8080/api/schedule/${IDPatient}`, {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData(json.data);
+        console.log('Profile', json.data);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
+  }, []);
   //
-  // let getListDoctor = () => {
-  //   const apiURL = `http://10.0.2.2:8080/api/doctor/${IDDoctor}`;
-  //   fetch(apiURL)
-  //     .then(res => res.json())
-  //     .then(resJson => {
-  //       console.log('data', data);
-  //       setData(resJson.data[0]);
-  //       setTimeout(() => setIsLoading(false), 1000);
-  //     })
-  //     .catch(error => {
-  //       console.log('Error: ', error);
-  //     });
-  // };
+  const renderItem = ({item}) => {
+    const color = item.IDDoctor === selectedId ? 'black' : 'black';
+    return <Item item={item} textColor={{color}} />;
+  };
   //
-  // const handleStoreSchedule = async () => {
-  //   const getToken = await AsyncStorage.getItem('storeToken');
-  //   const decode = jwt_decode(getToken);
-  //   console.log('Profile', decode);
-  //   const IDPatient = decode.result.IDPatient;
-  //   console.log('IDPatient', IDPatient);
-  //   let config = {
-  //     headers: {
-  //       Authorization: 'Bearer ' + (await AsyncStorage.getItem('storeToken')),
-  //     },
-  //   };
-  //   axios
-  //     .post(
-  //       'http://10.0.2.2:8080/api/schedule',
-  //       {
-  //         TimeBooking: title,
-  //         Note: text,
-  //         IDDoctor: IDDoctor,
-  //         DayBooking: date,
-  //       },
-  //       config,
-  //     )
-  //     .then(response => {
-  //       console.log(response);
-  //       if (!response.data.message) {
-  //         setInsertStatus(response.data.message);
-  //       } else {
-  //         setInsertStatus(response.data.token);
-  //       }
-  //     });
-  // };
-  //
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>My Profile</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        //
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      <View style={styles.containerProfile}>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-        <Text style={styles.text}></Text>
-      </View>
+  if (data.length !== 0 && isLoading === true) {
+    return (
       <View>
-        <TouchableOpacity style={styles.buttonLogout}>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              color: 'white',
-              textAlign: 'center',
-            }}>
-            OK
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>My Profile</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          //
+          onPress={() => navigation.navigate('AppHome')}
+        />
+        <View style={styles.containerProfile}>
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={renderItem}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default Profile;
@@ -196,8 +176,8 @@ const styles = StyleSheet.create({
   containerProfile: {
     position: 'absolute',
     width: 389,
-    height: 300,
-    top: 70,
+    height: 680,
+    top: 60,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',
@@ -206,6 +186,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
+  },
+  item: {
+    backgroundColor: '#F7F3F3',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOpacity: 100,
+    shadowRadius: 100,
+    elevation: 10,
+    padding: 10,
+    margin: 5,
+    marginVertical: 8,
+    marginHorizontal: 5,
   },
   text: {
     fontSize: 15,
@@ -228,5 +220,12 @@ const styles = StyleSheet.create({
     shadowRadius: 100,
     elevation: 10,
     left: 15,
+  },
+  title: {
+    fontSize: 15,
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    padding: 5,
+    lineHeight: 20,
   },
 });

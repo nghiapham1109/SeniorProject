@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import Login from './Login';
@@ -30,6 +31,7 @@ const Account = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [idAdmin, setIDAdmin] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   //
   const deleteData = async () => {
     setToken(await AsyncStorage.removeItem('storeToken'));
@@ -94,90 +96,98 @@ const Account = props => {
       });
   };
   //
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>About your information</Text>
-      <View style={styles.containerAccount}>
-        <TextInput
-          placeholder="Name Patient"
-          defaultValue={namePatient}
-          onChangeText={setNamePatient}
-        />
-        <TextInput
-          placeholder="Day Of Birth"
-          defaultValue={dayOfBirth}
-          onChangeText={setDayOfBirth}
-        />
-        <TextInput placeholder="Sex" defaultValue={sex} onChangeText={setSex} />
-        <TextInput
-          placeholder="Phone"
-          defaultValue={phone}
-          onChangeText={setPhone}
-        />
-        <TextInput
-          placeholder="Home Address"
-          defaultValue={homeAddress}
-          onChangeText={setHomeAddress}
-        />
-        <TextInput
-          placeholder="Email"
-          defaultValue={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          placeholder="Password"
-          defaultValue={password}
-          secureTextEntry
-          onChangeText={setPassword}
-        />
-        {/* <TextInput
+  if (data.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>About your information</Text>
+        <View style={styles.containerAccount}>
+          <TextInput
+            placeholder="Name Patient"
+            defaultValue={namePatient}
+            onChangeText={setNamePatient}
+          />
+          <TextInput
+            placeholder="Day Of Birth"
+            defaultValue={dayOfBirth}
+            onChangeText={setDayOfBirth}
+          />
+          <TextInput
+            placeholder="Sex"
+            defaultValue={sex}
+            onChangeText={setSex}
+          />
+          <TextInput
+            placeholder="Phone"
+            defaultValue={phone}
+            onChangeText={setPhone}
+          />
+          <TextInput
+            placeholder="Home Address"
+            defaultValue={homeAddress}
+            onChangeText={setHomeAddress}
+          />
+          <TextInput
+            placeholder="Email"
+            defaultValue={email}
+            onChangeText={setEmail}
+          />
+          <TextInput
+            placeholder="Password"
+            defaultValue={password}
+            secureTextEntry
+            onChangeText={setPassword}
+          />
+          {/* <TextInput
           value={idAdmin.toString()}
           placeholder="IDAdmin"
           defaultValue={idAdmin}
           onChange={e => setIDAdmin(e.target.value)}
         /> */}
-      </View>
+        </View>
 
-      <View>
-        <TouchableOpacity
-          style={styles.test}
-          onPress={() => {
-            updatePatient();
-          }}>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              color: 'white',
-              textAlign: 'center',
+        <View>
+          <TouchableOpacity
+            style={styles.test}
+            onPress={() => {
+              updatePatient();
             }}>
-            Update
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                color: 'white',
+                textAlign: 'center',
+              }}>
+              Update
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.buttonLogout}
+            onPress={() => deleteData()}>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 'bold',
+                fontFamily: 'Poppins',
+                color: 'white',
+                textAlign: 'center',
+              }}>
+              Logout
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View>
-        <TouchableOpacity
-          style={styles.buttonLogout}
-          onPress={() => deleteData()}>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              color: 'white',
-              textAlign: 'center',
-            }}>
-            Logout
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default Account;
