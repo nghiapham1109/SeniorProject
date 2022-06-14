@@ -8,10 +8,14 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useRoute} from '@react-navigation/native';
+import {AuthContext} from '../Global/context';
+import jwt_decode from 'jwt-decode';
+import BackendAPI from '../api/HttpClient';
+//
 const DATA = [
   {
     id: '1',
@@ -40,6 +44,7 @@ const DATA1 = [
     title: '15:30-16:30',
   },
 ];
+//
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <Text style={[styles.title1, textColor]}>{item.title}</Text>
@@ -47,9 +52,38 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 );
 
 const ChooseTime = ({navigation}) => {
+  //
+  const context = useContext(AuthContext);
+  const setToken = context.setToken;
+  const Token = context.token;
+  const decode = jwt_decode(Token);
+  const [data, setData] = useState([]);
+  //
   const route = useRoute();
   const date = route.params.date;
   const IDDoctor = route.params.IDDoctor;
+  //
+  useEffect(() => {
+    fetch(`http://10.0.2.2:8080/api/doctor/daybusy/${IDDoctor}`, {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData(json.data);
+        console.log('TimeBusy', json.data[0].TimeBusy);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
+  }, []);
+  //
   const renderItem = ({item}) => {
     return (
       <Item
@@ -79,12 +113,6 @@ const ChooseTime = ({navigation}) => {
       />
       <View style={styles.listTime}>
         <Text style={styles.title}>Infomation about time</Text>
-        {/* <View style={styles.blue}>
-          <Text style={styles.emptyHours}>Empty hours</Text>
-        </View> */}
-        {/* <View style={styles.gray}>
-          <Text style={styles.busyHours}>Busy hours</Text>
-        </View> */}
         <Text style={styles.day}>{date}</Text>
         <Text style={styles.morning}>Morning</Text>
         <View style={{top: 200}}>
