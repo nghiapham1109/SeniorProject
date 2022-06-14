@@ -30,6 +30,7 @@ const DATA = [
     title: '10:15-11:15',
   },
 ];
+//
 const DATA1 = [
   {
     id: '4',
@@ -45,9 +46,9 @@ const DATA1 = [
   },
 ];
 //
-const Item = ({item, onPress, backgroundColor, textColor}) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title1, textColor]}>{item.title}</Text>
+const Item = ({item, onPress, disabled}) => (
+  <TouchableOpacity disabled={disabled} onPress={onPress} style={[styles.item]}>
+    <Text style={[styles.title1]}>{item.title}</Text>
   </TouchableOpacity>
 );
 
@@ -58,6 +59,16 @@ const ChooseTime = ({navigation}) => {
   const Token = context.token;
   const decode = jwt_decode(Token);
   const [data, setData] = useState([]);
+  //
+  const time1 = DATA[0].title;
+  const time2 = DATA[1].title;
+  const time3 = DATA[2].title;
+  const time4 = DATA1[0].title;
+  const time6 = DATA1[2].title;
+  const time5 = DATA1[1].title;
+
+  //
+
   //
   const route = useRoute();
   const date = route.params.date;
@@ -72,7 +83,6 @@ const ChooseTime = ({navigation}) => {
       .then(response => response.json())
       .then(json => {
         setData(json.data);
-        console.log('TimeBusy', json.data[0].TimeBusy);
       })
       .catch(error => {
         console.log(
@@ -84,19 +94,30 @@ const ChooseTime = ({navigation}) => {
       });
   }, []);
   //
+  const timeCheck = data[1]?.TimeBusy;
+  //
+  //
   const renderItem = ({item}) => {
-    return (
-      <Item
-        item={item}
-        onPress={() =>
-          navigation.navigate('Confirm', {
-            title: item.title,
-            date: date,
-            IDDoctor: IDDoctor,
-          })
-        }
-      />
-    );
+    const time = item.title;
+    if (
+      time === timeCheck
+    ) {
+      return <Item item={item} disabled={true} />;
+    } else {
+      return (
+        <Item
+          item={item}
+          disabled={false}
+          onPress={() =>
+            navigation.navigate('Confirm', {
+              title: item.title,
+              date: date,
+              IDDoctor: IDDoctor,
+            })
+          }
+        />
+      );
+    }
   };
   return (
     <View>
