@@ -91,7 +91,7 @@ const DetailDisease = ({navigation}) => {
             )}
             <Text
               style={{
-                top: -60,
+                top: -75,
                 fontWeight: 'bold',
                 fontFamily: 'Poppins',
                 lineHeight: 20,
@@ -106,7 +106,7 @@ const DetailDisease = ({navigation}) => {
             {data && (
               <RenderHTML
                 baseStyle={{
-                  top: -95,
+                  top: -113,
                   fontSize: 15,
                   textAlign: 'justify',
                   margin: 5,
@@ -121,7 +121,7 @@ const DetailDisease = ({navigation}) => {
             )}
             <Text
               style={{
-                top: -125,
+                top: -148,
                 fontWeight: 'bold',
                 fontFamily: 'Poppins',
                 lineHeight: 20,
@@ -136,7 +136,7 @@ const DetailDisease = ({navigation}) => {
             {data && (
               <RenderHTML
                 baseStyle={{
-                  top: -160,
+                  top: -188,
                   fontSize: 15,
                   textAlign: 'justify',
                   margin: 5,
@@ -149,39 +149,9 @@ const DetailDisease = ({navigation}) => {
                 source={{html: data.Cause}}
               />
             )}
-            {/* <Text
-            style={{
-              top: -190,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              lineHeight: 20,
-              fontSize: 20,
-              textAlign: 'justify',
-              margin: 5,
-              padding: 10,
-              color: 'blue',
-            }}>
-            Risk:
-          </Text>
-          {data && (
-            <RenderHTML
-              baseStyle={{
-                top: -220,
-                fontSize: 15,
-                textAlign: 'justify',
-                margin: 5,
-                padding: 10,
-                fontWeight: 'normal',
-                fontFamily: 'Poppins',
-                lineHeight: 20,
-              }}
-              contentWidth={width}
-              source={{html: data.Risk}}
-            />
-          )} */}
             <Text
               style={{
-                top: -250,
+                top: -222,
                 fontWeight: 'bold',
                 fontFamily: 'Poppins',
                 lineHeight: 20,
@@ -196,7 +166,7 @@ const DetailDisease = ({navigation}) => {
             {data && (
               <RenderHTML
                 baseStyle={{
-                  top: -280,
+                  top: -258,
                   fontSize: 15,
                   textAlign: 'justify',
                   margin: 5,
@@ -277,7 +247,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: 30,
     color: 'black',
   },

@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     padding: 20,
-    left: 120,
+    left: 150,
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   buttonLogout: {
     position: 'absolute',
     width: 360,
-    top: 500,
+    top: 350,
     padding: 10,
     margin: 10,
     backgroundColor: '#4FC3F7',

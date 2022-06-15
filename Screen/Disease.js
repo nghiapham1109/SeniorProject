@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 const Disease = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // fetch('https://jsonplaceholder.typicode.com/posts')
@@ -47,31 +49,37 @@ const Disease = ({navigation}) => {
       <Item
         item={item}
         // onPress={() => setSelectedId(item.id)}
-        onPress={() => navigation.navigate('DetailDisease', {id: item.IDDisease})}
+        onPress={() =>
+          navigation.navigate('DetailDisease', {id: item.IDDisease})
+        }
         backgroundColor={{backgroundColor}}
         textColor={{color}}
       />
     );
   };
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Disease</Text>
-      <TextInput style={styles.textInput} placeholder="Search disease..." />
-      <View style={styles.containerDisease}>
-        <FlatList
-          nestedScrollEnabled
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.IDDisease}
-          extraData={selectedId}
-        />
+  if (data.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Disease</Text>
+        <TextInput style={styles.textInput} placeholder="Search disease..." />
+        <View style={styles.containerDisease}>
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.IDDisease}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default Disease;

@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -48,13 +49,13 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 const Appointment = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const [value, setValue] = useState([]);
-  const [arrayHolder, setArrayHolder] = useState([]);
   const [value2, setValue2] = useState();
-  //
+  const [isLoading, setIsLoading] = useState(true);
+  const [arrayHolder, setArrayHolder] = useState([]);
+  const [value, setValue] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
-
+  //
   useEffect(() => {
     fetch('http://10.0.2.2:8080/api/doctor')
       .then(response => response.json())
@@ -70,6 +71,18 @@ const Appointment = ({navigation}) => {
         throw error;
       });
   }, []);
+  //
+  // let searchFilterFunction = text => {
+  //   setValue([text]);
+  //   const newData = arrayHolder.filter(item => {
+  //     const itemData = `${item.data.NameDoctor.toUpperCase()}`;
+  //     console.log(itemData);
+  //     const textData = text.toUpperCase();
+  //     // console.log(textData);
+  //     return itemData.indexOf(textData) > -1;
+  //   });
+  //   setData(newData);
+  // };
   //
   const renderItem = ({item}) => {
     const color = item.IDDoctor === selectedId ? 'black' : 'black';
@@ -98,21 +111,22 @@ const Appointment = ({navigation}) => {
   //   {label: 'Forensic science', value: 'Forensic science'},
   // ]);
   //
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Choose the doctor</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      <TextInput style={styles.textInput} placeholder="Search doctor..." />
-      {/* <View style={styles.dropdown}>
+  if (data.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Choose the doctor</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('AppHome')}
+        />
+        <TextInput style={styles.textInput} placeholder="Search doctor..." />
+        {/* <View style={styles.dropdown}>
         <View style={{flex: 1}}>
           <DropDownPicker
             style={{
@@ -153,17 +167,20 @@ const Appointment = ({navigation}) => {
           />
         </View>
       </View> */}
-      <View style={styles.listDoctor}>
-        <FlatList
-          nestedScrollEnabled
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.IDDoctor}
-          extraData={selectedId}
-        />
+        <View style={styles.listDoctor}>
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.IDDoctor}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default Appointment;

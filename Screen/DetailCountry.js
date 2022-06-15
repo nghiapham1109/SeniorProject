@@ -1,12 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, FlatList, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const DetailCountry = ({navigation}) => {
   const [data, setData] = useState({});
   const [arrayHolder, setArrayHolder] = useState([]);
   const [value, setValue] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   //
   useEffect(() => {
     getListCountry();
@@ -37,80 +46,84 @@ const DetailCountry = ({navigation}) => {
     });
     setData(newData);
   };
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>More Country</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('CovidScreen')}
-      />
-      <TextInput
-        style={{
-          backgroundColor: 'white',
-          // textAlign: 'center',
-          margin: 20,
-          borderRadius: 10,
-          height: 40,
-          width: 389,
-          left: -10,
-          top: 10,
-        }}
-        placeholder="Search country..."
-        onChangeText={text => searchFilterFunction(text)}
-        value={value}
-      />
-      <View style={styles.flagContainer}>
-        <FlatList
-          removeClippedSubviews={true}
-          initialNumToRender={5}
-          maxToRenderPerBatch={10}
-          windowSize={10}
-          data={data}
-          renderItem={({item}) => (
-            <View style={styles.flatCard}>
-              <Image
-                source={{uri: item.countryInfo.flag}}
-                style={{
-                  width: 50,
-                  height: 50,
-                  resizeMode: 'contain',
-                  borderRadius: 20,
-                }}
-              />
-              <Text style={[styles.cardCountry, {width: 100}]}>
-                {item.country}
-              </Text>
-              <View>
-                <Text style={[styles.cardText, {color: 'orange'}]}>
-                  Total Cases:{item.cases}
-                </Text>
-                <Text style={styles.cardText}>
-                  Today Cases:{item.todayCases}
-                </Text>
-                <Text style={[styles.cardText, {color: 'red'}]}>
-                  Deaths:{item.deaths}
-                </Text>
-                <Text style={[styles.cardText]}>
-                  Today Deaths:{item.todayDeaths}
-                </Text>
-                <Text style={[styles.cardText, {color: 'green'}]}>
-                  Recovered:{item.recovered}
-                </Text>
-              </View>
-            </View>
-          )}
-          //keyExtractor={item => item.countryInfo.id}
-          // key={item => item.countryInfo.id}
+  if (data.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>More Country</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('CovidScreen')}
         />
+        <TextInput
+          style={{
+            backgroundColor: 'white',
+            // textAlign: 'center',
+            margin: 20,
+            borderRadius: 10,
+            height: 40,
+            width: 389,
+            left: -10,
+            top: 10,
+          }}
+          placeholder="Search country..."
+          onChangeText={text => searchFilterFunction(text)}
+          value={value}
+        />
+        <View style={styles.flagContainer}>
+          <FlatList
+            removeClippedSubviews={true}
+            initialNumToRender={5}
+            maxToRenderPerBatch={10}
+            windowSize={10}
+            data={data}
+            renderItem={({item}) => (
+              <View style={styles.flatCard}>
+                <Image
+                  source={{uri: item.countryInfo.flag}}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    resizeMode: 'contain',
+                    borderRadius: 20,
+                  }}
+                />
+                <Text style={[styles.cardCountry, {width: 100}]}>
+                  {item.country}
+                </Text>
+                <View>
+                  <Text style={[styles.cardText, {color: 'orange'}]}>
+                    Total Cases:{item.cases}
+                  </Text>
+                  <Text style={styles.cardText}>
+                    Today Cases:{item.todayCases}
+                  </Text>
+                  <Text style={[styles.cardText, {color: 'red'}]}>
+                    Deaths:{item.deaths}
+                  </Text>
+                  <Text style={[styles.cardText]}>
+                    Today Deaths:{item.todayDeaths}
+                  </Text>
+                  <Text style={[styles.cardText, {color: 'green'}]}>
+                    Recovered:{item.recovered}
+                  </Text>
+                </View>
+              </View>
+            )}
+            //keyExtractor={item => item.countryInfo.id}
+            // key={item => item.countryInfo.id}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default DetailCountry;

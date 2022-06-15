@@ -1,5 +1,12 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,6 +15,7 @@ var moment = require('moment');
 const CovidScreen = ({navigation}) => {
   const [data, setData] = useState({});
   const [data1, setData1] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   //
   useEffect(() => {
     getListCovid();
@@ -25,46 +33,53 @@ const CovidScreen = ({navigation}) => {
         console.log('Error: ', error);
       });
   };
-
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Covid-19</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      <View style={styles.covidUpdateContainer}>
-        <Text style={styles.text}>
-          {moment(data.updated).format('MMM Do YYYY')}
-        </Text>
-        <Text style={styles.text}>Total cases: {data.updated}</Text>
-        <Text style={styles.text}>Coronavirus cases: {data.cases} </Text>
-        <Text style={styles.text}>Today cases: {data.todayCases}</Text>
-        <Text style={styles.text}>Today deaths: {data.todayDeaths}</Text>
-        <Text style={styles.text}>Coronavirus recovered: {data.recovered}</Text>
-        <Text style={styles.text}>Today recovered: {data.todayRecovered}</Text>
-      </View>
-      <Text
-        style={styles.labelSeeMore}
-        onPress={() => navigation.navigate('DetailCountry')}>
-        See more
-      </Text>
+  if (data.length !== 0 && isLoading === true) {
+    return (
       <View>
-        <MaterialIcons
-          name="navigate-next"
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Covid-19</Text>
+        <Ionicons
+          name="arrow-back-outline"
           size={30}
-          style={{top: 370, left: 375}}
-          onPress={() => navigation.navigate('DetailCountry')}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('AppHome')}
         />
+        <View style={styles.covidUpdateContainer}>
+          <Text style={styles.text}>
+            {moment(data.updated).format('MMM Do YYYY')}
+          </Text>
+          <Text style={styles.text}>Total cases: {data.updated}</Text>
+          <Text style={styles.text}>Coronavirus cases: {data.cases} </Text>
+          <Text style={styles.text}>Today cases: {data.todayCases}</Text>
+          <Text style={styles.text}>Today deaths: {data.todayDeaths}</Text>
+          <Text style={styles.text}>
+            Coronavirus recovered: {data.recovered}
+          </Text>
+          <Text style={styles.text}>
+            Today recovered: {data.todayRecovered}
+          </Text>
+        </View>
+        <Text
+          style={styles.labelSeeMore}
+          onPress={() => navigation.navigate('DetailCountry')}>
+          See more
+        </Text>
+        <View>
+          <MaterialIcons
+            name="navigate-next"
+            size={30}
+            style={{top: 370, left: 375}}
+            onPress={() => navigation.navigate('DetailCountry')}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <ActivityIndicator />;
+  }
 };
 
 export default CovidScreen;

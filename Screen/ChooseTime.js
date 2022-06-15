@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -16,39 +17,13 @@ import {AuthContext} from '../Global/context';
 import jwt_decode from 'jwt-decode';
 import BackendAPI from '../api/HttpClient';
 //
-const DATA = [
-  {
-    id: '1',
-    title: '08:00-09:00',
-  },
-  {
-    id: '2',
-    title: '09:15-10:00',
-  },
-  {
-    id: '3',
-    title: '10:15-11:15',
-  },
-];
+const DATA = ['08:00-09:00', '09:15-10:15', '10:30-11:30'];
 //
-const DATA1 = [
-  {
-    id: '4',
-    title: '13:00-14:00',
-  },
-  {
-    id: '5',
-    title: '14:15-15:15',
-  },
-  {
-    id: '6',
-    title: '15:30-16:30',
-  },
-];
+const DATA1 = ['13:00-14:00', '14:15-15:15', '15:30-16:30'];
 //
-const Item = ({item, onPress, disabled}) => (
-  <TouchableOpacity disabled={disabled} onPress={onPress} style={[styles.item]}>
-    <Text style={[styles.title1]}>{item.title}</Text>
+const Item = ({item, onPress, disabled, style}) => (
+  <TouchableOpacity disabled={disabled} onPress={onPress} style={style}>
+    <Text style={[styles.title1]}>{item}</Text>
   </TouchableOpacity>
 );
 
@@ -59,16 +34,7 @@ const ChooseTime = ({navigation}) => {
   const Token = context.token;
   const decode = jwt_decode(Token);
   const [data, setData] = useState([]);
-  //
-  const time1 = DATA[0].title;
-  const time2 = DATA[1].title;
-  const time3 = DATA[2].title;
-  const time4 = DATA1[0].title;
-  const time6 = DATA1[2].title;
-  const time5 = DATA1[1].title;
-
-  //
-
+  const [isLoading, setIsLoading] = useState(true);
   //
   const route = useRoute();
   const date = route.params.date;
@@ -92,25 +58,25 @@ const ChooseTime = ({navigation}) => {
         // ADD THIS THROW error
         throw error;
       });
-  }, []);
-  //
-  const timeCheck = data[1]?.TimeBusy;
-  //
+  }, [IDDoctor, Token]);
   //
   const renderItem = ({item}) => {
-    const time = item.title;
-    if (
-      time === timeCheck
-    ) {
-      return <Item item={item} disabled={true} />;
+    console.log('morning', item);
+    const filteredRs = data.filter(({DayBusy}) => DayBusy === date);
+    const busyDate = filteredRs.filter(({TimeBusy}) => TimeBusy === item);
+    console.log('busydate', busyDate);
+    console.log('data,', data);
+    if (busyDate.length !== 0) {
+      return <Item item={item} disabled={true} style={[styles.itemDisabled]} />;
     } else {
       return (
         <Item
           item={item}
           disabled={false}
+          style={styles.item}
           onPress={() =>
             navigation.navigate('Confirm', {
-              title: item.title,
+              title: item,
               date: date,
               IDDoctor: IDDoctor,
             })
@@ -118,6 +84,7 @@ const ChooseTime = ({navigation}) => {
         />
       );
     }
+    //
   };
   return (
     <View>
@@ -254,46 +221,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
   },
-  blue: {
-    position: 'absolute',
-    width: 70,
-    height: 40,
-    left: 25,
-    top: 150,
-    backgroundColor: '#A6E9F2',
-    borderRadius: 10,
-  },
-  gray: {
-    position: 'absolute',
-    width: 70,
-    height: 40,
-    right: 100,
-    top: 150,
-    backgroundColor: 'gray',
-    borderRadius: 10,
-  },
-  emptyHours: {
-    position: 'absolute',
-    width: 100,
-    height: 40,
-    left: 80,
-    top: 5,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
-    lineHeight: 22,
-    color: 'black',
-  },
-  busyHours: {
-    position: 'absolute',
-    width: 100,
-    height: 40,
-    left: 80,
-    top: 5,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
-    lineHeight: 22,
-    color: 'black',
-  },
   morning: {
     position: 'absolute',
     width: 79,
@@ -328,10 +255,19 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  itemDisabled: {
+    backgroundColor: 'gray',
+    height: 80,
+    width: 87,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
   title1: {
     fontSize: 15,
     fontFamily: 'Poppins',
     fontWeight: 'bold',
     textAlign: 'justify',
+    color: 'black',
   },
 });
