@@ -33,7 +33,11 @@ const ChooseTime = ({navigation}) => {
   const setToken = context.setToken;
   const Token = context.token;
   const decode = jwt_decode(Token);
+  const IDPatient = decode.result.IDPatient;
+  console.log('Choostime', IDPatient);
+  //
   const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   //
   const route = useRoute();
@@ -60,13 +64,41 @@ const ChooseTime = ({navigation}) => {
       });
   }, [IDDoctor, Token]);
   //
+  useEffect(() => {
+    fetch(`http://10.0.2.2:8080/api/booking/${IDDoctor}`, {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData1(json.data);
+        console.log('chooseTime', json.data);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        // ADD THIS THROW error
+        throw error;
+      });
+  }, [IDDoctor, Token]);
+  //
   const renderItem = ({item}) => {
-    console.log('morning', item);
+    //
+    const DayBooked = data1.filter(({DayBooking}) => DayBooking === date);
+    console.log('DayBooked', DayBooked);
+    const timeBooked = DayBooked.filter(
+      ({TimeBooking}) => TimeBooking === item,
+    );
+    console.log('TimeBooked', timeBooked);
+    //
     const filteredRs = data.filter(({DayBusy}) => DayBusy === date);
     const busyDate = filteredRs.filter(({TimeBusy}) => TimeBusy === item);
-    console.log('busydate', busyDate);
-    console.log('data,', data);
-    if (busyDate.length !== 0) {
+    console.log('BusyDate', busyDate);
+    //
+    if (busyDate.length !== 0 || timeBooked.length !== 0) {
       return <Item item={item} disabled={true} style={[styles.itemDisabled]} />;
     } else {
       return (

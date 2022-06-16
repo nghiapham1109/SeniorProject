@@ -21,6 +21,7 @@ const CalendarItem = ({IDDoctor}) => {
         scrollEnabled={true}
         // Enable or disable vertical scroll indicator. Default = false
         showScrollIndicator={true}
+        // disabled={true}
         onDayPress={date => {
           if (date.timestamp < new Date().getTime()) {
             // toast message
