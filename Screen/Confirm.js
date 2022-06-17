@@ -70,7 +70,9 @@ const Confirm = ({navigation}) => {
         </View>
         <View>
           <Text style={styles.time}>Time: {title}</Text>
-          <Text style={styles.time}>Day: {date}</Text>
+          <Text style={styles.time}>
+            Day: {date.split('-').reverse().join('-')}
+          </Text>
         </View>
         <View>
           <Text style={styles.decription}>Description about symptoms: </Text>

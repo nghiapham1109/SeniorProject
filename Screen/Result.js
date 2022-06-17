@@ -97,7 +97,9 @@ const Result = ({navigation}) => {
         <Text style={styles.text}>Email: {data?.Email}</Text>
         <Text style={styles.text}>Phone: {data?.Phone}</Text>
         <Text style={styles.text}>Time: {title}</Text>
-        <Text style={styles.text}>Day: {date}</Text>
+        <Text style={styles.text}>
+          Day: {date.split('-').reverse().join('-')}
+        </Text>
         <Text style={styles.text}>Description: {text}</Text>
       </View>
       <View>

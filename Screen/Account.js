@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import Login from './Login';
@@ -105,53 +107,142 @@ const Account = props => {
         <View style={styles.eclipse4} />
         <Text style={styles.header}>About your information</Text>
         <View style={styles.containerAccount}>
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Name Patient:
+          </Text>
           <TextInput
+            style={{top: 20}}
             placeholder="Name Patient"
             defaultValue={namePatient}
             onChangeText={setNamePatient}
           />
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              top: 60,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Day Of Birth:
+          </Text>
           <TextInput
+            style={{top: 35}}
             placeholder="Day Of Birth"
             defaultValue={dayOfBirth}
             onChangeText={setDayOfBirth}
           />
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              top: 120,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Gender
+          </Text>
           <TextInput
+            style={{top: 45}}
             placeholder="Sex"
             defaultValue={sex}
             onChangeText={setSex}
           />
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              top: 180,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Phone
+          </Text>
           <TextInput
+            style={{top: 58}}
             placeholder="Phone"
             defaultValue={phone}
             onChangeText={setPhone}
           />
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              top: 245,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Home Address:
+          </Text>
           <TextInput
+            style={{top: 75}}
             placeholder="Home Address"
             defaultValue={homeAddress}
             onChangeText={setHomeAddress}
           />
+          <Text
+            style={{
+              position: 'absolute',
+              width: 150,
+              height: 23,
+              margin: 15,
+              top: 310,
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 'bold',
+              fontSize: 15,
+              lineHeight: 22,
+              color: 'black',
+            }}>
+            Email:
+          </Text>
           <TextInput
+            boderColor="primary"
+            style={{top: 90}}
             placeholder="Email"
             defaultValue={email}
             onChangeText={setEmail}
           />
-          <TextInput
-            placeholder="Password"
-            defaultValue={password}
-            secureTextEntry
-            onChangeText={setPassword}
-          />
-          {/* <TextInput
-          value={idAdmin.toString()}
-          placeholder="IDAdmin"
-          defaultValue={idAdmin}
-          onChange={e => setIDAdmin(e.target.value)}
-        /> */}
         </View>
-
         <View>
           <TouchableOpacity
-            style={styles.test}
+            style={styles.update}
             onPress={() => {
               updatePatient();
             }}>
@@ -243,7 +334,7 @@ const styles = StyleSheet.create({
   containerAccount: {
     position: 'absolute',
     width: 389,
-    height: 400,
+    height: 405,
     top: 70,
     padding: 10,
     margin: 10,
@@ -266,10 +357,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
-    padding: 10,
-    margin: 10,
   },
-  test: {
+  update: {
     position: 'absolute',
     width: 389,
     top: 500,
@@ -281,7 +370,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
-    padding: 10,
-    margin: 10,
   },
 });

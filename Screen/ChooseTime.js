@@ -133,7 +133,7 @@ const ChooseTime = ({navigation}) => {
       />
       <View style={styles.listTime}>
         <Text style={styles.title}>Infomation about time</Text>
-        <Text style={styles.day}>{date}</Text>
+        <Text style={styles.day}>{date.split('-').reverse().join('-')}</Text>
         <Text style={styles.morning}>Morning</Text>
         <View style={{top: 200}}>
           <FlatList

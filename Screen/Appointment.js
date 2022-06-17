@@ -19,10 +19,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <View style={{flex: 1}}>
       <Text style={[styles.title, textColor]}>
-        Full name: {item.NameDoctor}
-      </Text>
-      <Text style={[styles.title, textColor]}>
-        Day of birth: {item.DayOfBirth}
+        Name Doctor: {item.NameDoctor}
       </Text>
       <Text style={[styles.title, textColor]}>Gender: {item.sex}</Text>
       <Text style={[styles.title, textColor]}>Email: {item.Email}</Text>
@@ -36,9 +33,8 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
         source={{uri: item.Image}}
         style={{
           width: 100,
-          height: 240,
+          height: 160,
           resizeMode: 'contain',
-          borderRadius: 20,
           left: 50,
         }}
       />
@@ -297,6 +293,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 5,
     lineHeight: 20,
+    textAlign: 'justify',
+    justifyContent: 'center',
   },
   flatCard: {
     shadowColor: '#000',

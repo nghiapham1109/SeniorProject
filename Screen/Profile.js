@@ -23,7 +23,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
       Name Doctor: {item.NameDoctor}
     </Text>
     <Text style={[styles.title, textColor]}>
-      Day Booking: {item.DayBooking}
+      Day: {item.DayBooking.split('-').reverse().join('-')}
     </Text>
     <Text style={[styles.title, textColor]}>Note: {item.Note}</Text>
     <Text style={[styles.title, textColor]}>Time: {item.TimeBooking}</Text>
