@@ -17,6 +17,7 @@ import {AuthContext} from '../Global/context';
 import jwt_decode from 'jwt-decode';
 import BackendAPI from '../api/HttpClient';
 import Toast from 'react-native-simple-toast';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 const Account = ({navigation}) => {
   const context = useContext(AuthContext);
@@ -112,7 +113,13 @@ const Account = ({navigation}) => {
           <View style={styles.eclipse2} />
           <View style={styles.eclipse3} />
           <View style={styles.eclipse4} />
-          <Text style={styles.header}>About your information</Text>
+          <Text style={styles.header}>Update your information</Text>
+          <Ionicons
+            name="arrow-back-outline"
+            size={30}
+            style={{left: 10, top: 25}}
+            onPress={() => navigation.navigate('AppHome')}
+          />
           <View style={styles.containerAccount}>
             <Text
               style={{
@@ -251,8 +258,7 @@ const Account = ({navigation}) => {
             <TouchableOpacity
               style={styles.update}
               onPress={() => {
-                // updatePatient();
-                navigation.navigate('UpdateInformation');
+                updatePatient();
               }}>
               <Text
                 style={{
@@ -262,11 +268,11 @@ const Account = ({navigation}) => {
                   color: 'white',
                   textAlign: 'center',
                 }}>
-                Change information
+                Update
               </Text>
             </TouchableOpacity>
           </View>
-          <View>
+          {/* <View>
             <TouchableOpacity
               style={styles.buttonLogout}
               onPress={() => deleteData()}>
@@ -281,7 +287,7 @@ const Account = ({navigation}) => {
                 Logout
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </KeyboardAvoidingView>
     );
@@ -354,23 +360,23 @@ const styles = StyleSheet.create({
     shadowRadius: 100,
     elevation: 10,
   },
-  buttonLogout: {
-    position: 'absolute',
-    width: 389,
-    top: 550,
-    padding: 10,
-    margin: 10,
-    backgroundColor: '#4FC3F7',
-    borderRadius: 10,
-    shadowColor: 'rgba(0, 0, 0, 1)',
-    shadowOpacity: 100,
-    shadowRadius: 100,
-    elevation: 10,
-  },
+  // buttonLogout: {
+  //   position: 'absolute',
+  //   width: 389,
+  //   top: 520,
+  //   padding: 10,
+  //   margin: 10,
+  //   backgroundColor: '#4FC3F7',
+  //   borderRadius: 10,
+  //   shadowColor: 'rgba(0, 0, 0, 1)',
+  //   shadowOpacity: 100,
+  //   shadowRadius: 100,
+  //   elevation: 10,
+  // },
   update: {
     position: 'absolute',
     width: 389,
-    top: 500,
+    top: 470,
     padding: 10,
     margin: 10,
     backgroundColor: '#4FC3F7',

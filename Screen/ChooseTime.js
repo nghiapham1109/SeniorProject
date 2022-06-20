@@ -16,6 +16,7 @@ import {useRoute} from '@react-navigation/native';
 import {AuthContext} from '../Global/context';
 import jwt_decode from 'jwt-decode';
 import BackendAPI from '../api/HttpClient';
+import Toast from 'react-native-simple-toast';
 //
 const DATA = ['08:00-09:00', '09:15-10:15', '10:30-11:30'];
 //
@@ -99,7 +100,7 @@ const ChooseTime = ({navigation}) => {
     console.log('BusyDate', busyDate);
     //
     if (busyDate.length !== 0 || timeBooked.length !== 0) {
-      return <Item item={item} disabled={true} style={[styles.itemDisabled]} />;
+      return <Item item={item} disabled={true} style={[styles.itemDisabled]}  />;
     } else {
       return (
         <Item

@@ -21,6 +21,7 @@ import Disease from './Disease';
 import DetailNew from './DetailNew';
 import Account from './Account';
 import Result from './Result';
+import UpdateInformation from './UpdateInformation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -61,6 +62,7 @@ const MyStack = () => {
         <Stack.Screen name="Disease" component={Disease} />
         <Stack.Screen name="DetailNew" component={DetailNew} />
         <Stack.Screen name="Account" component={Account} />
+        <Stack.Screen name="UpdateInformation" component={UpdateInformation} />
       </Stack.Navigator>
     );
   }

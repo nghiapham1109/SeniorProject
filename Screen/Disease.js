@@ -22,12 +22,8 @@ const Disease = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  //
   useEffect(() => {
-    // fetch('https://jsonplaceholder.typicode.com/posts')
-    //   .then(response => response.json())
-    //   .then(json => setData(json));
-
     fetch('http://10.0.2.2:8080/api/disease')
       .then(response => response.json())
       .then(json => setData(json.data))
@@ -40,7 +36,7 @@ const Disease = ({navigation}) => {
         throw error;
       });
   });
-
+  //
   const renderItem = ({item, index}) => {
     const backgroundColor =
       item.IDDisease === selectedId ? '#F6F3F3' : '#A4EFE2';
@@ -57,6 +53,7 @@ const Disease = ({navigation}) => {
       />
     );
   };
+  //
   if (data.length !== 0 && isLoading === true) {
     return (
       <View>
@@ -65,7 +62,10 @@ const Disease = ({navigation}) => {
         <View style={styles.eclipse3} />
         <View style={styles.eclipse4} />
         <Text style={styles.header}>Disease</Text>
-        <TextInput style={styles.textInput} placeholder="Search disease..." />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Search disease..."
+        />
         <View style={styles.containerDisease}>
           <FlatList
             nestedScrollEnabled

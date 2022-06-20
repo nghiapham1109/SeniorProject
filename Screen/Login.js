@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 //
 import client from '../api/client';
@@ -15,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../Global/context';
-//
+import Toast from 'react-native-simple-toast';
 //
 const Login = ({navigation}) => {
   //
@@ -35,6 +36,11 @@ const Login = ({navigation}) => {
       })
       .then(response => {
         if (!response.data.message) {
+          Toast.showWithGravity(
+            'Invalid Email or password.',
+            Toast.LONG,
+            Toast.BOTTOM,
+          );
         } else {
           AsyncStorage.setItem('storeToken', response.data.token).then(() => {
             setToken(response.data.token);

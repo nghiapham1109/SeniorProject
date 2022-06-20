@@ -13,6 +13,7 @@ import axios from 'axios';
 import {useRoute} from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
 //
 const Result = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -71,6 +72,11 @@ const Result = ({navigation}) => {
         console.log(response);
         if (!response.data.message) {
           setInsertStatus(response.data.message);
+          Toast.showWithGravity(
+            "Successfully booked the date and time of the doctor's appointment! Please check again at Profile",
+            Toast.LONG,
+            Toast.BOTTOM,
+          );
         } else {
           setInsertStatus(response.data.token);
         }

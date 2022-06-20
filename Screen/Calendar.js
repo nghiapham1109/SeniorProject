@@ -4,6 +4,7 @@ import React from 'react';
 import {Agenda, CalendarList} from 'react-native-calendars';
 import {useRoute} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
 
 const CalendarItem = ({IDDoctor}) => {
   console.log('calendarItem', IDDoctor);
@@ -24,7 +25,11 @@ const CalendarItem = ({IDDoctor}) => {
         // disabled={true}
         onDayPress={date => {
           if (date.timestamp < new Date().getTime()) {
-            // toast message
+            Toast.showWithGravity(
+              "Too late, can't booking calendar",
+              Toast.LONG,
+              Toast.BOTTOM,
+            );
             console.log("Too late, can't booking calendar");
           } else {
             console.log(date.dateString);
