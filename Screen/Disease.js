@@ -22,11 +22,18 @@ const Disease = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [arrayHolder, setArrayHolder] = useState([]);
+  const [value, setValue] = useState();
+  //
+
   //
   useEffect(() => {
     fetch('http://10.0.2.2:8080/api/disease')
       .then(response => response.json())
-      .then(json => setData(json.data))
+      .then(json => {
+        setData(json.data);
+        setArrayHolder(json.data);
+      })
       .catch(error => {
         console.log(
           'There has been a problem with your fetch operation: ' +
@@ -36,6 +43,18 @@ const Disease = ({navigation}) => {
         throw error;
       });
   });
+  //
+  let searchFilterFunction = text => {
+    setValue(text);
+    const newData = arrayHolder.filter(item => {
+      const itemData = `${item.NameDisease.toUpperCase()}`;
+      console.log('Search Disease', itemData);
+      const textData = text.toUpperCase();
+      // console.log(textData);
+      return itemData.indexOf(textData) > -1;
+    });
+    setData(newData);
+  };
   //
   const renderItem = ({item, index}) => {
     const backgroundColor =
@@ -54,32 +73,33 @@ const Disease = ({navigation}) => {
     );
   };
   //
-  if (data.length !== 0 && isLoading === true) {
-    return (
-      <View>
-        <View style={styles.eclipse1} />
-        <View style={styles.eclipse2} />
-        <View style={styles.eclipse3} />
-        <View style={styles.eclipse4} />
-        <Text style={styles.header}>Disease</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Search disease..."
+  // if (data.length !== 0 && isLoading === true) {   } else {
+  //   return <ActivityIndicator />;
+  // }
+  return (
+    <View>
+      <View style={styles.eclipse1} />
+      <View style={styles.eclipse2} />
+      <View style={styles.eclipse3} />
+      <View style={styles.eclipse4} />
+      <Text style={styles.header}>Disease</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Search disease..."
+        onChangeText={text => searchFilterFunction(text)}
+        value={value}
+      />
+      <View style={styles.containerDisease}>
+        <FlatList
+          nestedScrollEnabled
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.IDDisease}
+          extraData={selectedId}
         />
-        <View style={styles.containerDisease}>
-          <FlatList
-            nestedScrollEnabled
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item.IDDisease}
-            extraData={selectedId}
-          />
-        </View>
       </View>
-    );
-  } else {
-    return <ActivityIndicator />;
-  }
+    </View>
+  );
 };
 
 export default Disease;

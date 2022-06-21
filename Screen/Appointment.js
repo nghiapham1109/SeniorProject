@@ -14,6 +14,9 @@ import {
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {filter} from 'domutils';
+import jwt_decode from 'jwt-decode';
+import BackendAPI from '../api/HttpClient';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -44,19 +47,44 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const Appointment = ({navigation}) => {
   const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
-  const [value2, setValue2] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [arrayHolder, setArrayHolder] = useState([]);
   const [value, setValue] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
+  //
+  const [Specialist, setSpecialist] = useState([
+    {label: 'Pediatrics', value: 'Pediatrics'},
+    {label: 'Cardiology', value: 'Cardiology'},
+    {label: 'Radiology', value: 'Radiology'},
+    {label: 'Pharmacy', value: 'Pharmacy'},
+  ]);
+  //
+  const onChangeValue = async () => {
+    // console.log('Specialist', value);
+    await getDoctorBySpecialist(value);
+  };
+  //
+  const getDoctorBySpecialist = vlaue => {
+    console.log('Vlaue', vlaue);
+    BackendAPI.get(`api/doctor/specialist/${vlaue}`)
+      .then(json => {
+        setData(json.data.data);
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+        throw error;
+      });
+  };
   //
   useEffect(() => {
     fetch('http://10.0.2.2:8080/api/doctor')
       .then(response => response.json())
       .then(json => {
         setData(json.data);
+        // setSpecialist(json.data.Specialist);
       })
       .catch(error => {
         console.log(
@@ -68,17 +96,6 @@ const Appointment = ({navigation}) => {
       });
   }, []);
   //
-  // let searchFilterFunction = text => {
-  //   setValue([text]);
-  //   const newData = arrayHolder.filter(item => {
-  //     const itemData = `${item.data.NameDoctor.toUpperCase()}`;
-  //     console.log(itemData);
-  //     const textData = text.toUpperCase();
-  //     // console.log(textData);
-  //     return itemData.indexOf(textData) > -1;
-  //   });
-  //   setData(newData);
-  // };
   //
   const renderItem = ({item}) => {
     const color = item.IDDoctor === selectedId ? 'black' : 'black';
@@ -93,90 +110,51 @@ const Appointment = ({navigation}) => {
     );
   };
   //
-  // const [items, setItems] = useState([
-  //   {label: 'Male', value: 'Male'},
-  //   {label: 'Female', value: 'Female'},
-  // ]);
-  // const [Specialist, setSpecialist] = useState([
-  //   {label: 'Anatomy', value: 'Anatomy'},
-  //   {label: 'Biochemistry', value: 'Biochemistry'},
-  //   {label: 'Cardiology', value: 'Cardiology'},
-  //   {label: 'Department of psychiatry', value: 'Department of psychiatry'},
-  //   {label: 'Dermatology', value: 'Dermatology'},
-  //   {label: 'Diagnostic imaging', value: 'Diagnostic imaging'},
-  //   {label: 'Forensic science', value: 'Forensic science'},
-  // ]);
-  //
-  if (data.length !== 0 && isLoading === true) {
-    return (
-      <View>
-        <View style={styles.eclipse1} />
-        <View style={styles.eclipse2} />
-        <View style={styles.eclipse3} />
-        <View style={styles.eclipse4} />
-        <Text style={styles.header}>Choose the doctor</Text>
-        <Ionicons
-          name="arrow-back-outline"
-          size={30}
-          style={{left: 10, top: 25}}
-          onPress={() => navigation.navigate('AppHome')}
+  // if (data.length !== 0 && isLoading === true) {    } else {
+  //     return <ActivityIndicator />;
+  //   }
+  return (
+    <View>
+      <View style={styles.eclipse1} />
+      <View style={styles.eclipse2} />
+      <View style={styles.eclipse3} />
+      <View style={styles.eclipse4} />
+      <Text style={styles.header}>Choose the doctor</Text>
+      <Ionicons
+        name="arrow-back-outline"
+        size={30}
+        style={{left: 10, top: 25}}
+        onPress={() => navigation.navigate('AppHome')}
+      />
+      <View style={styles.listDoctor}>
+        <DropDownPicker
+          style={{
+            height: 50,
+            fontSize: 12,
+            fontFamily: 'Poppins',
+            lineHeight: 20,
+            backgroundColor: '#F7F3F3',
+          }}
+          placeholder="Specialist"
+          closeAfterSelecting={true}
+          open={open}
+          value={value}
+          items={Specialist}
+          setOpen={setOpen}
+          setValue={setValue}
+          onChangeValue={onChangeValue}
+          setItems={setSpecialist}
         />
-        <TextInput style={styles.textInput} placeholder="Search doctor..." />
-        {/* <View style={styles.dropdown}>
-        <View style={{flex: 1}}>
-          <DropDownPicker
-            style={{
-              height: 50,
-              fontSize: 12,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              lineHeight: 20,
-            }}
-            placeholder="Specialist"
-            closeAfterSelecting={true}
-            open={open1}
-            value={value}
-            items={Specialist}
-            setOpen={setOpen1}
-            setValue={setValue}
-            setItems={setSpecialist}
-          />
-        </View>
-        <View style={{flex: 1}}>
-          <DropDownPicker
-            style={{
-              height: 50,
-              fontSize: 12,
-              fontWeight: 'bold',
-              fontFamily: 'Poppins',
-              lineHeight: 20,
-            }}
-            placeholder="Sex"
-            closeAfterSelecting={true}
-            value={value}
-            items={items}
-            open={open}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            autoScroll={true}
-          />
-        </View>
-      </View> */}
-        <View style={styles.listDoctor}>
-          <FlatList
-            nestedScrollEnabled
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item.IDDoctor}
-            extraData={selectedId}
-          />
-        </View>
+        <FlatList
+          nestedScrollEnabled
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.IDDoctor}
+          extraData={selectedId}
+        />
       </View>
-    );
-  } else {
-    return <ActivityIndicator />;
-  }
+    </View>
+  );
 };
 
 export default Appointment;
@@ -245,7 +223,7 @@ const styles = StyleSheet.create({
   dropdown: {
     position: 'absolute',
     width: 389,
-    top: 140,
+    top: 60,
     margin: 10,
     backgroundColor: '#F7F3F3',
     borderRadius: 10,
@@ -253,15 +231,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 100,
     shadowRadius: 100,
     elevation: 10,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   listDoctor: {
     position: 'absolute',
     width: 389,
-    height: 600,
-    top: 140,
+    height: 675,
+    top: 60,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',

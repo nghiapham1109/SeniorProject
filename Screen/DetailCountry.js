@@ -46,6 +46,7 @@ const DetailCountry = ({navigation}) => {
     });
     setData(newData);
   };
+  //
   if (data.length !== 0 && isLoading === true) {
     return (
       <View>
