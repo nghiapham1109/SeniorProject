@@ -110,51 +110,62 @@ const Appointment = ({navigation}) => {
     );
   };
   //
-  // if (data.length !== 0 && isLoading === true) {    } else {
-  //     return <ActivityIndicator />;
-  //   }
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Choose the doctor</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      <View style={styles.listDoctor}>
-        <DropDownPicker
-          style={{
-            height: 50,
-            fontSize: 12,
-            fontFamily: 'Poppins',
-            lineHeight: 20,
-            backgroundColor: '#F7F3F3',
-          }}
-          placeholder="Specialist"
-          closeAfterSelecting={true}
-          open={open}
-          value={value}
-          items={Specialist}
-          setOpen={setOpen}
-          setValue={setValue}
-          onChangeValue={onChangeValue}
-          setItems={setSpecialist}
+  // if (data?.length !== 0 && isLoading === true) {  } else {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 1,
+  //         alignItems: 'center',
+  //         justifyContent: 'center',
+  //         zIndex: 20,
+  //       }}>
+  //       <ActivityIndicator size="large" color="blue" />
+  //     </View>
+  //   );
+  // }
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Choose the doctor</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('AppHome')}
         />
-        <FlatList
-          nestedScrollEnabled
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.IDDoctor}
-          extraData={selectedId}
-        />
+        <View style={styles.listDoctor}>
+          <DropDownPicker
+            style={{
+              height: 50,
+              fontSize: 12,
+              fontFamily: 'Poppins',
+              lineHeight: 20,
+              backgroundColor: '#F7F3F3',
+            }}
+            placeholder="Specialist"
+            closeAfterSelecting={true}
+            open={open}
+            value={value}
+            items={Specialist}
+            setOpen={setOpen}
+            setValue={setValue}
+            onChangeValue={onChangeValue}
+            setItems={setSpecialist}
+          />
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.IDDoctor}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+
 };
 
 export default Appointment;

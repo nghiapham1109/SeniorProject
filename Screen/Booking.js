@@ -30,7 +30,7 @@ const Booking = ({navigation}) => {
   // if (data.length !== 0 && isLoading === false) {  } else {
   //   return <ActivityIndicator />;
   // }
-  if (data.length !== 0 && isLoading === false) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -58,7 +58,17 @@ const Booking = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator size="small" color="#0000ff" />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 20,
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 
@@ -178,7 +188,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 389,
     height: 380,
-    top: 330,
+    top: 335,
     padding: 10,
     margin: 10,
     backgroundColor: '#F7F3F3',

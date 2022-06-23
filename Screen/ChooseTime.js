@@ -100,7 +100,7 @@ const ChooseTime = ({navigation}) => {
     console.log('BusyDate', busyDate);
     //
     if (busyDate.length !== 0 || timeBooked.length !== 0) {
-      return <Item item={item} disabled={true} style={[styles.itemDisabled]}  />;
+      return <Item item={item} disabled={true} style={[styles.itemDisabled]} />;
     } else {
       return (
         <Item
@@ -119,6 +119,20 @@ const ChooseTime = ({navigation}) => {
     }
     //
   };
+  // if (data?.length !== 0 && isLoading === true) {
+  // } else {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 1,
+  //         alignItems: 'center',
+  //         justifyContent: 'center',
+  //         zIndex: 20,
+  //       }}>
+  //       <ActivityIndicator size="large" color="blue" />
+  //     </View>
+  //   );
+  // }
   return (
     <View>
       <View style={styles.eclipse1} />

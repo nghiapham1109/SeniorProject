@@ -99,7 +99,17 @@ const Confirm = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 20,
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 

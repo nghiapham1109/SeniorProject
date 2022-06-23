@@ -33,7 +33,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 const Profile = ({navigation}) => {
   const [data, setData] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   //
   const context = useContext(AuthContext);
   const setToken = context.setToken;
@@ -68,7 +68,7 @@ const Profile = ({navigation}) => {
     return <Item item={item} textColor={{color}} />;
   };
   //
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -94,7 +94,16 @@ const Profile = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 

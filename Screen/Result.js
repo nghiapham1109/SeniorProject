@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   containerProfile: {
     position: 'absolute',
     width: 389,
-    height: 300,
+    height: 255,
     top: 70,
     padding: 10,
     margin: 10,

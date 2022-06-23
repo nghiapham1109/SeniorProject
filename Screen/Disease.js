@@ -42,7 +42,7 @@ const Disease = ({navigation}) => {
         // ADD THIS THROW error
         throw error;
       });
-  });
+  }, []);
   //
   let searchFilterFunction = text => {
     setValue(text);
@@ -73,33 +73,44 @@ const Disease = ({navigation}) => {
     );
   };
   //
-  // if (data.length !== 0 && isLoading === true) {   } else {
-  //   return <ActivityIndicator />;
-  // }
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Disease</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Search disease..."
-        onChangeText={text => searchFilterFunction(text)}
-        value={value}
-      />
-      <View style={styles.containerDisease}>
-        <FlatList
-          nestedScrollEnabled
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.IDDisease}
-          extraData={selectedId}
+  if (data?.length !== 0 && isLoading === true) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Disease</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Search disease..."
+          onChangeText={text => searchFilterFunction(text)}
+          value={value}
         />
+        <View style={styles.containerDisease}>
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.IDDisease}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 20,
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
 };
 
 export default Disease;

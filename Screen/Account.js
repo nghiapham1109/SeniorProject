@@ -104,7 +104,7 @@ const Account = ({navigation}) => {
       });
   };
   //
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === true) {
     return (
       <KeyboardAvoidingView enabled={true} behavior="height">
         <View>
@@ -286,7 +286,17 @@ const Account = ({navigation}) => {
       </KeyboardAvoidingView>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 20,
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 
