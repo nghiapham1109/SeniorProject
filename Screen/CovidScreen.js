@@ -15,7 +15,7 @@ var moment = require('moment');
 const CovidScreen = ({navigation}) => {
   const [data, setData] = useState({});
   const [data1, setData1] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   //
   useEffect(() => {
     getListCovid();
@@ -33,7 +33,7 @@ const CovidScreen = ({navigation}) => {
         console.log('Error: ', error);
       });
   };
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -78,7 +78,16 @@ const CovidScreen = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 

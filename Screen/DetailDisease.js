@@ -16,6 +16,7 @@ import React, {useState, useEffect} from 'react';
 import RenderHTML from 'react-native-render-html';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useRoute} from '@react-navigation/native';
+//
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <Text style={[styles.title, textColor]}>{item.title}</Text>
@@ -24,7 +25,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const DetailDisease = ({navigation}) => {
   const {width} = useWindowDimensions();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
   const route = useRoute();
@@ -43,7 +44,7 @@ const DetailDisease = ({navigation}) => {
         throw error;
       });
   }, [index]);
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -184,7 +185,16 @@ const DetailDisease = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 

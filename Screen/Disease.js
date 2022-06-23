@@ -21,7 +21,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 const Disease = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [arrayHolder, setArrayHolder] = useState([]);
   const [value, setValue] = useState();
   //
@@ -73,7 +73,7 @@ const Disease = ({navigation}) => {
     );
   };
   //
-  if (data?.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -105,7 +105,6 @@ const Disease = ({navigation}) => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 20,
         }}>
         <ActivityIndicator size="large" color="blue" />
       </View>

@@ -17,7 +17,7 @@ import {useRoute} from '@react-navigation/native';
 const Confirm = ({navigation}) => {
   const [data, setData] = useState([]);
   const [text, setText] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
   const title = route.params.title;
   const date = route.params.date;
@@ -105,7 +105,6 @@ const Confirm = ({navigation}) => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 20,
         }}>
         <ActivityIndicator size="large" color="blue" />
       </View>

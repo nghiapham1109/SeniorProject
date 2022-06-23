@@ -39,7 +39,7 @@ const ChooseTime = ({navigation}) => {
   //
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   //
   const route = useRoute();
   const date = route.params.date;
@@ -119,65 +119,64 @@ const ChooseTime = ({navigation}) => {
     }
     //
   };
-  // if (data?.length !== 0 && isLoading === true) {
-  // } else {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         alignItems: 'center',
-  //         justifyContent: 'center',
-  //         zIndex: 20,
-  //       }}>
-  //       <ActivityIndicator size="large" color="blue" />
-  //     </View>
-  //   );
-  // }
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>Choose time</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('Appointment')}
-      />
-      <View style={styles.listTime}>
-        <Text style={styles.title}>Infomation about time</Text>
-        <Text style={styles.day}>{date.split('-').reverse().join('-')}</Text>
-        <Text style={styles.morning}>Morning</Text>
-        <View style={{top: 200}}>
-          <FlatList
-            horizontal
-            nestedScrollEnabled
-            data={DATA}
-            renderItem={renderItem}
-          />
-        </View>
-        <Text style={styles.afternoon}>Afternoon</Text>
-        <View style={{top: 300}}>
-          <FlatList
-            horizontal
-            nestedScrollEnabled
-            data={DATA1}
-            renderItem={renderItem}
-          />
-        </View>
-        <MaterialIcons
-          onPress={() =>
-            navigation.navigate('Confirm', {date: date, IDDoctor: IDDoctor})
-          }
-          name="navigate-next"
-          size={50}
-          style={{top: 350, left: 325}}
+  if (data?.length !== 0 && isLoading === false) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>Choose time</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('Appointment')}
         />
+        <View style={styles.listTime}>
+          <Text style={styles.title}>Infomation about time</Text>
+          <Text style={styles.day}>{date.split('-').reverse().join('-')}</Text>
+          <Text style={styles.morning}>Morning</Text>
+          <View style={{top: 200}}>
+            <FlatList
+              horizontal
+              nestedScrollEnabled
+              data={DATA}
+              renderItem={renderItem}
+            />
+          </View>
+          <Text style={styles.afternoon}>Afternoon</Text>
+          <View style={{top: 300}}>
+            <FlatList
+              horizontal
+              nestedScrollEnabled
+              data={DATA1}
+              renderItem={renderItem}
+            />
+          </View>
+          <MaterialIcons
+            onPress={() =>
+              navigation.navigate('Confirm', {date: date, IDDoctor: IDDoctor})
+            }
+            name="navigate-next"
+            size={50}
+            style={{top: 350, left: 325}}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
 };
 
 export default ChooseTime;

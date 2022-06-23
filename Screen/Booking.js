@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Booking = ({navigation}) => {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
   const IDDoctor = route.params.IDDoctor;
   useEffect(() => {

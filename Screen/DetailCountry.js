@@ -15,7 +15,7 @@ const DetailCountry = ({navigation}) => {
   const [data, setData] = useState({});
   const [arrayHolder, setArrayHolder] = useState([]);
   const [value, setValue] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   //
   useEffect(() => {
     getListCountry();
@@ -47,7 +47,7 @@ const DetailCountry = ({navigation}) => {
     setData(newData);
   };
   //
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -123,7 +123,16 @@ const DetailCountry = ({navigation}) => {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 };
 

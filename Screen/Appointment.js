@@ -47,7 +47,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 
 const Appointment = ({navigation}) => {
   const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
@@ -110,19 +110,7 @@ const Appointment = ({navigation}) => {
     );
   };
   //
-  // if (data?.length !== 0 && isLoading === true) {  } else {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         alignItems: 'center',
-  //         justifyContent: 'center',
-  //         zIndex: 20,
-  //       }}>
-  //       <ActivityIndicator size="large" color="blue" />
-  //     </View>
-  //   );
-  // }
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -165,7 +153,18 @@ const Appointment = ({navigation}) => {
         </View>
       </View>
     );
-
+  } else {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
 };
 
 export default Appointment;
