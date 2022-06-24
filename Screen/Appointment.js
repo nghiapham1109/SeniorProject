@@ -1,5 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
+
 import {
   StyleSheet,
   Text,
@@ -17,28 +17,56 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {filter} from 'domutils';
 import jwt_decode from 'jwt-decode';
 import BackendAPI from '../api/HttpClient';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <View style={{flex: 1}}>
-      <Text style={[styles.title, textColor]}>
-        Name Doctor: {item.NameDoctor}
-      </Text>
-      <Text style={[styles.title, textColor]}>Gender: {item.sex}</Text>
-      <Text style={[styles.title, textColor]}>Email: {item.Email}</Text>
-      <Text style={[styles.title, textColor]}>Phone: {item.Phone}</Text>
-      <Text style={[styles.title, textColor]}>
-        Specialist: {item.Specialist}
-      </Text>
+      <MaterialCommunityIcons
+        name="doctor"
+        size={25}
+        style={{margin: 5, padding: 5, color: '#2196f3'}}>
+        <Text style={[styles.title, textColor]}>
+          {' '}
+          Doctor: {item.NameDoctor}
+        </Text>
+      </MaterialCommunityIcons>
+      <MaterialCommunityIcons
+        name="gender-male-female"
+        size={25}
+        style={{margin: 5, padding: 5, color: 'black'}}>
+        <Text style={[styles.title, textColor]}> Gender: {item.sex}</Text>
+      </MaterialCommunityIcons>
+      <MaterialCommunityIcons
+        name="email"
+        size={25}
+        style={{margin: 5, padding: 5, color: 'black'}}>
+        <Text style={[styles.title, textColor]}> Email: {item.Email}</Text>
+      </MaterialCommunityIcons>
+      <MaterialCommunityIcons
+        name="card-account-phone-outline"
+        size={25}
+        style={{margin: 5, padding: 5, color: 'black'}}>
+        <Text style={[styles.title, textColor]}> Phone: {item.Phone}</Text>
+      </MaterialCommunityIcons>
+      <MaterialCommunityIcons
+        name="stethoscope"
+        size={25}
+        style={{margin: 5, padding: 5, color: 'black'}}>
+        <Text style={[styles.title, textColor]}>
+          Specialist: {item.Specialist}
+        </Text>
+      </MaterialCommunityIcons>
     </View>
     <View style={{flex: 1}}>
       <Image
         source={{uri: item.Image}}
         style={{
-          width: 100,
-          height: 160,
+          width: 150,
+          height: 150,
           resizeMode: 'contain',
-          left: 50,
+          right: -10,
+          top: 20,
         }}
       />
     </View>
@@ -273,13 +301,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   title: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily: 'Poppins',
     fontWeight: 'bold',
     padding: 5,
-    lineHeight: 20,
+    lineHeight: 18,
     textAlign: 'justify',
-    justifyContent: 'center',
   },
   flatCard: {
     shadowColor: '#000',

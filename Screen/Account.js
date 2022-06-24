@@ -1,5 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
+
 import {
   StyleSheet,
   Text,
@@ -68,7 +68,7 @@ const Account = ({navigation}) => {
         // ADD THIS THROW error
         throw error;
       });
-  }, []);
+  }, [IDPatient, Token]);
   //
   const updatePatient = () => {
     //

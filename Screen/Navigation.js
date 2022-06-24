@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable prettier/prettier */
+
 import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';

@@ -69,10 +69,10 @@ const Confirm = ({navigation}) => {
           <Text style={styles.text}>Phone: {data?.Phone}</Text>
         </View>
         <View>
-          <Text style={styles.time}>Time: {title}</Text>
           <Text style={styles.time}>
             Day: {date.split('-').reverse().join('-')}
           </Text>
+          <Text style={styles.time}>Time: {title}</Text>
         </View>
         <View>
           <Text style={styles.decription}>Description about symptoms: </Text>

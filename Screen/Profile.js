@@ -16,17 +16,36 @@ import {useRoute} from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../Global/context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>
-      Name Doctor: {item.NameDoctor}
-    </Text>
-    <Text style={[styles.title, textColor]}>
-      Day: {item.DayBooking.split('-').reverse().join('-')}
-    </Text>
-    <Text style={[styles.title, textColor]}>Note: {item.Note}</Text>
-    <Text style={[styles.title, textColor]}>Time: {item.TimeBooking}</Text>
+    <MaterialCommunityIcons
+      name="doctor"
+      size={25}
+      style={{margin: 5, padding: 5, color: '#2196f3'}}>
+      <Text style={[styles.title, textColor]}>Doctor: {item.NameDoctor}</Text>
+    </MaterialCommunityIcons>
+    <MaterialCommunityIcons
+      name="calendar"
+      size={25}
+      style={{margin: 5, padding: 5}}>
+      <Text style={[styles.title, textColor]}>
+        Day: {item.DayBooking.split('-').reverse().join('-')}
+      </Text>
+    </MaterialCommunityIcons>
+    <MaterialCommunityIcons
+      name="clock-time-two-outline"
+      size={25}
+      style={{margin: 5, padding: 5}}>
+      <Text style={[styles.title, textColor]}>Time: {item.TimeBooking}</Text>
+    </MaterialCommunityIcons>
+    <MaterialCommunityIcons
+      name="note-text-outline"
+      size={25}
+      style={{margin: 5, padding: 5}}>
+      <Text style={[styles.title, textColor]}>Note: {item.Note}</Text>
+    </MaterialCommunityIcons>
   </TouchableOpacity>
 );
 //

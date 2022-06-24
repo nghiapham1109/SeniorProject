@@ -1,5 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
+
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
