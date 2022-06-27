@@ -119,7 +119,18 @@ const ChooseTime = ({navigation}) => {
     }
     //
   };
-  if (data?.length !== 0 && isLoading === false) {
+  // if (data?.length !== 0 && isLoading === false) {  } else {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 1,
+  //         alignItems: 'center',
+  //         justifyContent: 'center',
+  //       }}>
+  //       <ActivityIndicator size="large" color="blue" />
+  //     </View>
+  //   );
+  // }
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -165,18 +176,7 @@ const ChooseTime = ({navigation}) => {
         </View>
       </View>
     );
-  } else {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <ActivityIndicator size="large" color="blue" />
-      </View>
-    );
-  }
+
 };
 
 export default ChooseTime;

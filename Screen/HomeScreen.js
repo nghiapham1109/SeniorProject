@@ -36,7 +36,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 const HomeScreen = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -49,7 +49,7 @@ const HomeScreen = ({navigation}) => {
   // const renderItem = ({item}) => {
   //   return <Image source={{uri: item.urlToImage}} />;
   // };
-  if (data.length !== 0 && isLoading === true) {
+  if (data?.length !== 0 && isLoading === false) {
     return (
       <View>
         <View style={styles.eclipse1} />
@@ -214,7 +214,6 @@ const HomeScreen = ({navigation}) => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 20,
         }}>
         <ActivityIndicator size="large" color="blue" />
       </View>
