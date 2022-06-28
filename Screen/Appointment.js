@@ -64,9 +64,10 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
         style={{
           width: 150,
           height: 150,
-          resizeMode: 'contain',
+          resizeMode: 'cover',
           right: -10,
           top: 20,
+          borderRadius: 100,
         }}
       />
     </View>

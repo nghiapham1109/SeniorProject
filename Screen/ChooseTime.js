@@ -165,14 +165,6 @@ const ChooseTime = ({navigation}) => {
               renderItem={renderItem}
             />
           </View>
-          <MaterialIcons
-            onPress={() =>
-              navigation.navigate('Confirm', {date: date, IDDoctor: IDDoctor})
-            }
-            name="navigate-next"
-            size={50}
-            style={{top: 350, left: 325}}
-          />
         </View>
       </View>
     );
