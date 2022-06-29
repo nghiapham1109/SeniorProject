@@ -130,6 +130,9 @@ const Profile = ({navigation}) => {
   //
   const renderItem = ({item}) => {
     const color = item.IDDoctor === selectedId ? 'black' : 'black';
+
+    const DayBooked = data.sort((a, b) => b.IDBooking - a.IDBooking);
+    DayBooked === item;
     return <Item item={item} textColor={{color}} />;
   };
   //
