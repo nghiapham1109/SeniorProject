@@ -8,6 +8,7 @@ import {
   Image,
   Linking,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,7 +16,8 @@ const SLIDER_WIDTH = Dimensions.get('window').width;
 const New = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [data, setData] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
+  //
   useEffect(() => {
     fetch(
       'https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=d514196c2b7d43b4938414a02371668b',
@@ -23,65 +25,82 @@ const New = ({navigation}) => {
       .then(response => response.json())
       .then(json => setData(json.articles));
   }, []);
-  return (
-    <View>
-      <View style={styles.eclipse1} />
-      <View style={styles.eclipse2} />
-      <View style={styles.eclipse3} />
-      <View style={styles.eclipse4} />
-      <Text style={styles.header}>News</Text>
-      <Ionicons
-        name="arrow-back-outline"
-        size={30}
-        style={{left: 10, top: 25}}
-        onPress={() => navigation.navigate('AppHome')}
-      />
-      <View style={styles.containerNews}>
-        <FlatList
-          nestedScrollEnabled
-          data={data}
-          renderItem={({item, index}) => {
-            return (
-              <View>
-                {/* onPress={() => Linking.openURL(item.url) */}
-                {/* onPress={() => navigation.navigate('DetailNew', {id: index})} */}
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(item.url)}>
-                  <Image
-                    style={{
-                      width: 'auto',
-                      height: 200,
-                      borderRadius: 10,
-                      margin: 10,
-                    }}
-                    source={{
-                      uri: item.urlToImage,
-                    }}
-                  />
-                </TouchableOpacity>
-                <Text
-                  onPress={() => navigation.navigate('DetailNew', {id: index})}
-                  ellipsizeMode="tail"
-                  numberOfLines={3}
-                  style={styles.headerNews}>
-                  {item.title}
-                </Text>
-                <Text
-                  onPress={() => navigation.navigate('DetailNew', {id: index})}
-                  ellipsizeMode="tail"
-                  numberOfLines={4}
-                  style={styles.bodyNews}>
-                  {item.description}
-                </Text>
-              </View>
-            );
-          }}
-          keyExtractor={item => item.url}
-          extraData={selectedId}
+  //
+  if (data?.length !== 0 && isLoading === false) {
+    return (
+      <View>
+        <View style={styles.eclipse1} />
+        <View style={styles.eclipse2} />
+        <View style={styles.eclipse3} />
+        <View style={styles.eclipse4} />
+        <Text style={styles.header}>News</Text>
+        <Ionicons
+          name="arrow-back-outline"
+          size={30}
+          style={{left: 10, top: 25}}
+          onPress={() => navigation.navigate('AppHome')}
         />
+        <View style={styles.containerNews}>
+          <FlatList
+            nestedScrollEnabled
+            data={data}
+            renderItem={({item, index}) => {
+              return (
+                <View>
+                  {/* onPress={() => Linking.openURL(item.url) */}
+                  {/* onPress={() => navigation.navigate('DetailNew', {id: index})} */}
+                  <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+                    <Image
+                      style={{
+                        width: 'auto',
+                        height: 200,
+                        borderRadius: 10,
+                        margin: 10,
+                      }}
+                      source={{
+                        uri: item.urlToImage,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    onPress={() =>
+                      navigation.navigate('DetailNew', {id: index})
+                    }
+                    ellipsizeMode="tail"
+                    numberOfLines={3}
+                    style={styles.headerNews}>
+                    {item.title}
+                  </Text>
+                  <Text
+                    onPress={() =>
+                      navigation.navigate('DetailNew', {id: index})
+                    }
+                    ellipsizeMode="tail"
+                    numberOfLines={4}
+                    style={styles.bodyNews}>
+                    {item.description}
+                  </Text>
+                </View>
+              );
+            }}
+            keyExtractor={item => item.url}
+            extraData={selectedId}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
 };
 
 export default New;

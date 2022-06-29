@@ -22,29 +22,75 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <MaterialCommunityIcons
       name="doctor"
-      size={25}
-      style={{margin: 5, padding: 5, color: '#2196f3'}}>
-      <Text style={[styles.title, textColor]}>Doctor: {item.NameDoctor}</Text>
+      size={35}
+      style={{
+        margin: 5,
+        padding: 5,
+        color: '#2196f3',
+        fontSize: 20,
+      }}>
+      <Text
+        style={{
+          color: 'black',
+          fontFamily: 'Poppins',
+          fontWeight: 'bold',
+        }}>
+        {item.NameDoctor}
+      </Text>
     </MaterialCommunityIcons>
     <MaterialCommunityIcons
       name="calendar"
       size={25}
-      style={{margin: 5, padding: 5}}>
-      <Text style={[styles.title, textColor]}>
-        Day: {item.DayBooking.split('-').reverse().join('-')}
+      style={{
+        margin: 5,
+        padding: 5,
+        color: 'black',
+        fontSize: 20,
+      }}>
+      <Text
+        style={{
+          color: 'black',
+          fontFamily: 'Poppins',
+          fontWeight: 'bold',
+        }}>
+        {item.DayBooking.split('-').reverse().join('-')}
       </Text>
     </MaterialCommunityIcons>
     <MaterialCommunityIcons
       name="clock-time-two-outline"
       size={25}
-      style={{margin: 5, padding: 5}}>
-      <Text style={[styles.title, textColor]}>Time: {item.TimeBooking}</Text>
+      style={{
+        margin: 5,
+        padding: 5,
+        color: 'black',
+        fontSize: 20,
+      }}>
+      <Text
+        style={{
+          color: 'black',
+          fontFamily: 'Poppins',
+          fontWeight: 'bold',
+        }}>
+        {item.TimeBooking}
+      </Text>
     </MaterialCommunityIcons>
     <MaterialCommunityIcons
       name="note-text-outline"
       size={25}
-      style={{margin: 5, padding: 5}}>
-      <Text style={[styles.title, textColor]}>Note: {item.Note}</Text>
+      style={{
+        margin: 5,
+        padding: 5,
+        color: '#ff77a9',
+        fontSize: 20,
+      }}>
+      <Text
+        style={{
+          color: 'black',
+          fontFamily: 'Poppins',
+          fontWeight: 'bold',
+        }}>
+        {item.Note}
+      </Text>
     </MaterialCommunityIcons>
   </TouchableOpacity>
 );
@@ -253,7 +299,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'Poppins',
     fontWeight: 'bold',
-    padding: 5,
     lineHeight: 20,
+    alignItems: 'center',
+    flex: 1,
   },
 });

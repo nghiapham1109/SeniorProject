@@ -111,7 +111,7 @@ const Result = ({navigation}) => {
       <View>
         <TouchableOpacity
           style={styles.buttonLogout}
-          onPress={() => handleStoreSchedule()}>
+          onPress={() => handleStoreSchedule(navigation.navigate('AppHome'))}>
           <Text
             style={{
               fontSize: 15,

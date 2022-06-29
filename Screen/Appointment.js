@@ -21,55 +21,92 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <View style={{flex: 1}}>
+    <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
+      <Image
+        source={{uri: item.Image}}
+        style={{
+          width: 120,
+          height: 120,
+          resizeMode: 'cover',
+          alignItems: 'center',
+          borderRadius: 100,
+        }}
+      />
+    </View>
+    <View style={{flex: 6}}>
       <MaterialCommunityIcons
         name="doctor"
-        size={25}
-        style={{margin: 5, padding: 5, color: '#2196f3'}}>
-        <Text style={[styles.title, textColor]}>
-          {' '}
-          Doctor: {item.NameDoctor}
+        size={18}
+        style={{
+          margin: 5,
+          padding: 5,
+          color: '#2196f3',
+          // fontSize: 13,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontFamily: 'Poppins',
+            fontWeight: 'bold',
+          }}>
+          {item.NameDoctor}
         </Text>
       </MaterialCommunityIcons>
       <MaterialCommunityIcons
         name="gender-male-female"
-        size={25}
-        style={{margin: 5, padding: 5, color: 'black'}}>
-        <Text style={[styles.title, textColor]}> Gender: {item.sex}</Text>
+        size={18}
+        style={{
+          margin: 5,
+          padding: 5,
+          color: 'black',
+          // fontSize: 13,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontFamily: 'Poppins',
+            fontWeight: 'bold',
+          }}>
+          {item.sex}
+        </Text>
       </MaterialCommunityIcons>
       <MaterialCommunityIcons
-        name="email"
-        size={25}
-        style={{margin: 5, padding: 5, color: 'black'}}>
-        <Text style={[styles.title, textColor]}> Email: {item.Email}</Text>
-      </MaterialCommunityIcons>
-      <MaterialCommunityIcons
-        name="card-account-phone-outline"
-        size={25}
-        style={{margin: 5, padding: 5, color: 'black'}}>
-        <Text style={[styles.title, textColor]}> Phone: {item.Phone}</Text>
+        name="hospital-building"
+        size={18}
+        style={{
+          margin: 5,
+          padding: 5,
+          color: '#ff616f',
+          // fontSize: 13,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontFamily: 'Poppins',
+            fontWeight: 'bold',
+          }}>
+          {' '}
+          Hospital: {item.Hospital}
+        </Text>
       </MaterialCommunityIcons>
       <MaterialCommunityIcons
         name="stethoscope"
-        size={25}
-        style={{margin: 5, padding: 5, color: 'black'}}>
-        <Text style={[styles.title, textColor]}>
+        size={18}
+        style={{
+          margin: 5,
+          padding: 5,
+          color: 'black',
+          // fontSize: 13,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontFamily: 'Poppins',
+            fontWeight: 'bold',
+          }}>
           Specialist: {item.Specialist}
         </Text>
       </MaterialCommunityIcons>
-    </View>
-    <View style={{flex: 1}}>
-      <Image
-        source={{uri: item.Image}}
-        style={{
-          width: 150,
-          height: 150,
-          resizeMode: 'cover',
-          right: -10,
-          top: 20,
-          borderRadius: 100,
-        }}
-      />
     </View>
   </TouchableOpacity>
 );
@@ -162,7 +199,7 @@ const Appointment = ({navigation}) => {
               lineHeight: 20,
               backgroundColor: '#F7F3F3',
             }}
-            placeholder="Specialist"
+            placeholder="Search with specialist"
             closeAfterSelecting={true}
             open={open}
             value={value}
@@ -305,7 +342,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Poppins',
     fontWeight: 'bold',
-    padding: 5,
     lineHeight: 18,
     textAlign: 'justify',
   },

@@ -26,7 +26,7 @@ const CalendarItem = ({IDDoctor}) => {
         onDayPress={date => {
           if (date.timestamp < new Date().getTime()) {
             Toast.showWithGravity(
-              "Too late, can't booking calendar",
+              "Can't choose this day!",
               Toast.LONG,
               Toast.BOTTOM,
             );

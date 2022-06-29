@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   listInfo: {
     position: 'absolute',
     width: 389,
-    height: 220,
+    height: 255,
     top: 70,
     padding: 10,
     margin: 10,
@@ -139,8 +139,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins',
     fontWeight: 'bold',
-    fontSize: 15,
-    lineHeight: 20,
+    fontSize: 19,
     padding: 5,
     color: 'black',
   },
