@@ -64,7 +64,6 @@ const Booking = ({navigation}) => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 20,
         }}>
         <ActivityIndicator size="large" color="blue" />
       </View>
